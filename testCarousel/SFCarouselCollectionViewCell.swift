@@ -1,5 +1,5 @@
 //
-//  CarouselCollectionViewCell.swift
+//  SFCarouselCollectionViewCell.swift
 //  testCarousel
 //
 //  Created by romiroma on 8/22/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CarouselCollectionViewCell: UICollectionViewCell {
+class SFCarouselCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

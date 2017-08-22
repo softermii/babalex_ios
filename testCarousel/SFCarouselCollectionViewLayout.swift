@@ -1,5 +1,5 @@
 //
-//  CarouselViewFlowLayout.swift
+//  SFCarouselCollectionViewLayout.swift
 //  testCarousel
 //
 //  Created by romiroma on 8/22/17.
@@ -9,13 +9,13 @@
 import UIKit
 
 
-public enum CarouselViewFlowLayoutSpacingMode {
+public enum USFCarouselCollectionViewLayoutSpacingMode {
     case fixed(spacing: CGFloat)
     case overlap(visibleOffset: CGFloat)
 }
 
 
-open class CarouselViewFlowLayout: UICollectionViewFlowLayout {
+open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
     fileprivate struct LayoutState {
         var size: CGSize
@@ -25,10 +25,10 @@ open class CarouselViewFlowLayout: UICollectionViewFlowLayout {
         }
     }
 
-    @IBInspectable open var sideItemScale: CGFloat = 0.6
-    @IBInspectable open var sideItemAlpha: CGFloat = 0.6
-    @IBInspectable open var sideItemShift: CGFloat = 0.0
-    open var spacingMode = CarouselViewFlowLayoutSpacingMode.fixed(spacing: 40)
+    @IBInspectable open var sideItemScale: CGFloat = 0.8
+    @IBInspectable open var sideItemAlpha: CGFloat = 1
+    @IBInspectable open var sideItemShift: CGFloat = 100
+    open var spacingMode = USFCarouselCollectionViewLayoutSpacingMode.overlap(visibleOffset: 60)
 
     fileprivate var state = LayoutState(size: CGSize.zero, direction: .horizontal)
 
@@ -99,13 +99,14 @@ open class CarouselViewFlowLayout: UICollectionViewFlowLayout {
 
         let alpha = ratio * (1 - self.sideItemAlpha) + self.sideItemAlpha
         let scale = ratio * (1 - self.sideItemScale) + self.sideItemScale
-        let shift = (1 - ratio) * self.sideItemShift
+        let shift = (1 - ratio) * self.sideItemShift / .pi
         attributes.alpha = alpha
         attributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
         attributes.zIndex = Int(alpha * 10)
 
         if isHorizontal {
             attributes.center.y = attributes.center.y + shift
+            print("shift", shift)
         } else {
             attributes.center.x = attributes.center.x + shift
         }
