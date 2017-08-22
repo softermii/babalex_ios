@@ -10,8 +10,12 @@
 		2558816D1F4C110A0027E14B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558816C1F4C110A0027E14B /* AppDelegate.swift */; };
 		2558816F1F4C110A0027E14B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558816E1F4C110A0027E14B /* ViewController.swift */; };
 		255881721F4C110A0027E14B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 255881701F4C110A0027E14B /* Main.storyboard */; };
-		255881741F4C110A0027E14B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 255881731F4C110A0027E14B /* Assets.xcassets */; };
 		255881771F4C110A0027E14B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 255881751F4C110A0027E14B /* LaunchScreen.storyboard */; };
+		2558817F1F4C1E240027E14B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2558817E1F4C1E240027E14B /* Assets.xcassets */; };
+		255881821F4C1EA70027E14B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255881811F4C1EA70027E14B /* Entity.swift */; };
+		255881851F4C22F10027E14B /* CarouselViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255881841F4C22F10027E14B /* CarouselViewFlowLayout.swift */; };
+		255881881F4C265B0027E14B /* CarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255881861F4C265B0027E14B /* CarouselCollectionViewCell.swift */; };
+		255881891F4C265B0027E14B /* CarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 255881871F4C265B0027E14B /* CarouselCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,9 +23,13 @@
 		2558816C1F4C110A0027E14B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2558816E1F4C110A0027E14B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		255881711F4C110A0027E14B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		255881731F4C110A0027E14B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		255881761F4C110A0027E14B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		255881781F4C110A0027E14B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2558817E1F4C1E240027E14B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		255881811F4C1EA70027E14B /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		255881841F4C22F10027E14B /* CarouselViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselViewFlowLayout.swift; sourceTree = "<group>"; };
+		255881861F4C265B0027E14B /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
+		255881871F4C265B0027E14B /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +62,42 @@
 		2558816B1F4C110A0027E14B /* testCarousel */ = {
 			isa = PBXGroup;
 			children = (
+				255881831F4C22DC0027E14B /* CarouselView */,
+				255881801F4C1E910027E14B /* Entity */,
+				2558817E1F4C1E240027E14B /* Assets.xcassets */,
 				2558816C1F4C110A0027E14B /* AppDelegate.swift */,
 				2558816E1F4C110A0027E14B /* ViewController.swift */,
+				2558818A1F4C266E0027E14B /* CarouselCollectionViewCell */,
 				255881701F4C110A0027E14B /* Main.storyboard */,
-				255881731F4C110A0027E14B /* Assets.xcassets */,
 				255881751F4C110A0027E14B /* LaunchScreen.storyboard */,
 				255881781F4C110A0027E14B /* Info.plist */,
 			);
 			path = testCarousel;
+			sourceTree = "<group>";
+		};
+		255881801F4C1E910027E14B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				255881811F4C1EA70027E14B /* Entity.swift */,
+			);
+			name = Entity;
+			sourceTree = "<group>";
+		};
+		255881831F4C22DC0027E14B /* CarouselView */ = {
+			isa = PBXGroup;
+			children = (
+				255881841F4C22F10027E14B /* CarouselViewFlowLayout.swift */,
+			);
+			name = CarouselView;
+			sourceTree = "<group>";
+		};
+		2558818A1F4C266E0027E14B /* CarouselCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				255881861F4C265B0027E14B /* CarouselCollectionViewCell.swift */,
+				255881871F4C265B0027E14B /* CarouselCollectionViewCell.xib */,
+			);
+			name = CarouselCollectionViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,8 +160,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				255881891F4C265B0027E14B /* CarouselCollectionViewCell.xib in Resources */,
 				255881771F4C110A0027E14B /* LaunchScreen.storyboard in Resources */,
-				255881741F4C110A0027E14B /* Assets.xcassets in Resources */,
+				2558817F1F4C1E240027E14B /* Assets.xcassets in Resources */,
 				255881721F4C110A0027E14B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,7 +174,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				255881881F4C265B0027E14B /* CarouselCollectionViewCell.swift in Sources */,
 				2558816F1F4C110A0027E14B /* ViewController.swift in Sources */,
+				255881821F4C1EA70027E14B /* Entity.swift in Sources */,
+				255881851F4C22F10027E14B /* CarouselViewFlowLayout.swift in Sources */,
 				2558816D1F4C110A0027E14B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
