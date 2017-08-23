@@ -24,38 +24,48 @@ class SFCategoryContentViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setupCollectionView()
 
+        setupCollectionView()
     }
+
+
 
     private func setupCollectionView() {
         let cellNib = UINib.init(nibName: "SFCarouselCollectionViewCell", bundle: nil)
 
-        let itemWidth = 0.83 * self.view.bounds.size.width
-        let itemHeight = 0.78 * self.view.bounds.size.height
+        let itemWidth = 0.8 * self.view.bounds.size.width
+        let itemHeight = 0.7 * self.view.bounds.size.height
 
         let layout = SFCarouselCollectionViewLayout.init()
         layout.itemSize = CGSize.init(width: itemWidth, height: itemHeight)
         layout.scrollDirection = .horizontal
 
         collectionView = UICollectionView.init(frame: self.view.bounds, collectionViewLayout: layout)
+
+        self.view.addSubview(collectionView)
+
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
         collectionView.tag = self.categoryId
 
-
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        
         collectionView.delegate = self.controller
         collectionView.dataSource = self.controller
 
         collectionView.register(cellNib, forCellWithReuseIdentifier: controller.cellReuseIdentifier)
         collectionView.isOpaque = false
         collectionView.backgroundColor = UIColor.clear
-
-        self.view.addSubview(collectionView)
     }
-
 }

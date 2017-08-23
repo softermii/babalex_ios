@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-struct Category {
+class Category {
     let id: Int
     let title: String
     var items: [Item]
@@ -23,14 +23,26 @@ struct Category {
         self.backgroundImageName = backgroundImageName
     }
 
-    mutating func addItem(item: Item) {
+    func addItem(item: Item) {
         self.items.append(item)
     }
 }
 
-struct Item {
+class Item {
     let id: Int
     let title, description: String
     let imageName: String
     let price: Double
+
+    lazy var image: UIImage! = {
+        return UIImage(named: self.imageName)
+    }()
+
+    init(id: Int, title: String, description: String, imageName: String, price: Double) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.imageName = imageName
+        self.price = price
+    }
 }

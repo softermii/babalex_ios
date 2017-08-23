@@ -9,7 +9,7 @@
 import UIKit
 
 
-public enum USFCarouselCollectionViewLayoutSpacingMode {
+public enum SFCarouselCollectionViewLayoutSpacingMode {
     case fixed(spacing: CGFloat)
     case overlap(visibleOffset: CGFloat)
 }
@@ -25,13 +25,17 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
         }
     }
 
-    @IBInspectable open var sideItemScale: CGFloat = 0.8
-    @IBInspectable open var sideItemAlpha: CGFloat = 1
-    @IBInspectable open var sideItemShift: CGFloat = 100
-    open var spacingMode = USFCarouselCollectionViewLayoutSpacingMode.overlap(visibleOffset: 60)
+    override open class var layoutAttributesClass: AnyClass {
+        get {
+            return SFCarouselCollectionViewLayoutAttributes.self
+        }
+    }
+
+    @IBInspectable open var sideItemScale: CGFloat = 0.5
+
+    open var spacingMode = SFCarouselCollectionViewLayoutSpacingMode.fixed(spacing: -20)
 
     fileprivate var state = LayoutState(size: CGSize.zero, direction: .horizontal)
-
 
     override open func prepare() {
         super.prepare()
@@ -56,21 +60,21 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
         guard let collectionView = self.collectionView else { return }
 
         let collectionSize = collectionView.bounds.size
-        let isHorizontal = (self.scrollDirection == .horizontal)
 
         let yInset = (collectionSize.height - self.itemSize.height) / 2
         let xInset = (collectionSize.width - self.itemSize.width) / 2
+
         self.sectionInset = UIEdgeInsetsMake(yInset, xInset, yInset, xInset)
 
-        let side = isHorizontal ? self.itemSize.width : self.itemSize.height
-        let scaledItemOffset =  (side - side*self.sideItemScale) / 2
+        let side = self.itemSize.width
+        let scaledItemOffset = (side - side * self.sideItemScale) / 2
         switch self.spacingMode {
         case .fixed(let spacing):
             self.minimumLineSpacing = spacing - scaledItemOffset
         case .overlap(let visibleOffset):
             let fullSizeSideItemOverlap = visibleOffset + scaledItemOffset
-            let inset = isHorizontal ? xInset : yInset
-            self.minimumLineSpacing = inset - fullSizeSideItemOverlap
+
+            self.minimumLineSpacing = xInset - fullSizeSideItemOverlap
         }
     }
 
@@ -87,29 +91,45 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
     fileprivate func transformLayoutAttributes(_ attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         guard let collectionView = self.collectionView else { return attributes }
-        let isHorizontal = (self.scrollDirection == .horizontal)
 
-        let collectionCenter = isHorizontal ? collectionView.frame.size.width/2 : collectionView.frame.size.height/2
-        let offset = isHorizontal ? collectionView.contentOffset.x : collectionView.contentOffset.y
-        let normalizedCenter = (isHorizontal ? attributes.center.x : attributes.center.y) - offset
+        let collectionCenter = collectionView.bounds.size.width / 2
+        let offset = collectionView.contentOffset.x
+        let normalizedCenter = attributes.center.x - offset
 
-        let maxDistance = (isHorizontal ? self.itemSize.width : self.itemSize.height) + self.minimumLineSpacing
+        let maxDistance = self.itemSize.width
         let distance = min(abs(collectionCenter - normalizedCenter), maxDistance)
-        let ratio = (maxDistance - distance)/maxDistance
+        let ratio = (maxDistance - distance) / maxDistance
 
-        let alpha = ratio * (1 - self.sideItemAlpha) + self.sideItemAlpha
+
         let scale = ratio * (1 - self.sideItemScale) + self.sideItemScale
-        let shift = (1 - ratio) * self.sideItemShift / .pi
-        attributes.alpha = alpha
-        attributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
-        attributes.zIndex = Int(alpha * 10)
 
-        if isHorizontal {
-            attributes.center.y = attributes.center.y + shift
-            print("shift", shift)
+        print("distance:", distance, "ratio:", ratio, "scale:", scale)
+
+        attributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
+        attributes.center.y = (maxDistance * maxDistance - distance * distance).squareRoot()
+
+        attributes.zIndex = Int(10 * scale)
+
+        var blurRadius: CGFloat
+
+        blurRadius = (1 - ratio)
+
+        (attributes as? SFCarouselCollectionViewLayoutAttributes)?.blurRadius = blurRadius
+
+        var alpha: CGFloat
+        if ratio > 0.8 {
+            alpha = ratio
+        } else if ratio > 0.6 {
+            alpha = ratio * 0.75
+        } else if ratio > 0.5 {
+            alpha = ratio * 0.5
+        } else if ratio > 0.3 {
+            alpha = ratio * 0.25
         } else {
-            attributes.center.x = attributes.center.x + shift
+            alpha = 0
         }
+
+        (attributes as? SFCarouselCollectionViewLayoutAttributes)?.textAlpha = alpha
 
         return attributes
     }
@@ -119,20 +139,15 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
             let layoutAttributes = self.layoutAttributesForElements(in: collectionView.bounds)
             else { return super.targetContentOffset(forProposedContentOffset: proposedContentOffset) }
 
-        let isHorizontal = (self.scrollDirection == .horizontal)
 
-        let midSide = (isHorizontal ? collectionView.bounds.size.width : collectionView.bounds.size.height) / 2
-        let proposedContentOffsetCenterOrigin = (isHorizontal ? proposedContentOffset.x : proposedContentOffset.y) + midSide
+        let midSide = collectionView.bounds.size.width / 2
+        let proposedContentOffsetCenterOrigin = proposedContentOffset.x + midSide
 
         var targetContentOffset: CGPoint
-        if isHorizontal {
-            let closest = layoutAttributes.sorted { abs($0.center.x - proposedContentOffsetCenterOrigin) < abs($1.center.x - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
-            targetContentOffset = CGPoint(x: floor(closest.center.x - midSide), y: proposedContentOffset.y)
-        }
-        else {
-            let closest = layoutAttributes.sorted { abs($0.center.y - proposedContentOffsetCenterOrigin) < abs($1.center.y - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
-            targetContentOffset = CGPoint(x: proposedContentOffset.x, y: floor(closest.center.y - midSide))
-        }
+
+        let closest = layoutAttributes.sorted { abs($0.center.x - proposedContentOffsetCenterOrigin) < abs($1.center.x - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
+        targetContentOffset = CGPoint(x: floor(closest.center.x - midSide), y: proposedContentOffset.y)
+
 
         return targetContentOffset
     }

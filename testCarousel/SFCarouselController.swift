@@ -8,14 +8,6 @@
 
 import UIKit
 
-protocol SFCarouselControllerProtocol:  UIPageViewControllerDataSource,
-                                        UIPageViewControllerDelegate,
-                                        UICollectionViewDataSource,
-                                        UICollectionViewDelegate {
-    func embedInViewController(_ viewController: UIViewController?, view: UIView?)
-    var cellReuseIdentifier: String { get }
-}
-
 class SFCarouselController: NSObject, SFCarouselControllerProtocol {
     var categories = [Category]()
     var viewControllers = [SFCategoryContentViewController]()
@@ -42,8 +34,8 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
     }
 
     public func prepareDummyCarouselItems() {
-        var macarons = Category(id: 0, title: "Macarons", backgroundImageName: "pattern_macarons")
-        var cupcakes = Category(id: 1, title: "Cupcakes", backgroundImageName: "pattern_cupcakes")
+        let macarons = Category(id: 0, title: "Macarons", backgroundImageName: "pattern_macarons")
+        let cupcakes = Category(id: 1, title: "Cupcakes", backgroundImageName: "pattern_cupcakes")
 
         var item: Item
 
@@ -161,7 +153,44 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! SFCarouselCollectionViewCell
+
+
+
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+        DispatchQueue.global(qos: .userInteractive).async {
+            let categoryId = collectionView.tag
+
+            if let category = self.categories.filter ({ (c: Category) -> Bool in
+                c.id == categoryId
+            }).first {
+                let item = category.items[indexPath.row]
+
+
+
+                guard item.image != nil,
+                    let _cell = cell as? SFCarouselCollectionViewCell,
+                    let imageView = _cell.imageView
+                    else {
+                        return
+                }
+                let priceString = String(item.price)
+                DispatchQueue.main.async {
+                    imageView.image = item.image
+                    _cell.titleLabel.text = item.title
+                    _cell.descriptionLabel.text = item.description
+                    _cell.priceLabel.text = priceString
+                    _cell.canApplyBlur = true
+
+                }
+
+            }
+        }
     }
 
 }
