@@ -61,7 +61,7 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
         let collectionSize = collectionView.bounds.size
 
-        let yInset = (collectionSize.height - self.itemSize.height) / 2
+        let yInset: CGFloat = 0
         let xInset = (collectionSize.width - self.itemSize.width) / 2
 
         self.sectionInset = UIEdgeInsetsMake(yInset, xInset, yInset, xInset)
@@ -105,8 +105,6 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
         let scale = ratio * (1 - self.sideItemScale) + self.sideItemScale
 
-        print("distance:", distance, "ratio:", ratio, "scale:", scale)
-
         attributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
         attributes.center.y = (maxDistance * maxDistance - distance * distance).squareRoot()
 
@@ -141,7 +139,6 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
             let layoutAttributes = self.layoutAttributesForElements(in: collectionView.bounds)
             else { return super.targetContentOffset(forProposedContentOffset: proposedContentOffset) }
 
-
         let midSide = collectionView.bounds.size.width / 2
         let proposedContentOffsetCenterOrigin = proposedContentOffset.x + midSide
 
@@ -149,7 +146,6 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
         let closest = layoutAttributes.sorted { abs($0.center.x - proposedContentOffsetCenterOrigin) < abs($1.center.x - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
         targetContentOffset = CGPoint(x: floor(closest.center.x - midSide), y: proposedContentOffset.y)
-
 
         return targetContentOffset
     }

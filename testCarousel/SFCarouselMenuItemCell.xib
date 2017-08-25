@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SFCarouselMenuItemCell" customModule="testCarousel" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" id="KGk-i7-Jjw" customClass="SFCarouselMenuItemCell" customModule="testCarousel" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOy-Sz-ywI">
+                        <rect key="frame" x="142" y="12" width="37.5" height="20.5"/>
+                        <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view hidden="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZd-n1-Q0m">
+                        <rect key="frame" x="121.5" y="32.5" width="77.5" height="1"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="6Nx-LE-7ep"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="ZZd-n1-Q0m" firstAttribute="width" secondItem="FOy-Sz-ywI" secondAttribute="width" constant="40" id="60t-Is-Ds2"/>
+                    <constraint firstItem="ZZd-n1-Q0m" firstAttribute="centerX" secondItem="FOy-Sz-ywI" secondAttribute="centerX" id="ZUJ-eC-mtJ"/>
+                    <constraint firstItem="FOy-Sz-ywI" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ay9-U7-nKG"/>
+                    <constraint firstItem="ZZd-n1-Q0m" firstAttribute="top" secondItem="FOy-Sz-ywI" secondAttribute="bottom" id="hE2-3B-95d"/>
+                    <constraint firstItem="FOy-Sz-ywI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zKh-4X-M36"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="itemTitleLabel" destination="FOy-Sz-ywI" id="RYq-wy-RkF"/>
+                <outlet property="selectedLine" destination="ZZd-n1-Q0m" id="kcc-cc-UAB"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

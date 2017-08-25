@@ -41,25 +41,25 @@ class SFCarouselCollectionViewCell: UICollectionViewCell {
             return
         }
 
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.global(qos: .background).async {
             if self.prevBlurRadius != sfBlurRadius {
                 self.prevBlurRadius = sfBlurRadius
 
                 if sfBlurRadius == 0 {
                     if self.contentView.isBlurred {
-//                        DispatchQueue.main.async {
-//                            self.textContainer.unBlur()
-//                        }
+                        DispatchQueue.main.async {
+                            self.textContainer.unBlur()
+                        }
 
                     }
                 } else {
                     if self.contentView.isBlurred {
-//                        DispatchQueue.main.async {
-//                            self.textContainer.unBlur()
-//                        }
+                        DispatchQueue.main.async {
+                            self.textContainer.unBlur()
+                        }
                     }
                     DispatchQueue.main.async {
-//                        self.textContainer.blur(blurRadius: sfBlurRadius)
+                        self.textContainer.blur(blurRadius: sfBlurRadius)
                     }
 
 

@@ -12,17 +12,23 @@ class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDe
 
     var backgroundView: UIScrollView!
     weak var controller: SFCarouselControllerProtocol?
+    weak var menuController: SFCarouselMenuControllerProtocol?
+    var menuView: UITableView!
 
-    init(_ controller: SFCarouselControllerProtocol?, firstViewController: UIViewController) {
+    init(_ controller: SFCarouselControllerProtocol?, menuController: SFCarouselMenuControllerProtocol?, firstViewController: UIViewController) {
+        self.controller = controller
+        self.menuController = menuController
+
+
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
+
         self.view.tag = 0
-        
+
         self.delegate = controller
         self.dataSource = controller
-        self.controller = controller
 
         self.setViewControllers([firstViewController], direction: .forward, animated: true) { (isSet: Bool) in
-            print("setViewControllers")
+            
         }
 
 
@@ -37,11 +43,11 @@ class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDe
 
         view.subviews.forEach { (subView: UIView) in
             (subView as? UIScrollView)?.delegate = self
+            
         }
 
-        setupBackroundView()
-
         setupMenuView()
+        setupBackroundView()
     }
 
     private func setupBackroundView() {
@@ -59,22 +65,80 @@ class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDe
     }
 
     private func setupMenuView() {
+
+        guard let cellReuseIdentifier = self.menuController?.tableViewCellReuseIdentifier else {
+            return
+        }
+
+        let size = self.view.bounds.size
+        menuView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: size.width, height: size.height / 2), style: .grouped)
+
+        let cellNib = UINib.init(nibName: cellReuseIdentifier, bundle: nil)
+
+        menuView.dataSource = menuController
+        menuView.delegate = menuController
+
+        menuView.isUserInteractionEnabled = false
+        menuView.isScrollEnabled = false
+
+        menuView.alpha = 0
         
+        menuView.register(cellNib, forCellReuseIdentifier: cellReuseIdentifier)
+        menuView.backgroundColor = UIColor.clear
+        menuView.separatorStyle = .none
+
+        self.view.addSubview(menuView)
+        self.view.sendSubview(toBack: menuView)
+    }
+
+    var prevContentOffset = CGPoint.init(x: 0, y: 0)
+    var indexLimiter = 0
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        prevContentOffset = scrollView.contentOffset
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        let point = scrollView.contentOffset
+        DispatchQueue.global(qos: .background).async {
 
-//        var newContentOffset = point
-//        backgroundView.setContentOffset(newContentOffset, animated: true)
-//        print(newContentOffset, backgroundView.contentSize )
+            let contentOffset = scrollView.contentOffset
+            
+            let size = self.view.frame.size
 
+            let directionIndexShift = contentOffset.y - self.prevContentOffset.y > 0 ? 1 : -1
+            var percentComplete = fabs(contentOffset.y - size.height) / size.height
 
-//        let percentComplete = fabs(point.y - view.frame.size.height)/view.frame.size.height
-//        newContentOffset.y = point.y
-//        print("vertical percentComplete:", percentComplete)
+            if abs(self.indexLimiter + directionIndexShift) <= 1 {
+                self.indexLimiter += directionIndexShift
+                self.menuController?.setActiveMenuItemWithShift(self.indexLimiter)
+            }
 
+            if percentComplete > 0.5 {
+                percentComplete = 1 - percentComplete
+            }
 
+            if percentComplete > 0.4 && percentComplete < 0.6 {
+                DispatchQueue.main.async {
+                    self.menuView.reloadData()
+                }
+            }
+
+            self.updateMenuViewPosition(percentComplete)
+
+            self.prevContentOffset = contentOffset
+        }
+
+    }
+
+    private func updateMenuViewPosition(_ percentScrolled: CGFloat) {
+
+        let translationY = percentScrolled * self.view.bounds.size.height / 2 + self.menuView.contentSize.height / 2
+        let transform = CATransform3DTranslate(CATransform3DIdentity, 0, translationY, 0)
+
+        DispatchQueue.main.async {
+            self.menuView.layer.transform = transform
+        }
+
+        self.menuView.alpha = percentScrolled * 2.2
     }
 }

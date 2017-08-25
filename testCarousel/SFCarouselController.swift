@@ -8,13 +8,19 @@
 
 import UIKit
 
-class SFCarouselController: NSObject, SFCarouselControllerProtocol {
+class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCarouselMenuControllerProtocol {
 
     var categories = [Category]()
+    var currentCategoryIndex: Int = 0
     
     var viewControllers = [SFCategoryContentViewController]()
+
     var cellReuseIdentifier = {
         return "SFCarouselCollectionViewCell"
+    }()
+
+    var tableViewCellReuseIdentifier = {
+        return "SFCarouselMenuItemCell"
     }()
 
     internal func embedInViewController(_ viewController: UIViewController?, view: UIView?) {
@@ -28,7 +34,7 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
             self.viewControllers.append(viewController)
         }
 
-        let rootPager = SFCarouselVerticalPageViewController.init(self, firstViewController: self.viewControllers.first!)
+        let rootPager = SFCarouselVerticalPageViewController.init(self, menuController: self, firstViewController: self.viewControllers.first!)
 
         viewController?.addChildViewController(rootPager)
         view?.addSubview(rootPager.view)
@@ -114,8 +120,6 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
                     imageName: "cupcake-5",
                     price: 5.99)
         cupcakes.addItem(item: item)
-
-
         categories.append(cupcakes)
         categories.append(macarons)
 
@@ -150,8 +154,13 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfItems = self.categories[section].items.count
-        return numberOfItems
+        let categoryId = collectionView.tag
+        if let category = self.categories.filter ({ (c: Category) -> Bool in
+            c.id == categoryId
+        }).first {
+            return category.items.count
+        }
+        return 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -163,15 +172,13 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.global(qos: .background).async {
             let categoryId = collectionView.tag
 
             if let category = self.categories.filter ({ (c: Category) -> Bool in
                 c.id == categoryId
             }).first {
                 let item = category.items[indexPath.row]
-
-
 
                 guard item.image != nil,
                     let _cell = cell as? SFCarouselCollectionViewCell,
@@ -185,13 +192,56 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
                     _cell.titleLabel.text = item.title
                     _cell.descriptionLabel.text = item.description
                     _cell.priceLabel.text = priceString
-                    _cell.canApplyBlur = true
-
+//                    _cell.canApplyBlur = true
                 }
 
             }
         }
     }
-    
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let containingVC = collectionView.cont
+        DispatchQueue.global(qos: .background).async {
+            let categoryId = collectionView.tag
+
+            if let viewControllerIndex = self.categories.index(where: { (c: Category) -> Bool in
+                c.id == categoryId
+            }) {
+                if let navigationController = self.viewControllers[viewControllerIndex].navigationController {
+                    DispatchQueue.main.async {
+                        navigationController.pushViewController(UIViewController(), animated: true)
+                    }
+                }
+
+
+            }
+        }
+    }
+
+
+    // MARK: SFCarouselMenuControllerProtocol Conformance
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.tableViewCellReuseIdentifier, for: indexPath) as! SFCarouselMenuItemCell
+
+        cell.itemTitleLabel.text = self.categories[indexPath.row].title
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let isSelected = currentCategoryIndex == indexPath.row
+        cell.setSelected(isSelected, animated: false)
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.categories.count
+    }
+
+    func setActiveMenuItemWithShift(_ shift: Int) {
+        let newIndex = self.currentCategoryIndex + shift
+        if newIndex >= 0 && newIndex < self.categories.count {
+            self.currentCategoryIndex = newIndex
+        }
+    }
 
 }
