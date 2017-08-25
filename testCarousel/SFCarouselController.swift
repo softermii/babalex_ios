@@ -9,7 +9,9 @@
 import UIKit
 
 class SFCarouselController: NSObject, SFCarouselControllerProtocol {
+
     var categories = [Category]()
+    
     var viewControllers = [SFCategoryContentViewController]()
     var cellReuseIdentifier = {
         return "SFCarouselCollectionViewCell"
@@ -156,8 +158,6 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! SFCarouselCollectionViewCell
 
-
-
         return cell
     }
 
@@ -192,5 +192,6 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol {
             }
         }
     }
+    
 
 }

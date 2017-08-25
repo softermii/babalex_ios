@@ -83,7 +83,9 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
     }
 
     override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let superAttributes = super.layoutAttributesForElements(in: rect),
+        let newRect = CGRect.init(x: rect.minX - 50, y: rect.minY, width: rect.width + 100, height: rect.height)
+
+        guard let superAttributes = super.layoutAttributesForElements(in: newRect),
             let attributes = NSArray(array: superAttributes, copyItems: true) as? [UICollectionViewLayoutAttributes]
             else { return nil }
         return attributes.map({ self.transformLayoutAttributes($0) })
@@ -96,7 +98,7 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
         let offset = collectionView.contentOffset.x
         let normalizedCenter = attributes.center.x - offset
 
-        let maxDistance = self.itemSize.width
+        let maxDistance = collectionView.bounds.size.width
         let distance = min(abs(collectionCenter - normalizedCenter), maxDistance)
         let ratio = (maxDistance - distance) / maxDistance
 

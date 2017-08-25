@@ -24,6 +24,7 @@ class SFCarouselCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
 
         guard let alpha = (layoutAttributes as? SFCarouselCollectionViewLayoutAttributes)?.textAlpha else {
             return
@@ -73,10 +74,6 @@ class SFCarouselCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         prevBlurRadius = nil
         lastAttributes = nil
-
-//        DispatchQueue.main.async {
-//            self.imageView.image = nil
-//        }
     }
 
 }

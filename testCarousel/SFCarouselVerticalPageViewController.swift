@@ -40,6 +40,8 @@ class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDe
         }
 
         setupBackroundView()
+
+        setupMenuView()
     }
 
     private func setupBackroundView() {
@@ -54,6 +56,10 @@ class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDe
         backgroundView.contentSize = imageView.bounds.size
         self.view.addSubview(backgroundView)
         self.view.sendSubview(toBack: backgroundView)
+    }
+
+    private func setupMenuView() {
+        
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
