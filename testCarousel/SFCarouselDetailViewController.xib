@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SFCarouselDetailViewController" customModule="testCarousel" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundImageView" destination="mQz-BH-uJf" id="434-9Y-noF"/>
+                <outlet property="descriptionLabel" destination="lUd-HJ-nQo" id="2sc-Da-ffH"/>
+                <outlet property="mainImageView" destination="lgf-5z-JBC" id="2Jy-zq-3zY"/>
+                <outlet property="titleLabel" destination="8np-VT-jt1" id="oNq-2C-Zo5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mQz-BH-uJf">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupcake-1" translatesAutoresizingMaskIntoConstraints="NO" id="lgf-5z-JBC">
+                    <rect key="frame" x="-187.5" y="146" width="375" height="375"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="lgf-5z-JBC" secondAttribute="height" multiplier="1:1" id="OwX-yI-NuH"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8np-VT-jt1">
+                    <rect key="frame" x="47" y="146" width="281" height="40"/>
+                    <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="32"/>
+                    <color key="textColor" red="1" green="0.12549019607843137" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUd-HJ-nQo">
+                    <rect key="frame" x="93.5" y="196" width="187.5" height="20"/>
+                    <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="lgf-5z-JBC" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="6oQ-dJ-OKn"/>
+                <constraint firstItem="lUd-HJ-nQo" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="BN9-pF-IMf"/>
+                <constraint firstItem="lUd-HJ-nQo" firstAttribute="top" secondItem="8np-VT-jt1" secondAttribute="bottom" constant="10" id="Bgx-lw-Ycy"/>
+                <constraint firstItem="8np-VT-jt1" firstAttribute="top" secondItem="lgf-5z-JBC" secondAttribute="top" id="FVq-7M-KUf"/>
+                <constraint firstItem="8np-VT-jt1" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.75" id="PSW-dI-KHJ"/>
+                <constraint firstItem="lUd-HJ-nQo" firstAttribute="centerX" secondItem="8np-VT-jt1" secondAttribute="centerX" id="Qyw-tQ-PUs"/>
+                <constraint firstItem="mQz-BH-uJf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VmS-Qz-uMp"/>
+                <constraint firstAttribute="trailing" secondItem="mQz-BH-uJf" secondAttribute="trailing" id="cF4-vk-C3S"/>
+                <constraint firstAttribute="bottom" secondItem="mQz-BH-uJf" secondAttribute="bottom" id="i3v-rW-9en"/>
+                <constraint firstItem="mQz-BH-uJf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lp2-iN-X3P"/>
+                <constraint firstItem="lgf-5z-JBC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="sPb-QX-i58"/>
+                <constraint firstItem="8np-VT-jt1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zYL-dT-GIi"/>
+                <constraint firstItem="lgf-5z-JBC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zoT-hN-dfV"/>
+            </constraints>
+            <point key="canvasLocation" x="35.5" y="76.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cupcake-1" width="500" height="500"/>
+    </resources>
+</document>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SFCarouselCollectionViewCell: UICollectionViewCell {
+final class SFCarouselCollectionViewCell: UICollectionViewCell {
 
     var prevBlurRadius: CGFloat? = nil
     var lastAttributes: SFCarouselCollectionViewLayoutAttributes? = nil

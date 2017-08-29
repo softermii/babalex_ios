@@ -15,7 +15,7 @@ public enum SFCarouselCollectionViewLayoutSpacingMode {
 }
 
 
-open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
+final class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
     fileprivate struct LayoutState {
         var size: CGSize
@@ -146,7 +146,6 @@ open class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
         let closest = layoutAttributes.sorted { abs($0.center.x - proposedContentOffsetCenterOrigin) < abs($1.center.x - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
         targetContentOffset = CGPoint(x: floor(closest.center.x - midSide), y: proposedContentOffset.y)
-
         return targetContentOffset
     }
 }

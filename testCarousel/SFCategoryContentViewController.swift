@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SFCategoryContentViewController: UIViewController {
+final class SFCategoryContentViewController: UIViewController {
 
     private var controller: SFCarouselControllerProtocol
     private var categoryId: Int

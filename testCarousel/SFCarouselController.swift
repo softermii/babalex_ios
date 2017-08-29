@@ -8,20 +8,30 @@
 
 import UIKit
 
-class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCarouselMenuControllerProtocol {
+final class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCarouselMenuControllerProtocol {
 
-    var categories = [Category]()
-    var currentCategoryIndex: Int = 0
+    private var categories = [Category]()
+    private var currentCategoryIndex: Int = 0
     
-    var viewControllers = [SFCategoryContentViewController]()
+    private var viewControllers = [SFCategoryContentViewController]()
 
-    var cellReuseIdentifier = {
+    internal var cellReuseIdentifier = {
         return "SFCarouselCollectionViewCell"
     }()
 
-    var tableViewCellReuseIdentifier = {
+    internal var tableViewCellReuseIdentifier = {
         return "SFCarouselMenuItemCell"
     }()
+
+    private lazy var animationController: SFCarouselDetailAnimationController! = SFCarouselDetailAnimationController()
+
+    private var lastIndex: Int? = nil
+
+    internal var currentPage: Int {
+        get {
+            return lastIndex ?? 0
+        }
+    }
 
     internal func embedInViewController(_ viewController: UIViewController?, view: UIView?) {
 
@@ -39,6 +49,10 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCarouselMe
         viewController?.addChildViewController(rootPager)
         view?.addSubview(rootPager.view)
         rootPager.didMove(toParentViewController: viewController)
+
+        if let navigationController = viewController?.navigationController {
+            navigationController.delegate = self
+        }
     }
 
     public func prepareDummyCarouselItems() {
@@ -143,6 +157,16 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCarouselMe
         return nil
     }
 
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        let pageContentViewController = pageViewController.viewControllers![0]
+        if let indexOfViewController = self.viewControllers.index(where: { (vc: SFCategoryContentViewController) -> Bool in
+            vc == pageContentViewController
+        }) {
+            lastIndex = indexOfViewController
+//            print("Index:", indexOfViewController)
+        }
+    }
+
     func viewControllerForCategory(_ category: Category) -> SFCategoryContentViewController {
         let vc = SFCategoryContentViewController.init(controller: self, categoryId: category.id)
         return vc
@@ -199,22 +223,29 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCarouselMe
         }
     }
 
+    var selectedViewForTransitioning: UIView? = nil
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let containingVC = collectionView.cont
         DispatchQueue.global(qos: .background).async {
             let categoryId = collectionView.tag
 
-            if let viewControllerIndex = self.categories.index(where: { (c: Category) -> Bool in
+            if let category = self.categories.filter({ (c: Category) -> Bool in
                 c.id == categoryId
-            }) {
-                if let navigationController = self.viewControllers[viewControllerIndex].navigationController {
+            }).first {
+                if let navigationController = self.viewControllers.first?.navigationController {
+                    let item = category.items[indexPath.row]
+                    let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(item: item, categoryImage: category.image)
+                    let cellImageView = (collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell)?.imageView
+
+
+
                     DispatchQueue.main.async {
-                        navigationController.pushViewController(UIViewController(), animated: true)
+                        self.selectedViewForTransitioning = cellImageView
+                        navigationController.pushViewController(vc, animated: true)
                     }
                 }
-
-
             }
+
         }
     }
 
@@ -244,4 +275,8 @@ class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCarouselMe
         }
     }
 
+    //UINavigationControllerDelegate
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animationController
+    }
 }

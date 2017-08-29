@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SFCarouselCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+final class SFCarouselCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
     var blurRadius: CGFloat = 0
 
 

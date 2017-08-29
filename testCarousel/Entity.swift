@@ -15,7 +15,9 @@ class Category {
     let title: String
     var items: [Item]
     let backgroundImageName: String
-
+    lazy var image: UIImage? = {
+        return UIImage(named: self.backgroundImageName)
+    }()
     init(id: Int, title: String, backgroundImageName: String) {
         self.id = id
         self.title = title
@@ -34,7 +36,7 @@ class Item {
     let imageName: String
     let price: Double
 
-    lazy var image: UIImage! = {
+    lazy var image: UIImage? = {
         return UIImage(named: self.imageName)
     }()
 
