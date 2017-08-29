@@ -228,7 +228,7 @@ final class SFCarouselController: NSObject, SFCarouselControllerProtocol, SFCaro
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         DispatchQueue.global(qos: .background).async {
             let categoryId = collectionView.tag
-
+            
             if let category = self.categories.filter({ (c: Category) -> Bool in
                 c.id == categoryId
             }).first {

@@ -47,13 +47,26 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vd0-ZE-1gM">
+                    <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                    <color key="backgroundColor" red="1" green="0.12549019610000001" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="w71-KP-aoL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="16"/>
+                    <state key="normal" title="ADD TO CART">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="lgf-5z-JBC" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="6oQ-dJ-OKn"/>
                 <constraint firstItem="lUd-HJ-nQo" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="BN9-pF-IMf"/>
                 <constraint firstItem="lUd-HJ-nQo" firstAttribute="top" secondItem="8np-VT-jt1" secondAttribute="bottom" constant="10" id="Bgx-lw-Ycy"/>
+                <constraint firstItem="vd0-ZE-1gM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DhY-eC-99m"/>
                 <constraint firstItem="8np-VT-jt1" firstAttribute="top" secondItem="lgf-5z-JBC" secondAttribute="top" id="FVq-7M-KUf"/>
+                <constraint firstItem="vd0-ZE-1gM" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="NDF-xA-lmS"/>
                 <constraint firstItem="8np-VT-jt1" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.75" id="PSW-dI-KHJ"/>
                 <constraint firstItem="lUd-HJ-nQo" firstAttribute="centerX" secondItem="8np-VT-jt1" secondAttribute="centerX" id="Qyw-tQ-PUs"/>
                 <constraint firstItem="mQz-BH-uJf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VmS-Qz-uMp"/>
@@ -61,6 +74,8 @@
                 <constraint firstAttribute="bottom" secondItem="mQz-BH-uJf" secondAttribute="bottom" id="i3v-rW-9en"/>
                 <constraint firstItem="mQz-BH-uJf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lp2-iN-X3P"/>
                 <constraint firstItem="lgf-5z-JBC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="sPb-QX-i58"/>
+                <constraint firstItem="vd0-ZE-1gM" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="y2j-Iv-asA"/>
+                <constraint firstItem="vd0-ZE-1gM" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="zII-bT-Gla"/>
                 <constraint firstItem="8np-VT-jt1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zYL-dT-GIi"/>
                 <constraint firstItem="lgf-5z-JBC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zoT-hN-dfV"/>
             </constraints>

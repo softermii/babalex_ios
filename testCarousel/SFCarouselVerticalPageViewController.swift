@@ -18,7 +18,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     var numberOfPages: CGFloat = 0
 
     private let backgroundParallaxMagicModifier: CGFloat = 0.5
-    
+    private var mainActionButton: UIButton!
     private var backgroundPatterns = [UIView]()
     private var pageHeight: CGFloat = 0
     private var backgroundPatternViewVerticalOffset: CGFloat = 0
@@ -34,7 +34,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         self.dataSource = controller
 
         self.setViewControllers([firstViewController], direction: .forward, animated: true) { (isSet: Bool) in
-            
+
         }
     }
 
@@ -51,6 +51,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
         setupMenuView()
         setupBackroundView()
+        setupMainActionButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -128,7 +129,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         menuView.isScrollEnabled = false
 
         menuView.alpha = 0
-        
+
         menuView.register(cellNib, forCellReuseIdentifier: cellReuseIdentifier)
         menuView.backgroundColor = UIColor.clear
         menuView.separatorStyle = .none
@@ -137,19 +138,54 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         self.view.sendSubview(toBack: menuView)
     }
 
+    private func setupMainActionButton() {
+        self.mainActionButton = UIButton.init(type: .custom)
+        self.mainActionButton.setTitle(Strings.MainActionButtonText.rawValue.uppercased(), for: .normal)
+        self.mainActionButton.titleLabel?.font = UIFont(name: "GillSans-Semibold", size: 16)
+        self.view.addSubview(self.mainActionButton)
+        self.mainActionButton.translatesAutoresizingMaskIntoConstraints = false
+
+        self.mainActionButton.backgroundColor = UIColor.blue
+        self.mainActionButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        self.mainActionButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
+        self.mainActionButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
+        self.mainActionButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+
     var prevContentOffset = CGPoint(x: 0, y: 0)
     var prevContentOffsetForMenu = CGPoint(x: 0, y: 0)
     var indexLimiter = 0
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         prevContentOffset = scrollView.contentOffset
         prevContentOffsetForMenu = scrollView.contentOffset
+
+        self.hideButton()
+
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.showButton()
+    }
+
+    private func hideButton() {
+        UIView.animate(withDuration: 0.3) { 
+            self.mainActionButton.transform = CGAffineTransform.init(translationX: 0, y: 100)
+        }
+
+    }
+
+    private func showButton() {
+        UIView.animate(withDuration: 0.3) {
+            self.mainActionButton.transform = CGAffineTransform.identity
+        }
+
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         DispatchQueue.global(qos: .userInteractive).async {
 
             let contentOffset = scrollView.contentOffset
-            
+
             let size = self.view.bounds.size
 
             var percentComplete = fabs(contentOffset.y - size.height) / size.height
@@ -198,16 +234,18 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     private func updateBackgroundViewPosition(_ percentScrolled: CGFloat, direction: Int) {
         guard let currentPage: Int = self.controller?.currentPage,
             direction != 0 else {
-            return
+                return
         }
-
+        
         let normalizedToPageNumberContentOffset = (pageHeight - backgroundPatternViewVerticalOffset) * (CGFloat(currentPage) + CGFloat(direction) * percentScrolled)
-
+        
         let contentOffset = CGPoint(x: 0, y: normalizedToPageNumberContentOffset)
-
-
+        
+        
         DispatchQueue.main.async {
             self.backgroundView.contentOffset = contentOffset
         }
     }
+    
+    
 }
