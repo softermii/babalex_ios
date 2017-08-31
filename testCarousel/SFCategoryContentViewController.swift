@@ -8,15 +8,28 @@
 
 import UIKit
 
-final class SFCategoryContentViewController: UIViewController {
+final class SFCategoryContentViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+    var absoulteFrameForTransitionView: CGRect? {
+        get {
+            return viewForTransition?.frame
+        }
+    }
 
-    private var controller: SFCarouselControllerProtocol
-    private var categoryId: Int
 
-    init(controller: SFCarouselControllerProtocol, categoryId: Int) {
-        self.controller = controller
-        self.categoryId = categoryId
+    var viewForTransition: UIView? {
+        get {
+            return selectedViewForTransitioning
+        }
+    }
 
+
+    private var category: Category
+    private let cellReuseIdentifier = "SFCarouselCollectionViewCell"
+    private var collectionView: UICollectionView!
+    var selectedViewForTransitioning: UIView? = nil
+
+    init(_ category: Category) {
+        self.category = category
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,17 +37,17 @@ final class SFCategoryContentViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var collectionView: UICollectionView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCollectionView()
+        setupView()
     }
 
-    private func setupCollectionView() {
+    private func setupView() {
 
-        let cellReuseIdentifier = self.controller.cellReuseIdentifier
+        self.view.isOpaque = false
+        self.view.backgroundColor = UIColor.clear
+
 
         let itemWidth = 0.8 * self.view.bounds.size.width
         let itemHeight = 0.7 * self.view.bounds.size.height
@@ -47,25 +60,87 @@ final class SFCategoryContentViewController: UIViewController {
 
         self.view.addSubview(collectionView)
 
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -60).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -65).isActive = true
         collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive = true
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
-        collectionView.tag = self.categoryId
-
+        collectionView.isOpaque = false
+        collectionView.backgroundColor = UIColor.clear
+        
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = true
 
-        collectionView.delegate = self.controller
-        collectionView.dataSource = self.controller
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.isPagingEnabled = false
 
+
         let cellNib = UINib.init(nibName: cellReuseIdentifier, bundle: nil)
-        collectionView.register(cellNib, forCellWithReuseIdentifier: controller.cellReuseIdentifier)
-        collectionView.isOpaque = false
-        collectionView.backgroundColor = UIColor.clear
+        collectionView.register(cellNib, forCellWithReuseIdentifier: cellReuseIdentifier)
+
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+
+        return self.category.items.isEmpty ? 0 : 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+        return self.category.items.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! SFCarouselCollectionViewCell
+
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+        DispatchQueue.global(qos: .background).async {
+                let item = self.category.items[indexPath.row]
+
+                guard let _cell = cell as? SFCarouselCollectionViewCell,
+                    let imageView = _cell.imageView
+                    else {
+                        return
+                }
+                let priceString = String(item.price)
+                DispatchQueue.main.async {
+                    imageView.image = item.image
+                    _cell.titleLabel.text = item.title
+                    _cell.descriptionLabel.text = item.description
+                    _cell.priceLabel.text = priceString
+                }
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let navigationController = self.navigationController {
+                let item = self.category.items[indexPath.row]
+                let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(item: item, categoryImage: self.category.image)
+                if let cellImageView = (collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell)?.imageView {
+
+                    let transitionInfoProvider = self.parent as? SFCarouselTransitionViewProvider
+                    let frameForTransition = cellImageView.convert(cellImageView.frame, to: self.view)
+
+                    transitionInfoProvider!.setViewForTransition(v: cellImageView)
+                    transitionInfoProvider!.setFrameForTransition(f: frameForTransition)
+
+                }
+
+                DispatchQueue.main.async {
+                    navigationController.pushViewController(vc, animated: true)
+                }
+            }
+
+        }
     }
 }

@@ -10,41 +10,38 @@ import Foundation
 import UIKit
 
 
-class Category {
+struct Category {
     let id: Int
     let title: String
     var items: [Item]
-    let backgroundImageName: String
-    lazy var image: UIImage? = {
-        return UIImage(named: self.backgroundImageName)
-    }()
+//    let backgroundImageName: String
+    let image: UIImage?
+
     init(id: Int, title: String, backgroundImageName: String) {
         self.id = id
         self.title = title
         self.items = []
-        self.backgroundImageName = backgroundImageName
+        self.image = UIImage(named: backgroundImageName)
     }
 
-    func addItem(item: Item) {
+    mutating func addItem(item: Item) {
         self.items.append(item)
     }
 }
 
-class Item {
+struct Item {
     let id: Int
     let title, description: String
-    let imageName: String
     let price: Double
 
-    lazy var image: UIImage? = {
-        return UIImage(named: self.imageName)
-    }()
+    var image: UIImage?
+
 
     init(id: Int, title: String, description: String, imageName: String, price: Double) {
         self.id = id
         self.title = title
         self.description = description
-        self.imageName = imageName
+        self.image = UIImage(named: imageName)
         self.price = price
     }
 }

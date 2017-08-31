@@ -116,18 +116,7 @@ final class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
         (attributes as? SFCarouselCollectionViewLayoutAttributes)?.blurRadius = blurRadius
 
-        var alpha: CGFloat
-        if ratio > 0.8 {
-            alpha = ratio
-        } else if ratio > 0.6 {
-            alpha = ratio * 0.75
-        } else if ratio > 0.5 {
-            alpha = ratio * 0.5
-        } else if ratio > 0.3 {
-            alpha = ratio * 0.25
-        } else {
-            alpha = 0
-        }
+        let alpha: CGFloat = ratio * ratio
 
         (attributes as? SFCarouselCollectionViewLayoutAttributes)?.textAlpha = alpha
 

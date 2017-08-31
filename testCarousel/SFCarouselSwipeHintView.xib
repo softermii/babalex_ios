@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SFCarouselSwipeHintView" customModule="testCarousel" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="LHe-4b-alr" id="md7-K5-I2B"/>
+                <outlet property="titleLabel" destination="J1h-rh-ES8" id="qMx-oc-tFH"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view opaque="NO" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swipe-up" translatesAutoresizingMaskIntoConstraints="NO" id="LHe-4b-alr">
+                    <rect key="frame" x="170.5" y="0.0" width="34" height="41"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="LHe-4b-alr" secondAttribute="height" multiplier="68:82" id="ua9-c4-44A"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COOKIES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1h-rh-ES8">
+                    <rect key="frame" x="149.5" y="51" width="76" height="67"/>
+                    <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="LHe-4b-alr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="8ag-tC-gOy"/>
+                <constraint firstAttribute="bottom" secondItem="J1h-rh-ES8" secondAttribute="bottom" id="90X-Fn-Ehq"/>
+                <constraint firstItem="LHe-4b-alr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Mse-Wv-lh4"/>
+                <constraint firstItem="J1h-rh-ES8" firstAttribute="top" secondItem="LHe-4b-alr" secondAttribute="bottom" constant="10" id="dZ1-vd-WNh"/>
+                <constraint firstItem="J1h-rh-ES8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ubr-Sg-YgM"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="34.5" y="-221"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="swipe-up" width="34" height="41"/>
+    </resources>
+</document>

@@ -8,47 +8,96 @@
 
 import UIKit
 
-final class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDelegate {
+final class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, SFCarouselTransitionViewProvider {
 
-    var backgroundView: UIScrollView!
-    var backgroundImages = [UIImage?]()
-    weak var controller: SFCarouselControllerProtocol?
-    weak var menuController: SFCarouselMenuControllerProtocol?
-    var menuView: UITableView!
-    var numberOfPages: CGFloat = 0
 
-    private let backgroundParallaxMagicModifier: CGFloat = 0.5
-    private var mainActionButton: UIButton!
-    private var backgroundPatterns = [UIView]()
-    private var pageHeight: CGFloat = 0
-    private var backgroundPatternViewVerticalOffset: CGFloat = 0
-    private var storedContentOffset: CGPoint? = nil
+    private var lastViewForTransition: UIView? = nil
+    private var lastFrameForTransition: CGRect? = nil
 
-    init(_ controller: SFCarouselControllerProtocol?, menuController: SFCarouselMenuControllerProtocol?, firstViewController: UIViewController) {
-        self.controller = controller
-        self.menuController = menuController
+    func setViewForTransition(v: UIView) {
+        lastViewForTransition = v
+    }
 
-        super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
+    func setFrameForTransition(f: CGRect) {
+        lastFrameForTransition = f
+    }
 
-        self.delegate = controller
-        self.dataSource = controller
 
-        self.setViewControllers([firstViewController], direction: .forward, animated: true) { (isSet: Bool) in
-
+    var absoulteFrameForTransitionView: CGRect? {
+        get {
+            return lastFrameForTransition
         }
     }
 
+    var viewForTransition: UIView? {
+        get {
+            return lastViewForTransition
+        }
+
+    }
+
+
+
+    private var categories = [Category]() {
+        didSet {
+            setupView()
+        }
+    }
+
+    private var backgroundView: UIScrollView!
+
+//    private weak var controller: SFCarouselControllerProtocol?
+
+    private let menuCellReuseIdentifier = "SFCarouselMenuItemCell"
+    private var currentCategoryIndex = 0
+    private var currentMenuIndex = 0
+    private var horizontalViewControllers: [SFCategoryContentViewController] = [SFCategoryContentViewController]()
+
+    private var menuView: UITableView!
+    private var swipeView: SFCarouselSwipeHintView!
+    private var numberOfPages: CGFloat = 0
+
+    private let backgroundParallaxMagicModifier: CGFloat = 0.5
+    private var mainActionButton: UIButton!
+    private var swipeHintView: UIView!
+    private var backgroundPatterns = [UIView]()
+    private var pageHeight: CGFloat = 0
+    private var backgroundPatternViewVerticalOffset: CGFloat = 0
+    private var storedBackgroundOffset: CGPoint? = nil
+
+    private var prevContentOffset = CGPoint(x: 0, y: 0)
+    private var prevContentOffsetForMenu = CGPoint(x: 0, y: 0)
+    private var allowedSwitchDirection: Int = 0
+    private var indexLimiter = 0
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+
+        let carouselController = SFCarouselController()
+        carouselController.prepareDummyCarouselItems()
+        self.categories = carouselController.categories
+
+        super.init(coder: coder)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.delegate = self
+        self.dataSource = self
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
+        
         view.subviews.forEach { (subView: UIView) in
             (subView as? UIScrollView)?.delegate = self
         }
 
+        self.setupView()
+    }
+
+    private func setupView() {
+        setupViewControllers()
+        setupSwipeHintView()
         setupMenuView()
         setupBackroundView()
         setupMainActionButton()
@@ -57,26 +106,36 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard storedContentOffset != nil else {
+        guard storedBackgroundOffset != nil else {
             return
         }
-
-        backgroundView.setContentOffset(storedContentOffset!, animated: false)
+        print("viewWillAppear storedBackgroundOffset", storedBackgroundOffset)
+        backgroundView.setContentOffset(storedBackgroundOffset!, animated: false)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        storedContentOffset = self.backgroundView.contentOffset
+        storedBackgroundOffset = self.backgroundView.contentOffset
+        print("viewWillDisappear storedBackgroundOffset", storedBackgroundOffset)
+    }
 
+    private func setupViewControllers() {
+        guard !categories.isEmpty else {
+            return
+        }
+
+        categories.forEach { (c: Category) in
+            let vc = SFCategoryContentViewController(c)
+            horizontalViewControllers.append(vc)
+        }
+
+        setViewControllers([horizontalViewControllers.first!], direction: .forward, animated: false) { (isSet: Bool) in }
     }
 
     private func setupBackroundView() {
-        let cupcakesPattern = UIImage(named: "pattern_cupcakes")
-        let macaronsPattern = UIImage(named: "pattern_macarons")
 
-        self.backgroundImages = [cupcakesPattern, macaronsPattern]
-        backgroundView = UIScrollView.init(frame: self.view.bounds)
+        backgroundView = UIScrollView.init(frame: view.bounds)
         backgroundView.showsVerticalScrollIndicator = false
         backgroundView.showsHorizontalScrollIndicator = false
         backgroundView.isUserInteractionEnabled = false
@@ -85,167 +144,238 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         view.addSubview(backgroundView)
         view.sendSubview(toBack: backgroundView)
 
-        let viewSize = self.view.bounds.size
+        let viewSize = view.bounds.size
 
         pageHeight = viewSize.height * self.backgroundParallaxMagicModifier
         backgroundPatternViewVerticalOffset = (pageHeight - viewSize.height) / 2
 
-        for image in self.backgroundImages {
-            guard image != nil else {
-                continue
-            }
-
+        for category in categories {
             let yPosition = numberOfPages != 0 ? numberOfPages * viewSize.height + backgroundPatternViewVerticalOffset : 0
 
-            let backgroundPatternView = UIImageView.init( frame: CGRect(x: 0, y: yPosition, width: viewSize.width, height: viewSize.height) )
-            backgroundPatternView.image = image
+            let backgroundPatternView = UIImageView( frame: CGRect(x: 0, y: yPosition, width: viewSize.width, height: viewSize.height) )
+
+            backgroundPatternView.image = category.image
             backgroundPatternView.contentMode = .scaleAspectFill
 
             backgroundPatterns.append(backgroundPatternView)
             backgroundView.addSubview(backgroundPatternView)
 
             numberOfPages += 1
-
         }
+
         backgroundView.bringSubview(toFront: backgroundPatterns.first!)
         backgroundView.contentSize = CGSize(width: viewSize.width, height: numberOfPages * pageHeight)
     }
 
     private func setupMenuView() {
 
-        guard let cellReuseIdentifier = self.menuController?.tableViewCellReuseIdentifier else {
-            return
-        }
-
         let size = view.bounds.size
         menuView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: size.width, height: size.height / 2), style: .grouped)
-
-        let cellNib = UINib.init(nibName: cellReuseIdentifier, bundle: nil)
-
-        menuView.dataSource = menuController
-        menuView.delegate = menuController
 
         menuView.isUserInteractionEnabled = false
         menuView.isScrollEnabled = false
 
         menuView.alpha = 0
 
-        menuView.register(cellNib, forCellReuseIdentifier: cellReuseIdentifier)
+        let cellNib = UINib.init(nibName: menuCellReuseIdentifier, bundle: nil)
+        menuView.register(cellNib, forCellReuseIdentifier: menuCellReuseIdentifier)
         menuView.backgroundColor = UIColor.clear
         menuView.separatorStyle = .none
 
-        self.view.addSubview(menuView)
-        self.view.sendSubview(toBack: menuView)
+        view.addSubview(menuView)
+        view.sendSubview(toBack: menuView)
+
+        menuView.dataSource = self
+        menuView.delegate = self
     }
 
     private func setupMainActionButton() {
-        self.mainActionButton = UIButton.init(type: .custom)
-        self.mainActionButton.setTitle(Strings.MainActionButtonText.rawValue.uppercased(), for: .normal)
-        self.mainActionButton.titleLabel?.font = UIFont(name: "GillSans-Semibold", size: 16)
-        self.view.addSubview(self.mainActionButton)
-        self.mainActionButton.translatesAutoresizingMaskIntoConstraints = false
+        mainActionButton = Theme.defaultActionButton()
 
-        self.mainActionButton.backgroundColor = UIColor.blue
-        self.mainActionButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-        self.mainActionButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-        self.mainActionButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
-        self.mainActionButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        mainActionButton.setTitle(Strings.MainActionButtonText.rawValue.uppercased(), for: .normal)
+        view.addSubview(mainActionButton)
+        mainActionButton.translatesAutoresizingMaskIntoConstraints = false
+
+        mainActionButton.backgroundColor = UIColor.defaultColorForTextAndUI
+        mainActionButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        mainActionButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
+        mainActionButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
+        mainActionButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 
-    var prevContentOffset = CGPoint(x: 0, y: 0)
-    var prevContentOffsetForMenu = CGPoint(x: 0, y: 0)
-    var indexLimiter = 0
+    private func setupSwipeHintView() {
+        swipeView = SFCarouselSwipeHintView.init(frame: CGRect.zero)
+        guard self.categories.count > 1 else {
+            return
+        }
+
+        swipeView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(swipeView)
+        swipeView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -75).isActive = true
+        swipeView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        swipeView.heightAnchor.constraint(equalToConstant: 65).isActive = true
+        swipeView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+
+
+        swipeView.setTitle(self.categories[1].title.uppercased())
+        view.sendSubview(toBack: swipeView)
+    }
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         prevContentOffset = scrollView.contentOffset
         prevContentOffsetForMenu = scrollView.contentOffset
-
-        self.hideButton()
-
+        indexLimiter = 0
+        allowedSwitchDirection = 0
+        hideButton()
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.showButton()
+        showButton()
     }
 
     private func hideButton() {
-        UIView.animate(withDuration: 0.3) { 
-            self.mainActionButton.transform = CGAffineTransform.init(translationX: 0, y: 100)
+        UIView.animate(withDuration: 0.4) {
+            self.mainActionButton.transform = CGAffineTransform(translationX: 0, y: 100)
+            self.swipeView.transform = CGAffineTransform(translationX: 0, y: 200)
         }
-
     }
 
     private func showButton() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.2) {
             self.mainActionButton.transform = CGAffineTransform.identity
+            self.swipeView.transform = CGAffineTransform.identity
         }
-
     }
 
+
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.global(qos: .background).async {
 
             let contentOffset = scrollView.contentOffset
+            let viewHeight = self.view.bounds.size.height
 
-            let size = self.view.bounds.size
+            let percentComplete = fabs(contentOffset.y - viewHeight) / viewHeight
+            let menuPositionPercentComplete = percentComplete > 0.5 ? 1 - percentComplete : percentComplete
+            self.updateMenuViewPosition(menuPositionPercentComplete)
 
-            var percentComplete = fabs(contentOffset.y - size.height) / size.height
+            let directionItemShift = contentOffset.y - self.prevContentOffset.y > 0 ? 1 : -1
+            self.updateBackgroundViewPosition(percentComplete, direction: directionItemShift)
 
-            var directionItemShift: Int = 0
-            var menuItemShift: Int = 0
+            if percentComplete > 0.45 && percentComplete < 0.55 {
 
-            directionItemShift = contentOffset.y - self.prevContentOffset.y > 0 ? 1 : -1
-            menuItemShift = contentOffset.y - self.prevContentOffsetForMenu.y > 0 ? 1 : -1
+                let menuItemShift = contentOffset.y - self.prevContentOffsetForMenu.y > 0 ? 1 : -1
+                let isDirectionAllowed = self.allowedSwitchDirection == 0 || self.allowedSwitchDirection == menuItemShift
 
-            if percentComplete > 0.4 && percentComplete < 0.6 {
-                if abs(self.indexLimiter + menuItemShift) <= 1 && menuItemShift != 0 {
-                    self.indexLimiter += menuItemShift
-                    self.menuController?.setActiveMenuItemWithShift(self.indexLimiter)
+                if isDirectionAllowed {
+                    if abs(self.indexLimiter + menuItemShift) <= 1 {
+                        self.allowedSwitchDirection = -menuItemShift
+                        self.indexLimiter += menuItemShift
 
-                    DispatchQueue.main.async {
-                        self.menuView.reloadData()
+                        let oldIndex = self.currentMenuIndex
+                        let newIndex = oldIndex + menuItemShift
+                        if newIndex >= 0 && newIndex < self.categories.count {
+                            self.currentMenuIndex = newIndex
+
+                            let indexPaths = [IndexPath(row: oldIndex, section: 0), IndexPath(row: newIndex, section: 0)]
+                            DispatchQueue.main.async {
+                                if self.categories.count > newIndex + 1 {
+                                    self.swipeView.isHidden = false
+                                    self.swipeView.setTitle(self.categories[newIndex + 1].title.uppercased())
+                                } else {
+                                    self.swipeView.isHidden = true
+                                }
+
+                                self.menuView.reloadRows(at: indexPaths, with: .automatic)
+                            }
+                        }
+
+
+
                     }
                 }
             }
-
-            self.updateBackgroundViewPosition(percentComplete, direction: directionItemShift)
-
-            if percentComplete > 0.5 {
-                percentComplete = 1 - percentComplete
-            }
-
-            self.updateMenuViewPosition(percentComplete)
             self.prevContentOffsetForMenu = contentOffset
         }
 
     }
 
     private func updateMenuViewPosition(_ percentScrolled: CGFloat) {
-
         let translationY = percentScrolled * self.view.bounds.size.height / 2 + self.menuView.contentSize.height / 2
         let transform = CATransform3DTranslate(CATransform3DIdentity, 0, translationY, 0)
 
         DispatchQueue.main.async {
             self.menuView.layer.transform = transform
-            // Percents are getting values in 0...0.5, so we multiply twice with a little to make menu alpha = 1 earlier than 50%
             self.menuView.alpha = percentScrolled * 2.2
+            // Not a magic number ;)
+            // percentScrolled are in 0...0.5, so we multiply with 2.2 to make menu alpha = 1 nearly when 45% of scroll completed
         }
     }
 
     private func updateBackgroundViewPosition(_ percentScrolled: CGFloat, direction: Int) {
-        guard let currentPage: Int = self.controller?.currentPage,
-            direction != 0 else {
-                return
+
+        guard direction != 0 else {
+            return
         }
+
+        let updatedContentOffsetY = (pageHeight - backgroundPatternViewVerticalOffset) * (CGFloat(currentCategoryIndex) + CGFloat(direction) * percentScrolled)
         
-        let normalizedToPageNumberContentOffset = (pageHeight - backgroundPatternViewVerticalOffset) * (CGFloat(currentPage) + CGFloat(direction) * percentScrolled)
-        
-        let contentOffset = CGPoint(x: 0, y: normalizedToPageNumberContentOffset)
-        
+        let contentOffset = CGPoint(x: 0, y: updatedContentOffsetY)
         
         DispatchQueue.main.async {
             self.backgroundView.contentOffset = contentOffset
         }
     }
     
-    
+    // MARK: UIPageViewController DataSource and Delegate methods
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+
+        if let index = self.horizontalViewControllers.index(where: { (vc: UIViewController) -> Bool in
+             return vc == viewController
+        }) {
+            if index < self.horizontalViewControllers.count - 1 {
+                return self.horizontalViewControllers[index + 1]
+            }
+        }
+
+        return nil
+    }
+
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+
+        if let index = self.horizontalViewControllers.index(where: { (vc: UIViewController) -> Bool in
+            return vc == viewController
+        }) {
+            if index != 0 {
+                return self.horizontalViewControllers[index - 1]
+            }
+
+        }
+
+        return nil
+    }
+
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        let pageContentViewController = pageViewController.viewControllers![0]
+        if let indexOfViewController = self.horizontalViewControllers.index(where: { (vc: UIViewController) -> Bool in
+            vc == pageContentViewController
+        }) {
+            currentCategoryIndex = indexOfViewController
+        }
+    }
+
+    // MARK: UITableViewDataSource and UITableViewDelegate methods for menuView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: menuCellReuseIdentifier, for: indexPath) as! SFCarouselMenuItemCell
+        cell.itemTitleLabel.text = self.categories[indexPath.row].title
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let isSelected = currentMenuIndex == indexPath.row
+        cell.setSelected(isSelected, animated: false)
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.categories.count
+    }
 }

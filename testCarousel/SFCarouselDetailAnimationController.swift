@@ -12,6 +12,9 @@ final class SFCarouselDetailAnimationController: NSObject, UIViewControllerAnima
     var originFrame = CGRect.zero
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let fromVC1 = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
+        
+
         guard let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? SFCarouselTransitionViewProvider,
             let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? SFCarouselTransitionViewProvider,
             let finalFrame = toVC.absoulteFrameForTransitionView,

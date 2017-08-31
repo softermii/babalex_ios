@@ -21,10 +21,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func prepareNavigationBarAppearance() {
-        UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-        UINavigationBar.appearance().tintColor = UIColor.black
+//        UINavigationBar.appearance().isTranslucent = true
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+//        UINavigationBar.appearance().tintColor = UIColor.black
         
     }
 

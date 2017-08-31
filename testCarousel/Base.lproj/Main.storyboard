@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VYk-X3-vqa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o2M-Y6-Kgo">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,43 +9,36 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Carousel Vertical Page View Controller-->
+        <scene sceneID="mhQ-oh-jCI">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ViewController" customModule="testCarousel" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="vertical" spineLocation="none" id="nCL-Z8-U75" customClass="SFCarouselVerticalPageViewController" customModule="testCarousel" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" id="xL1-U7-EK8"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                    <navigationItem key="navigationItem" id="tAo-Vw-nBj"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GFo-SY-c2P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="124.58770614692655"/>
+            <point key="canvasLocation" x="1644" y="131.78410794602701"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="hsC-QL-SPA">
+        <scene sceneID="Jdl-3Q-F02">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VYk-X3-vqa" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="overCurrentContext" id="o2M-Y6-Kgo" customClass="SFNavigationController" customModule="testCarousel" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" translucent="NO" id="jQ0-D1-Kif">
+                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" misplaced="YES" id="9XX-w1-sGP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="zKR-Q4-RcZ"/>
+                        <segue destination="nCL-Z8-U75" kind="relationship" relationship="rootViewController" id="4Av-9P-bcp"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fal-YZ-suY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gob-xM-SRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-33" y="125"/>
+            <point key="canvasLocation" x="704.79999999999995" y="131.78410794602701"/>
         </scene>
     </scenes>
 </document>

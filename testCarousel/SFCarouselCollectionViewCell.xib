@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pv5-qG-JP3">
-                        <rect key="frame" x="0.0" y="294" width="294" height="58.5"/>
+                        <rect key="frame" x="0.0" y="279" width="294" height="58.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unR-fn-qQA">
                                 <rect key="frame" x="-0.5" y="0.0" width="294" height="40"/>
@@ -74,7 +74,7 @@
                 <constraint firstItem="pv5-qG-JP3" firstAttribute="width" secondItem="eTM-Oe-hoD" secondAttribute="width" id="BA5-ac-kCh"/>
                 <constraint firstItem="pv5-qG-JP3" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Ual-YV-ZlW"/>
                 <constraint firstItem="eTM-Oe-hoD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ezK-2Z-Yjh"/>
-                <constraint firstItem="pv5-qG-JP3" firstAttribute="top" secondItem="eTM-Oe-hoD" secondAttribute="bottom" id="jIB-Jy-Ypm"/>
+                <constraint firstItem="pv5-qG-JP3" firstAttribute="top" secondItem="eTM-Oe-hoD" secondAttribute="bottom" constant="-15" id="jIB-Jy-Ypm"/>
                 <constraint firstAttribute="trailing" secondItem="eTM-Oe-hoD" secondAttribute="trailing" id="wic-8T-ALk"/>
             </constraints>
             <size key="customSize" width="294" height="470"/>

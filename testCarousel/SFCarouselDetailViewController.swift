@@ -15,6 +15,9 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
     private var item: Item
     private var categoryImage: UIImage?
 
+    func setFrameForTransition(f: CGRect) {}
+    func setViewForTransition(v: UIView) {}
+
     internal var viewForTransition: UIView? {
         get {
             return mainImageView
