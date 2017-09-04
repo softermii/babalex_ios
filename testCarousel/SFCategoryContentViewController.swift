@@ -98,24 +98,15 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! SFCarouselCollectionViewCell
 
-            let item = category.items[indexPath.row]
-            let priceString = String(item.price)
-
-            cell.titleLabel.text = item.title
-            cell.descriptionLabel.text = item.description
-            cell.priceLabel.text = priceString
+        cell.setItem(item: category.items[indexPath.row])
 
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
-        DispatchQueue.global(qos: .background).async {
-                let item = self.category.items[indexPath.row]
-
-                DispatchQueue.main.async {
-                    (cell as? SFCarouselCollectionViewCell)?.imageView?.image = item.image
-                }
+        DispatchQueue.main.async {
+            (cell as? SFCarouselCollectionViewCell)?.applyImage()
         }
     }
 

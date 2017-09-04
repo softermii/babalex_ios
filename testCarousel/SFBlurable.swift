@@ -21,7 +21,7 @@ internal protocol Blurable
     func addSubview(_ view: UIView)
     func removeFromSuperview()
 
-    func blur(blurRadius: CGFloat)
+    func blur(blurRadius: CGFloat, providedCIContext: CIContext?)
     func unBlur()
 
     var isBlurred: Bool { get }
@@ -30,7 +30,7 @@ internal protocol Blurable
 extension Blurable
 {
     
-    func blur(blurRadius: CGFloat)
+    func blur(blurRadius: CGFloat, providedCIContext: CIContext? = nil)
     {
         guard self.superview != nil,
             let blur = CIFilter(name: "CIGaussianBlur"),
@@ -49,7 +49,7 @@ extension Blurable
         blur.setValue(CIImage(image: image!), forKey: kCIInputImageKey)
         blur.setValue(blurRadius, forKey: kCIInputRadiusKey)
 
-        let ciContext  = CIContext(options: nil)
+        let ciContext = providedCIContext ?? CIContext(options: nil)
 
         let result = blur.value(forKey: kCIOutputImageKey) as! CIImage!
 
