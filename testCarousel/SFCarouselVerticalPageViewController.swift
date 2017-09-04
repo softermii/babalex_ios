@@ -238,7 +238,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInteractive).async {
 
             let contentOffset = scrollView.contentOffset
             let viewHeight = self.view.bounds.size.height

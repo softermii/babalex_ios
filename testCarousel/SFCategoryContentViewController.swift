@@ -111,7 +111,7 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             if let navigationController = self.navigationController {
                 let item = self.category.items[indexPath.row]
                 let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(item: item, categoryImage: self.category.image)
