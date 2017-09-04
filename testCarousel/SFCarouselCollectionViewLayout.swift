@@ -112,11 +112,11 @@ final class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
 
         var blurRadius: CGFloat
 
-        blurRadius = (1 - ratio)
+        blurRadius = (1 - ratio) * 5
 
         (attributes as? SFCarouselCollectionViewLayoutAttributes)?.blurRadius = blurRadius
 
-        let alpha: CGFloat = ratio * ratio
+        let alpha: CGFloat = ratio
 
         (attributes as? SFCarouselCollectionViewLayoutAttributes)?.textAlpha = alpha
 

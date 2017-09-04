@@ -1,90 +1,167 @@
-{
-    "categories" : [
-                    {
-                    "id": 1,
-                    "title": "Cupcakes",
-                    "backgroundImageName": "pattern_cupcakes",
-                    "items": [
-                              {
-                              "id": 6,
-                              "title": "Verginius Pontius Rufinus",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "cupcake-1",
-                              "price": 4.99
-                              },
-                              {
-                              "id": 7,
-                              "title": "Lucretia Claudius Rufinus",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "cupcake-2",
-                              "price": 3.99
-                              },
-                              {
-                              "id": 8,
-                              "title": "Priscilla Marcell Cicero",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "cupcake-3",
-                              "price": 2.99
-                              },
-                              {
-                              "id": 9,
-                              "title": "Quintilus Publius Balbus",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "cupcake-4",
-                              "price": 3.99
-                              },
-                              {
-                              "id": 10,
-                              "title": "Maximinus Aulus Loukios",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "cupcake-5",
-                              "price": 1.99
-                              }
+{ "categories" :
+    [
+        {
+            "id": 1,
+            "title": "Cupcakes",
+            "image_name": "pattern_cupcakes",
+            "items": [
+                  {
+                  "id": 6,
+                  "title": "Verginius Pontius Rufinus",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "cupcake-1",
+                  "price": 4.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g"
+                      }
+                  },
+                  {
+                  "id": 7,
+                  "title": "Lucretia Claudius Rufinus",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "cupcake-2",
+                  "price": 3.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g"
+                      }
+                  },
+                  {
+                  "id": 8,
+                  "title": "Priscilla Marcell Cicero",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "cupcake-3",
+                  "price": 2.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g",
+                      "Ingredients": "Dark Chocolate, Strawberry Buttercream, Blueberry weed, THC 20%"
+                      }
+                  },
+                  {
+                  "id": 9,
+                  "title": "Quintilus Publius Balbus",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "cupcake-4",
+                  "price": 3.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g",
+                      "Ingredients": "Dark Chocolate, Strawberry Buttercream, Blueberry weed, THC 20%"
+                      }
+                  },
+                  {
+                  "id": 10,
+                  "title": "Maximinus Aulus Loukios",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "cupcake-5",
+                  "price": 1.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g"
+                      }
+                  }
 
-                              ]
-                    },
-                    {
-                    "id": 2,
-                    "title": "Macarons",
-                    "backgroundImageName": "pattern_macarons",
-                    "items": [
-                              {
-                              "id": 1,
-                              "title": "Wandal Brunhilde Swanahilda",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "macaron-1",
-                              "price": 4.99
-                              },
-                              {
-                              "id": 2,
-                              "title": "Ricohard Giltbert Otto",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "macaron-2",
-                              "price": 3.99
-                              },
-                              {
-                              "id": 3,
-                              "title": "Alfher Hrodger Reinald",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "macaron-3",
-                              "price": 2.99
-                              },
-                              {
-                              "id": 4,
-                              "title": "Ida Albertus Willahelm",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "macaron-4",
-                              "price": 3.99
-                              },
-                              {
-                              "id": 5,
-                              "title": "Raginmund Hariman Auda",
-                              "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
-                              "imageName": "macaron-5",
-                              "price": 1.99
-                              }
+                  ]
+        },
+        {
+        "id": 2,
+        "title": "Macarons",
+        "image_name": "pattern_macarons",
+        "items": [
+                  {
+                  "id": 1,
+                  "title": "Wandal Brunhilde Swanahilda",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "macaron-1",
+                  "price": 4.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g",
+                      "Ingredients": "Dark Chocolate, Strawberry Buttercream, Blueberry weed, THC 20%"
+                      }
+                  },
+                  {
+                  "id": 2,
+                  "title": "Ricohard Giltbert Otto",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "macaron-2",
+                  "price": 3.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g",
+                      "Ingredients": "Dark Chocolate, Strawberry Buttercream, Blueberry weed, THC 20%"
+                      }
+                  },
+                  {
+                  "id": 3,
+                  "title": "Alfher Hrodger Reinald",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "macaron-3",
+                  "price": 2.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g",
+                      "Ingredients": "Dark Chocolate, Strawberry Buttercream, Blueberry weed, THC 20%"
+                      }
+                  },
+                  {
+                  "id": 4,
+                  "title": "Ida Albertus Willahelm",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "macaron-4",
+                  "price": 3.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g",
+                      "Ingredients": "Dark Chocolate, Strawberry Buttercream, Blueberry weed, THC 20%"
+                      }
+                  },
+                  {
+                  "id": 5,
+                  "title": "Raginmund Hariman Auda",
+                  "description": "Dark Chocolate Macaron with Strawberry Buttercream and stars",
+                  "image_name": "macaron-5",
+                  "price": 1.99,
+                  "detail_info":
+                      {
+                      "Serving Size": "I cupcake (2-3/4 dia)",
+                      "Calories": "164",
+                      "Total Fat": "5.38g",
+                      "Weight": "150g",
+                      "Ingredients": "Dark Chocolate, Strawberry Buttercream, Blueberry weed, THC 20%"
+                      }
+                  }
 
-                              ]
-                    }
-                ]
+                  ]
+        }
+    ]
 }

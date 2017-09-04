@@ -8,12 +8,14 @@
 
 import UIKit
 
-final class SFCarouselDetailViewController: UIViewController, SFCarouselTransitionViewProvider {
+final class SFCarouselDetailViewController: UIViewController, SFCarouselTransitionViewProvider, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
 
     private static let nibName = "SFCarouselDetailViewController"
-
+    private let cellReuseIdentifier = "SFCarouselDetailViewInfoCell"
     private var item: Item
     private var categoryImage: UIImage?
+
+    private var imageTapGestureRecognizer: UITapGestureRecognizer!
 
     func setFrameForTransition(f: CGRect) {}
     func setViewForTransition(v: UIView) {}
@@ -34,11 +36,15 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         }
     }
 
+    @IBOutlet weak var detailTableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     
     @IBOutlet weak var descriptionLabel: UILabel!
+
+    @IBOutlet weak var ingredientsValue: UILabel!
+    @IBOutlet weak var ingredientsLabel: UILabel!
 
     required init(item: Item, categoryImage: UIImage?) {
         self.item = item
@@ -55,10 +61,38 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.mainImageView.image = item.image
-        self.titleLabel.text = item.title
-        self.descriptionLabel.text = item.description
-        self.backgroundImageView.image = categoryImage
+        mainImageView.image = item.image
+        titleLabel.text = item.title
+        descriptionLabel.text = item.description
+        backgroundImageView.image = categoryImage
+
+        if let ingredients = item.detailInfo["Ingredients"] {
+            ingredientsValue.text = ingredients
+        } else {
+            ingredientsValue.isHidden = true
+            ingredientsLabel.isHidden = true
+        }
+        let cellNib = UINib.init(nibName: cellReuseIdentifier, bundle: nil)
+        detailTableView.register(cellNib, forCellReuseIdentifier: cellReuseIdentifier)
+        detailTableView.estimatedRowHeight = 404
+        detailTableView.rowHeight = UITableViewAutomaticDimension
+
+        setupGestureRecognizer()
+    }
+
+    private func setupGestureRecognizer() {
+        imageTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(handleTap))
+        imageTapGestureRecognizer.numberOfTapsRequired = 1
+        imageTapGestureRecognizer.delegate = self
+        mainImageView.addGestureRecognizer(imageTapGestureRecognizer)
+    }
+
+    func handleTap(_ recognizer: UITapGestureRecognizer) {
+        navigationController?.popViewController(animated: true)
+    }
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -67,16 +101,45 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         UIView.animate(withDuration: 0.3) {
             self.titleLabel.alpha = 1
             self.descriptionLabel.alpha = 1
+            self.detailTableView.alpha = 1
+            self.ingredientsLabel.alpha = 1
+            self.ingredientsValue.alpha = 1
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.1) {
             self.titleLabel.alpha = 0
             self.descriptionLabel.alpha = 0
+            self.detailTableView.alpha = 0
+            self.ingredientsLabel.alpha = 0
+            self.ingredientsValue.alpha = 0
         }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! SFCarouselDetailViewInfoCell
+
+        let sortedFlatMap = item.detailInfo.flatMap { (i: (key: String, value: String)) -> (String, String)? in
+            if i.key != "Ingredients" {
+                return (i.key, i.value)
+            } else {
+                return nil
+            }
+        }
+
+        let tupleForCurrentCell = sortedFlatMap[indexPath.row]
+        cell.setup(labelText: tupleForCurrentCell.0, valueText: tupleForCurrentCell.1)
+
+        return cell
+    }
+
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = item.detailInfo.count - 1
+        return count > 0 ? count : 0
     }
 
 }

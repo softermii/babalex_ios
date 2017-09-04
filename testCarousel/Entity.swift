@@ -10,11 +10,10 @@ import Foundation
 import UIKit
 
 
-struct Category {
+class Category {
     let id: Int
     let title: String
     var items: [Item]
-//    let backgroundImageName: String
     let image: UIImage?
 
     init(id: Int, title: String, backgroundImageName: String) {
@@ -24,24 +23,25 @@ struct Category {
         self.image = UIImage(named: backgroundImageName)
     }
 
-    mutating func addItem(item: Item) {
+    func addItem(item: Item) {
         self.items.append(item)
     }
 }
 
-struct Item {
+class Item {
     let id: Int
     let title, description: String
     let price: Double
+    let image: UIImage?
 
-    var image: UIImage?
+    var detailInfo: [String: String]
 
-
-    init(id: Int, title: String, description: String, imageName: String, price: Double) {
+    init(id: Int, title: String, description: String, imageName: String, price: Double, detailInfo: [String: String]) {
         self.id = id
         self.title = title
         self.description = description
         self.image = UIImage(named: imageName)
         self.price = price
+        self.detailInfo = detailInfo
     }
 }

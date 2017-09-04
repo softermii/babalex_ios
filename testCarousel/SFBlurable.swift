@@ -1,9 +1,9 @@
 //
-//  FMBlurable.swift
-//  FMBlurable
+//  SFBlurable.swift
+//  SFBlurable
 //
-//  Created by SIMON_NON_ADMIN on 18/09/2015.
-//  Copyright © 2015 Simon Gladman. All rights reserved.
+//  Created by Roman Andrykevych on 24/08/2017.
+//  Copyright © 2017 Softermii. All rights reserved.
 //
 // Thanks to romainmenke (https://twitter.com/romainmenke) for hint on a larger sample...
 
@@ -29,15 +29,16 @@ internal protocol Blurable
 
 extension Blurable
 {
+    
     func blur(blurRadius: CGFloat)
     {
         guard self.superview != nil,
-            let blur = CIFilter(name: "CIMotionBlur"),
+            let blur = CIFilter(name: "CIGaussianBlur"),
             let this = self as? UIView else {
             return
         }
 
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: bounds.size.width, height: bounds.size.height), false, 1)
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 1)
 
         layer.render(in: UIGraphicsGetCurrentContext()!)
 
@@ -89,15 +90,16 @@ extension Blurable
     
     var isBlurred: Bool
     {
-        if let superview = (self as? UIView)?.superview {
-            if let sublayers = superview.layer.sublayers {
-                for v in sublayers {
-                    if v.name == BlurableKey.blurable {
-                        return true
-                    }
-                }
+        guard let sublayers = (self as? UIView)?.superview?.layer.sublayers else {
+            return false
+        }
+        
+        for v in sublayers {
+            if v.name == BlurableKey.blurable {
+                return true
             }
         }
+
 
         return false
     }

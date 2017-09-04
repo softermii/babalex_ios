@@ -12,7 +12,13 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
 
     var prevBlurRadius: CGFloat? = nil
     var lastAttributes: SFCarouselCollectionViewLayoutAttributes? = nil
-    var canApplyBlur = false
+
+    var canApplyBlur = false {
+        didSet {
+
+        }
+    }
+
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var textContainer: UIView!
@@ -32,37 +38,46 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
 
         self.textContainer.alpha = alpha
 
+        var blurRadius: CGFloat = 0
         guard let sfBlurRadius = (layoutAttributes as? SFCarouselCollectionViewLayoutAttributes)?.blurRadius else {
             return
         }
 
-        guard canApplyBlur == true else {
-            self.lastAttributes = layoutAttributes as? SFCarouselCollectionViewLayoutAttributes
-            return
+        if sfBlurRadius >= 0.75 && sfBlurRadius <= 1.5 {
+            blurRadius = 1
+        } else if sfBlurRadius > 1.5 && sfBlurRadius <= 2.5 {
+            blurRadius = 1.5
+        } else if sfBlurRadius > 2.5 {
+            blurRadius = 3
         }
 
-        DispatchQueue.global(qos: .background).async {
-            if self.prevBlurRadius != sfBlurRadius {
-                self.prevBlurRadius = sfBlurRadius
 
-                if sfBlurRadius == 0 {
-                    if self.contentView.isBlurred {
+
+//        guard  else {
+//            self.lastAttributes = layoutAttributes as? SFCarouselCollectionViewLayoutAttributes
+//            return
+//        }
+
+        DispatchQueue.global(qos: .userInteractive).async {
+            if self.prevBlurRadius != blurRadius {
+                self.prevBlurRadius = blurRadius
+
+                if blurRadius == 0 {
+                    if self.textContainer.isBlurred {
                         DispatchQueue.main.async {
                             self.textContainer.unBlur()
                         }
 
                     }
                 } else {
-                    if self.contentView.isBlurred {
+                    if self.textContainer.isBlurred {
                         DispatchQueue.main.async {
                             self.textContainer.unBlur()
                         }
                     }
                     DispatchQueue.main.async {
-                        self.textContainer.blur(blurRadius: sfBlurRadius)
+                        self.textContainer.blur(blurRadius: blurRadius)
                     }
-
-
                 }
             }
         }
@@ -74,6 +89,9 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         prevBlurRadius = nil
         lastAttributes = nil
+        DispatchQueue.main.async {
+            self.textContainer.unBlur()
+        }
     }
 
 }

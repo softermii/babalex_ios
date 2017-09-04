@@ -45,20 +45,20 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
 
     private func setupView() {
 
-        self.view.isOpaque = false
-        self.view.backgroundColor = UIColor.clear
+        view.isOpaque = false
+        view.backgroundColor = UIColor.clear
 
 
-        let itemWidth = 0.8 * self.view.bounds.size.width
-        let itemHeight = 0.7 * self.view.bounds.size.height
+        let itemWidth = 0.8 * view.bounds.size.width
+        let itemHeight = 0.7 * view.bounds.size.height
 
         let layout = SFCarouselCollectionViewLayout.init()
         layout.itemSize = CGSize.init(width: itemWidth, height: itemHeight)
         layout.scrollDirection = .horizontal
 
-        collectionView = UICollectionView.init(frame: self.view.bounds, collectionViewLayout: layout)
+        collectionView = UICollectionView.init(frame: view.bounds, collectionViewLayout: layout)
 
-        self.view.addSubview(collectionView)
+        view.addSubview(collectionView)
 
         collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -65).isActive = true
         collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -86,17 +86,24 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
 
-        return self.category.items.isEmpty ? 0 : 1
+        return category.items.isEmpty ? 0 : 1
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return self.category.items.count
+        return category.items.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! SFCarouselCollectionViewCell
+
+            let item = category.items[indexPath.row]
+            let priceString = String(item.price)
+
+            cell.titleLabel.text = item.title
+            cell.descriptionLabel.text = item.description
+            cell.priceLabel.text = priceString
 
         return cell
     }
@@ -106,17 +113,8 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         DispatchQueue.global(qos: .background).async {
                 let item = self.category.items[indexPath.row]
 
-                guard let _cell = cell as? SFCarouselCollectionViewCell,
-                    let imageView = _cell.imageView
-                    else {
-                        return
-                }
-                let priceString = String(item.price)
                 DispatchQueue.main.async {
-                    imageView.image = item.image
-                    _cell.titleLabel.text = item.title
-                    _cell.descriptionLabel.text = item.description
-                    _cell.priceLabel.text = priceString
+                    (cell as? SFCarouselCollectionViewCell)?.imageView?.image = item.image
                 }
         }
     }
@@ -135,7 +133,6 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
                     transitionInfoProvider!.setFrameForTransition(f: frameForTransition)
 
                 }
-
                 DispatchQueue.main.async {
                     navigationController.pushViewController(vc, animated: true)
                 }

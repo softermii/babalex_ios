@@ -22,6 +22,7 @@ final class SFCarouselController: NSObject {
             let resourceURL = URL(fileURLWithPath: path)
 
             let jsonData = try Data(contentsOf: resourceURL, options: Data.ReadingOptions.uncached)
+
             if let json = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] {
 
 
@@ -31,28 +32,30 @@ final class SFCarouselController: NSObject {
                     guard
                         let id = categoryJSON["id"] as? Int,
                         let title = categoryJSON["title"] as? String,
-                        let backgroundImageName = categoryJSON["backgroundImageName"] as? String
+                        let backgroundImageName = categoryJSON["image_name"] as? String
 
                         else {
                             return
                     }
 
-                    var category = Category.init(id: id, title: title, backgroundImageName: backgroundImageName)
+                    let category = Category.init(id: id, title: title, backgroundImageName: backgroundImageName)
 
                     if let itemsJSON = categoryJSON["items"] as? [[String: Any]] {
 
                         itemsJSON.forEach({ (itemJSON: [String : Any]) in
+                            
                             guard
                                 let id = itemJSON["id"] as? Int,
                                 let title = itemJSON["title"] as? String,
                                 let description = itemJSON["description"] as? String,
-                                let imageName = itemJSON["imageName"] as? String,
-                                let price = itemJSON["price"] as? Double
+                                let imageName = itemJSON["image_name"] as? String,
+                                let price = itemJSON["price"] as? Double,
+                                let detailInfo = itemJSON["detail_info"] as? [String: String]
                             else {
                                 return
                             }
 
-                            let item = Item.init(id: id, title: title, description: description, imageName: imageName, price: price)
+                            let item = Item.init(id: id, title: title, description: description, imageName: imageName, price: price, detailInfo: detailInfo)
                             category.addItem(item: item)
 
                         })
@@ -63,8 +66,8 @@ final class SFCarouselController: NSObject {
 
             }
 
-        } catch _ as NSError {
-
+        } catch let error as NSError {
+            print(error)
         }
     }
 

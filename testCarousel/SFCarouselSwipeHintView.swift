@@ -50,7 +50,7 @@ final class SFCarouselSwipeHintView: UIView {
     }
 
     public func setTitle(_ title: String) {
-        self.titleLabel.text = title
+        titleLabel.text = title
     }
 
     public func animateRotation(_ orientation: SFCarouselSwipeHintViewOrientation) {

@@ -10,7 +10,6 @@ import UIKit
 
 final class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, SFCarouselTransitionViewProvider {
 
-
     private var lastViewForTransition: UIView? = nil
     private var lastFrameForTransition: CGRect? = nil
 
@@ -35,8 +34,6 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         }
 
     }
-
-
 
     private var categories = [Category]() {
         didSet {
@@ -74,7 +71,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
         let carouselController = SFCarouselController()
         carouselController.prepareDummyCarouselItems()
-        self.categories = carouselController.categories
+        categories = carouselController.categories
 
         super.init(coder: coder)
     }
@@ -82,18 +79,32 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.delegate = self
-        self.dataSource = self
+        delegate = self
+        dataSource = self
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
-        
-        view.subviews.forEach { (subView: UIView) in
-            (subView as? UIScrollView)?.delegate = self
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
+
+        var scrollView: UIScrollView?
+        for v in view.subviews {
+            if v as? UIScrollView != nil {
+                scrollView = v as? UIScrollView
+
+                scrollView!.delegate = self
+                scrollView!.decelerationRate = UIScrollViewDecelerationRateFast
+//                guard scrollView!.gestureRecognizers != nil,
+//                    scrollView!.gestureRecognizers!.count > 2 else {
+//                        return
+//                }
+//                scrollView!.gestureRecognizers?[2].removeTarget(nil, action: nil)
+//                scrollView!.removeGestureRecognizer(scrollView!.gestureRecognizers![2])
+                break
+            }
         }
 
-        self.setupView()
+        setupView()
     }
+
 
     private func setupView() {
         setupViewControllers()
@@ -109,15 +120,13 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         guard storedBackgroundOffset != nil else {
             return
         }
-        print("viewWillAppear storedBackgroundOffset", storedBackgroundOffset)
         backgroundView.setContentOffset(storedBackgroundOffset!, animated: false)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        storedBackgroundOffset = self.backgroundView.contentOffset
-        print("viewWillDisappear storedBackgroundOffset", storedBackgroundOffset)
+        storedBackgroundOffset = backgroundView.contentOffset
     }
 
     private func setupViewControllers() {
@@ -146,7 +155,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
         let viewSize = view.bounds.size
 
-        pageHeight = viewSize.height * self.backgroundParallaxMagicModifier
+        pageHeight = viewSize.height * backgroundParallaxMagicModifier
         backgroundPatternViewVerticalOffset = (pageHeight - viewSize.height) / 2
 
         for category in categories {
@@ -155,6 +164,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
             let backgroundPatternView = UIImageView( frame: CGRect(x: 0, y: yPosition, width: viewSize.width, height: viewSize.height) )
 
             backgroundPatternView.image = category.image
+            backgroundPatternView.alpha = 0.3
             backgroundPatternView.contentMode = .scaleAspectFill
 
             backgroundPatterns.append(backgroundPatternView)
@@ -197,15 +207,15 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         mainActionButton.translatesAutoresizingMaskIntoConstraints = false
 
         mainActionButton.backgroundColor = UIColor.defaultColorForTextAndUI
-        mainActionButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-        mainActionButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-        mainActionButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
+        mainActionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        mainActionButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        mainActionButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         mainActionButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 
     private func setupSwipeHintView() {
         swipeView = SFCarouselSwipeHintView.init(frame: CGRect.zero)
-        guard self.categories.count > 1 else {
+        guard categories.count > 1 else {
             return
         }
 
@@ -216,8 +226,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         swipeView.heightAnchor.constraint(equalToConstant: 65).isActive = true
         swipeView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
 
-
-        swipeView.setTitle(self.categories[1].title.uppercased())
+        swipeView.setTitle(categories[1].title.uppercased())
         view.sendSubview(toBack: swipeView)
     }
 
@@ -226,27 +235,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         prevContentOffsetForMenu = scrollView.contentOffset
         indexLimiter = 0
         allowedSwitchDirection = 0
-        hideButton()
     }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        showButton()
-    }
-
-    private func hideButton() {
-        UIView.animate(withDuration: 0.4) {
-            self.mainActionButton.transform = CGAffineTransform(translationX: 0, y: 100)
-            self.swipeView.transform = CGAffineTransform(translationX: 0, y: 200)
-        }
-    }
-
-    private func showButton() {
-        UIView.animate(withDuration: 0.2) {
-            self.mainActionButton.transform = CGAffineTransform.identity
-            self.swipeView.transform = CGAffineTransform.identity
-        }
-    }
-
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         DispatchQueue.global(qos: .background).async {
@@ -289,8 +278,6 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
                             }
                         }
 
-
-
                     }
                 }
             }
@@ -300,7 +287,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     }
 
     private func updateMenuViewPosition(_ percentScrolled: CGFloat) {
-        let translationY = percentScrolled * self.view.bounds.size.height / 2 + self.menuView.contentSize.height / 2
+        let translationY = percentScrolled * view.bounds.size.height / 2 + menuView.contentSize.height / 2
         let transform = CATransform3DTranslate(CATransform3DIdentity, 0, translationY, 0)
 
         DispatchQueue.main.async {
@@ -329,11 +316,11 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     // MARK: UIPageViewController DataSource and Delegate methods
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
-        if let index = self.horizontalViewControllers.index(where: { (vc: UIViewController) -> Bool in
+        if let index = horizontalViewControllers.index(where: { (vc: UIViewController) -> Bool in
              return vc == viewController
         }) {
-            if index < self.horizontalViewControllers.count - 1 {
-                return self.horizontalViewControllers[index + 1]
+            if index < horizontalViewControllers.count - 1 {
+                return horizontalViewControllers[index + 1]
             }
         }
 
@@ -342,13 +329,12 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
-        if let index = self.horizontalViewControllers.index(where: { (vc: UIViewController) -> Bool in
+        if let index = horizontalViewControllers.index(where: { (vc: UIViewController) -> Bool in
             return vc == viewController
         }) {
             if index != 0 {
-                return self.horizontalViewControllers[index - 1]
+                return horizontalViewControllers[index - 1]
             }
-
         }
 
         return nil
@@ -366,7 +352,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     // MARK: UITableViewDataSource and UITableViewDelegate methods for menuView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: menuCellReuseIdentifier, for: indexPath) as! SFCarouselMenuItemCell
-        cell.itemTitleLabel.text = self.categories[indexPath.row].title
+        cell.itemTitleLabel.text = categories[indexPath.row].title
         return cell
     }
 
@@ -376,6 +362,6 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.categories.count
+        return categories.count
     }
 }

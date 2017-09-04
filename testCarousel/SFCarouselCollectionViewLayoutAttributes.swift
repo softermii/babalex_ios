@@ -31,20 +31,20 @@ final class SFCarouselCollectionViewLayoutAttributes: UICollectionViewLayoutAttr
     init(attributes: UICollectionViewLayoutAttributes) {
         super.init()
 
-        self.indexPath = attributes.indexPath
-        self.inheritedElementKind = attributes.representedElementKind
-        self.inheritedElementCategory = attributes.representedElementCategory
+        indexPath = attributes.indexPath
+        inheritedElementKind = attributes.representedElementKind
+        inheritedElementCategory = attributes.representedElementCategory
 
-        self.transform3D = attributes.transform3D
-        self.center.y = attributes.center.y
+        transform3D = attributes.transform3D
+        center.y = attributes.center.y
     }
 
     // MARK: NSCopying
 
     override func copy(with zone: NSZone? = nil) -> Any {
         let copy = super.copy(with: zone) as! SFCarouselCollectionViewLayoutAttributes
-        copy.blurRadius = self.blurRadius
-        copy.textAlpha = self.textAlpha
+        copy.blurRadius = blurRadius
+        copy.textAlpha = textAlpha
         return copy
     }
 
