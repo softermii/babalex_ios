@@ -92,7 +92,7 @@ final class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
     }
 
     fileprivate func transformLayoutAttributes(_ attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        guard let collectionView = self.collectionView else { return attributes }
+        guard let collectionView = collectionView else { return attributes }
 
         let collectionCenter = collectionView.bounds.size.width / 2
         let offset = collectionView.contentOffset.x
@@ -102,8 +102,7 @@ final class SFCarouselCollectionViewLayout: UICollectionViewFlowLayout {
         let distance = min(abs(collectionCenter - normalizedCenter), maxDistance)
         let ratio = (maxDistance - distance) / maxDistance
 
-
-        let scale = ratio * (1 - self.sideItemScale) + self.sideItemScale
+        let scale = ratio * (1 - sideItemScale) + sideItemScale
 
         attributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
         attributes.center.y = (maxDistance * maxDistance - distance * distance).squareRoot()

@@ -12,9 +12,9 @@ final class SFCarouselController: NSObject {
 
     public var categories = [SFCarouselCategory]()
 
-    public func prepareDummyCarouselItems() {
+    public func prepareCarouselItems() {
 
-        guard let path = Bundle.main.path(forResource: "babalex_dummy_info", ofType: "json") else {
+        guard let path = Bundle.main.path(forResource: "babalex_products", ofType: "json") else {
             return
         }
 

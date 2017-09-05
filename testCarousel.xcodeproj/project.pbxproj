@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */; };
 		25274B9D1F50255100AD41BE /* SFCarouselMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */; };
-		254C0C9F1F58013A0002C1E2 /* babalex_dummy_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 254C0C9E1F58013A0002C1E2 /* babalex_dummy_info.json */; };
+		254C0C9F1F58013A0002C1E2 /* babalex_products.json in Resources */ = {isa = PBXBuildFile; fileRef = 254C0C9E1F58013A0002C1E2 /* babalex_products.json */; };
 		254C0CA21F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C0CA01F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift */; };
 		254C0CA31F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254C0CA11F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib */; };
 		2558816D1F4C110A0027E14B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558816C1F4C110A0027E14B /* AppDelegate.swift */; };
@@ -39,7 +39,7 @@
 /* Begin PBXFileReference section */
 		25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselMenuItemCell.swift; sourceTree = "<group>"; };
 		25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselMenuItemCell.xib; sourceTree = "<group>"; };
-		254C0C9E1F58013A0002C1E2 /* babalex_dummy_info.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = babalex_dummy_info.json; sourceTree = "<group>"; };
+		254C0C9E1F58013A0002C1E2 /* babalex_products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = babalex_products.json; sourceTree = "<group>"; };
 		254C0CA01F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselDetailViewInfoCell.swift; sourceTree = "<group>"; };
 		254C0CA11F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselDetailViewInfoCell.xib; sourceTree = "<group>"; };
 		255881691F4C110A0027E14B /* testCarousel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testCarousel.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,7 +188,7 @@
 				25FDC0D41F4DD7D50061B25C /* SFCarouselProtocols.swift */,
 				255D63D71F55AD4E00DBBFE6 /* Strings.swift */,
 				256D7A791F56A69200DD6708 /* Theme.swift */,
-				254C0C9E1F58013A0002C1E2 /* babalex_dummy_info.json */,
+				254C0C9E1F58013A0002C1E2 /* babalex_products.json */,
 			);
 			name = SFCarousel;
 			sourceTree = "<group>";
@@ -267,7 +267,7 @@
 				2558817F1F4C1E240027E14B /* Assets.xcassets in Resources */,
 				254C0CA31F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib in Resources */,
 				258903721F5465AE009CDF1E /* SFCarouselDetailViewController.xib in Resources */,
-				254C0C9F1F58013A0002C1E2 /* babalex_dummy_info.json in Resources */,
+				254C0C9F1F58013A0002C1E2 /* babalex_products.json in Resources */,
 				25F4CAAC1F4C5E7800CA6D62 /* SFCarouselCollectionViewCell.xib in Resources */,
 				255881721F4C110A0027E14B /* Main.storyboard in Resources */,
 				25274B9D1F50255100AD41BE /* SFCarouselMenuItemCell.xib in Resources */,

@@ -68,7 +68,8 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     required init?(coder: NSCoder) {
 
         let carouselController = SFCarouselController()
-        carouselController.prepareDummyCarouselItems()
+        carouselController.prepareCarouselItems()
+        
         categories = carouselController.categories
 
         super.init(coder: coder)
@@ -84,7 +85,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         delegate = self
         dataSource = self
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
 
         for v in view.subviews {
