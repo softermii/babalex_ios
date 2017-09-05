@@ -20,24 +20,23 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
     
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
 
-        guard let alpha = (layoutAttributes as? SFCarouselCollectionViewLayoutAttributes)?.textAlpha else {
+        guard let attributes = layoutAttributes as? SFCarouselCollectionViewLayoutAttributes else {
             return
         }
 
-        textContainer.alpha = alpha
-
         DispatchQueue.global(qos: .userInteractive).async {
+
+            self.textContainer.alpha = attributes.textAlpha
+
             var blurRadius: CGFloat = 0
-            guard let sfBlurRadius = (layoutAttributes as? SFCarouselCollectionViewLayoutAttributes)?.blurRadius else {
-                return
-            }
+            let sfBlurRadius = attributes.blurRadius
 
             if sfBlurRadius >= 0.4 && sfBlurRadius < 0.75 {
                 blurRadius = 0.5
             } else if sfBlurRadius >= 0.75 && sfBlurRadius <= 1.5 {
                 blurRadius = 1
             } else if sfBlurRadius > 1.5 && sfBlurRadius <= 2.5 {
-                blurRadius = 1.5
+                blurRadius = 2
             } else if sfBlurRadius > 2.5 {
                 blurRadius = 3
             }
@@ -65,9 +64,9 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
 
     public func setItem(item: SFCarouselItem) {
         self.item = item
-        self.titleLabel.text = item.title
-        self.descriptionLabel.text = item.description
-        self.priceLabel.text = String(item.price)
+        titleLabel.text = item.title
+        descriptionLabel.text = item.description
+        priceLabel.text = String(item.price)
     }
 
     public func applyImage() {

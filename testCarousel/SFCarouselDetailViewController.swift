@@ -28,11 +28,10 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
 
     internal var absoulteFrameForTransitionView: CGRect? {
         get {
-            if let v = viewForTransition {
-                return v.frame
-            }
-
-            return nil
+            let size = frameAtInit.size
+            let yPosition = (size.height - size.width) / 2
+            let rect = CGRect(x: -size.width/2, y: yPosition, width: size.width, height: size.width)
+            return rect
         }
     }
 
@@ -45,26 +44,43 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
 
     @IBOutlet weak var ingredientsValue: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
+    @IBOutlet weak var addToCartButton: UIButton!
 
-    required init(item: SFCarouselItem, categoryImage: UIImage?) {
+    private let frameAtInit: CGRect
+
+    init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?) {
         self.item = item
         self.categoryImage = categoryImage
+
+        frameAtInit = frame
+
         super.init(nibName: type(of: self).nibName, bundle: nil)
     }
 
+    override func loadView() {
+        super.loadView()
+
+        DispatchQueue.main.async {
+            self.view.frame = self.frameAtInit
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
+        super.viewDidLoad()
         // Do any additional setup after loading the view.
         mainImageView.image = item.image
         titleLabel.text = item.title
         descriptionLabel.text = item.description
         backgroundImageView.image = categoryImage
+
+        DispatchQueue.main.async {
+            self.addToCartButton.layoutSubviews()
+        }
 
         if let ingredients = item.detailInfo["Ingredients"] {
             ingredientsValue.text = ingredients
@@ -74,6 +90,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         }
         let cellNib = UINib.init(nibName: cellReuseIdentifier, bundle: nil)
         detailTableView.register(cellNib, forCellReuseIdentifier: cellReuseIdentifier)
+
         detailTableView.estimatedRowHeight = 404
         detailTableView.rowHeight = UITableViewAutomaticDimension
 

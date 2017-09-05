@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,28 +26,28 @@
                         </constraints>
                     </imageView>
                     <view autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pv5-qG-JP3">
-                        <rect key="frame" x="14.5" y="279" width="265" height="87.5"/>
+                        <rect key="frame" x="0.5" y="279" width="294" height="87.5"/>
                         <subviews>
                             <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text=" " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unR-fn-qQA">
-                                <rect key="frame" x="-0.5" y="0.0" width="265" height="40"/>
+                                <rect key="frame" x="-0.5" y="0.0" width="294" height="40"/>
                                 <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="32"/>
                                 <color key="textColor" red="1" green="0.12549019610000001" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text=" " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7k-Pn-gpA">
-                                <rect key="frame" x="0.0" y="40" width="265" height="18.5"/>
+                                <rect key="frame" x="0.0" y="40" width="294" height="18.5"/>
                                 <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="16"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67e-yP-aKa">
-                                <rect key="frame" x="129.5" y="58.5" width="7.5" height="29"/>
+                                <rect key="frame" x="143.5" y="58.5" width="7.5" height="29"/>
                                 <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cs0-wl-7mo">
-                                <rect key="frame" x="111.5" y="59" width="13" height="28.5"/>
+                                <rect key="frame" x="125.5" y="59" width="13" height="28.5"/>
                                 <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -72,11 +71,11 @@
             </view>
             <constraints>
                 <constraint firstItem="eTM-Oe-hoD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="743-4Z-u0R"/>
-                <constraint firstItem="eTM-Oe-hoD" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="8yk-YW-fO4"/>
-                <constraint firstItem="pv5-qG-JP3" firstAttribute="width" secondItem="eTM-Oe-hoD" secondAttribute="width" multiplier="0.9" id="BA5-ac-kCh"/>
+                <constraint firstItem="pv5-qG-JP3" firstAttribute="width" secondItem="eTM-Oe-hoD" secondAttribute="width" id="BA5-ac-kCh"/>
+                <constraint firstItem="eTM-Oe-hoD" firstAttribute="left" secondItem="gTV-IL-0wX" secondAttribute="left" id="TwP-l3-zEw"/>
                 <constraint firstItem="pv5-qG-JP3" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Ual-YV-ZlW"/>
                 <constraint firstItem="pv5-qG-JP3" firstAttribute="top" secondItem="eTM-Oe-hoD" secondAttribute="bottom" constant="-15" id="jIB-Jy-Ypm"/>
-                <constraint firstAttribute="trailing" secondItem="eTM-Oe-hoD" secondAttribute="trailing" id="wic-8T-ALk"/>
+                <constraint firstAttribute="right" secondItem="eTM-Oe-hoD" secondAttribute="right" id="wic-8T-ALk"/>
             </constraints>
             <size key="customSize" width="294" height="470"/>
             <connections>

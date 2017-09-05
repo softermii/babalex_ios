@@ -36,6 +36,7 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
 
         self.fromVC = fromVC
         self.toVC = toVC
+
         self.startFrame = startFrame
         self.finalFrame = finalFrame
 
@@ -148,6 +149,8 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
                 return
         }
 
+        toVC.view.frame = fromVC.view.bounds
+
         (fromVC as? UIViewController)?.beginAppearanceTransition(false, animated: true)
 
         let containerView = transitionContext.containerView
@@ -162,7 +165,6 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
         }
 
         snapshot!.frame = startFrame
-
         toVC.view.alpha = 0
         toView?.isHidden = true
 

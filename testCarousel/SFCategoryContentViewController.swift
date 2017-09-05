@@ -114,10 +114,12 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         DispatchQueue.global(qos: .userInteractive).async {
             if let navigationController = self.navigationController {
                 let item = self.category.items[indexPath.row]
-                let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(item: item, categoryImage: self.category.image)
+                let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(frame: self.view.bounds,item: item, categoryImage: self.category.image)
+                vc.view.frame = self.view.bounds
                 if let cellImageView = (collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell)?.imageView {
 
                     let transitionInfoProvider = self.parent as? SFCarouselTransitionViewProvider
+
                     let frameForTransition = cellImageView.convert(cellImageView.frame, to: self.view)
 
                     transitionInfoProvider!.setViewForTransition(v: cellImageView)
