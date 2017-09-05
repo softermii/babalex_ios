@@ -12,7 +12,7 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
 
     private static var ciContext = CIContext(options: nil)
     private var prevBlurRadius: CGFloat? = nil
-    private var item: Item!
+    private var item: SFCarouselItem!
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textContainer: UIView!
@@ -65,7 +65,7 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
 
-    public func setItem(item: Item) {
+    public func setItem(item: SFCarouselItem) {
         self.item = item
         self.titleLabel.text = item.title
         self.descriptionLabel.text = item.description

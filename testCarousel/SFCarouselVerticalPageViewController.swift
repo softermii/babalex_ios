@@ -35,7 +35,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
     }
 
-    private var categories = [Category]() {
+    private var categories = [SFCarouselCategory]() {
         didSet {
             setupView()
         }
@@ -125,7 +125,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
             return
         }
 
-        categories.forEach { (c: Category) in
+        categories.forEach { (c: SFCarouselCategory) in
             let vc = SFCategoryContentViewController(c)
             horizontalViewControllers.append(vc)
         }

@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 
-class Category {
+class SFCarouselCategory {
     let id: Int
     let title: String
-    var items: [Item]
+    var items: [SFCarouselItem]
     let image: UIImage?
 
     init(id: Int, title: String, backgroundImageName: String) {
@@ -23,12 +23,12 @@ class Category {
         self.image = UIImage(named: backgroundImageName)
     }
 
-    func addItem(item: Item) {
+    func addItem(item: SFCarouselItem) {
         self.items.append(item)
     }
 }
 
-class Item {
+class SFCarouselItem {
     let id: Int
     let title, description: String
     let price: Double

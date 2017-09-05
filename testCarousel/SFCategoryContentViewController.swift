@@ -23,12 +23,12 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
     }
 
 
-    private var category: Category
+    private var category: SFCarouselCategory
     private let cellReuseIdentifier = "SFCarouselCollectionViewCell"
     private var collectionView: UICollectionView!
     var selectedViewForTransitioning: UIView? = nil
 
-    init(_ category: Category) {
+    init(_ category: SFCarouselCategory) {
         self.category = category
         super.init(nibName: nil, bundle: nil)
     }

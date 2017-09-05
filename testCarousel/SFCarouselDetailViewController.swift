@@ -12,7 +12,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
 
     private static let nibName = "SFCarouselDetailViewController"
     private let cellReuseIdentifier = "SFCarouselDetailViewInfoCell"
-    private var item: Item
+    private var item: SFCarouselItem
     private var categoryImage: UIImage?
 
     private var imageTapGestureRecognizer: UITapGestureRecognizer!
@@ -46,7 +46,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
     @IBOutlet weak var ingredientsValue: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
 
-    required init(item: Item, categoryImage: UIImage?) {
+    required init(item: SFCarouselItem, categoryImage: UIImage?) {
         self.item = item
         self.categoryImage = categoryImage
         super.init(nibName: type(of: self).nibName, bundle: nil)

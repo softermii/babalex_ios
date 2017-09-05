@@ -16,7 +16,7 @@
 		255881721F4C110A0027E14B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 255881701F4C110A0027E14B /* Main.storyboard */; };
 		255881771F4C110A0027E14B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 255881751F4C110A0027E14B /* LaunchScreen.storyboard */; };
 		2558817F1F4C1E240027E14B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2558817E1F4C1E240027E14B /* Assets.xcassets */; };
-		255881821F4C1EA70027E14B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255881811F4C1EA70027E14B /* Entity.swift */; };
+		255881821F4C1EA70027E14B /* SFEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255881811F4C1EA70027E14B /* SFEntity.swift */; };
 		255D63D81F55AD4E00DBBFE6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D63D71F55AD4E00DBBFE6 /* Strings.swift */; };
 		256D7A7A1F56A69200DD6708 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256D7A791F56A69200DD6708 /* Theme.swift */; };
 		257E4ACA1F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E4AC91F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift */; };
@@ -48,7 +48,7 @@
 		255881761F4C110A0027E14B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		255881781F4C110A0027E14B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2558817E1F4C1E240027E14B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		255881811F4C1EA70027E14B /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		255881811F4C1EA70027E14B /* SFEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFEntity.swift; sourceTree = "<group>"; };
 		255D63D71F55AD4E00DBBFE6 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		256D7A791F56A69200DD6708 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		257E4AC91F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselCollectionViewLayoutAttributes.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				259A00B71F57096C00E5A42F /* SFNavigationController.swift */,
-				255881811F4C1EA70027E14B /* Entity.swift */,
+				255881811F4C1EA70027E14B /* SFEntity.swift */,
 				25F4CA951F4C32D900CA6D62 /* SFCarouselController.swift */,
 				25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */,
 				25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */,
@@ -268,7 +268,7 @@
 				254C0CA21F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift in Sources */,
 				25F4CA961F4C32D900CA6D62 /* SFCarouselController.swift in Sources */,
 				25FDC0D51F4DD7D50061B25C /* SFCarouselProtocols.swift in Sources */,
-				255881821F4C1EA70027E14B /* Entity.swift in Sources */,
+				255881821F4C1EA70027E14B /* SFEntity.swift in Sources */,
 				259A00B81F57096C00E5A42F /* SFNavigationController.swift in Sources */,
 				25F4CA941F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift in Sources */,
 				25F4CAA61F4C592F00CA6D62 /* SFCategoryContentViewController.swift in Sources */,

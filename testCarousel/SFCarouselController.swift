@@ -10,7 +10,7 @@ import UIKit
 
 final class SFCarouselController: NSObject {
 
-    public var categories = [Category]()
+    public var categories = [SFCarouselCategory]()
 
     public func prepareDummyCarouselItems() {
 
@@ -25,8 +25,6 @@ final class SFCarouselController: NSObject {
 
             if let json = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] {
 
-
-
                 let categoriesJSON = json["categories"] as? [[String: Any]]
                 categoriesJSON?.forEach({ (categoryJSON: [String : Any]) in
                     guard
@@ -35,10 +33,10 @@ final class SFCarouselController: NSObject {
                         let backgroundImageName = categoryJSON["image_name"] as? String
 
                         else {
-                            return
+                            fatalError("JSON is not formatted as expected")
                     }
 
-                    let category = Category.init(id: id, title: title, backgroundImageName: backgroundImageName)
+                    let category = SFCarouselCategory.init(id: id, title: title, backgroundImageName: backgroundImageName)
 
                     if let itemsJSON = categoryJSON["items"] as? [[String: Any]] {
 
@@ -55,7 +53,7 @@ final class SFCarouselController: NSObject {
                                 return
                             }
 
-                            let item = Item.init(id: id, title: title, description: description, imageName: imageName, price: price, detailInfo: detailInfo)
+                            let item = SFCarouselItem.init(id: id, title: title, description: description, imageName: imageName, price: price, detailInfo: detailInfo)
                             category.addItem(item: item)
 
                         })
@@ -64,10 +62,12 @@ final class SFCarouselController: NSObject {
                     categories.append(category)
                 })
 
+            } else {
+                fatalError("JSON is not formatted as expected")
             }
 
         } catch let error as NSError {
-            print(error)
+            fatalError(error.localizedDescription)
         }
     }
 
