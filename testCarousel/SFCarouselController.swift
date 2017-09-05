@@ -36,7 +36,7 @@ final class SFCarouselController: NSObject {
                             fatalError("JSON is not formatted as expected")
                     }
 
-                    let category = SFCarouselCategory.init(id: id, title: title, backgroundImageName: backgroundImageName)
+                    var category = SFCarouselCategory.init(id: id, title: title, backgroundImageName: backgroundImageName)
 
                     if let itemsJSON = categoryJSON["items"] as? [[String: Any]] {
 

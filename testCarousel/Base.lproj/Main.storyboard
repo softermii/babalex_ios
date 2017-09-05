@@ -12,7 +12,7 @@
         <!--Carousel Vertical Page View Controller-->
         <scene sceneID="mhQ-oh-jCI">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="vertical" spineLocation="none" id="nCL-Z8-U75" customClass="SFCarouselVerticalPageViewController" customModule="testCarousel" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="SFCarouselVerticalPageViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="vertical" spineLocation="none" id="nCL-Z8-U75" customClass="SFCarouselVerticalPageViewController" customModule="testCarousel" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="tAo-Vw-nBj"/>
                 </pageViewController>
@@ -26,14 +26,14 @@
                 <navigationController modalPresentationStyle="overCurrentContext" id="o2M-Y6-Kgo" customClass="SFNavigationController" customModule="testCarousel" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" misplaced="YES" id="9XX-w1-sGP">
+                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="9XX-w1-sGP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="nCL-Z8-U75" kind="relationship" relationship="rootViewController" id="4Av-9P-bcp"/>
+                        <segue destination="nCL-Z8-U75" kind="relationship" relationship="rootViewController" id="0iK-DJ-fFd"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gob-xM-SRy" userLabel="First Responder" sceneMemberID="firstResponder"/>

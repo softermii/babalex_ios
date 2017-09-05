@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SFCarouselTransitionViewProvider {
+protocol SFCarouselTransitionViewProvider: class {
     var viewForTransition: UIView? { get }
     var absoulteFrameForTransitionView: CGRect? { get }
     var view: UIView!{ get }

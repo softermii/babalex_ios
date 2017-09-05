@@ -9,6 +9,7 @@
 import UIKit
 
 final class SFCategoryContentViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+
     var absoulteFrameForTransitionView: CGRect? {
         get {
             return viewForTransition?.frame
@@ -26,7 +27,8 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
     private var category: SFCarouselCategory
     private let cellReuseIdentifier = "SFCarouselCollectionViewCell"
     private var collectionView: UICollectionView!
-    var selectedViewForTransitioning: UIView? = nil
+
+    private weak var selectedViewForTransitioning: UIView? = nil
 
     init(_ category: SFCarouselCategory) {
         self.category = category

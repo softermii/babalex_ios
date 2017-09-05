@@ -126,6 +126,25 @@
 			path = testCarousel;
 			sourceTree = "<group>";
 		};
+		257322281F5EA7D8007E6210 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */,
+			);
+			name = Transitions;
+			sourceTree = "<group>";
+		};
+		257322291F5EA80D007E6210 /* Custom Views And Cells */ = {
+			isa = PBXGroup;
+			children = (
+				25274B9E1F50255B00AD41BE /* SFCarouselMenuItemCell */,
+				25FDC0D31F4DCDA70061B25C /* SFCarouselCollectionViewCell */,
+				254C0CA41F582C050002C1E2 /* SFCarouselDetailViewInfoCell */,
+				259A00B61F56E66D00E5A42F /* SFCarouselSwipeHintView */,
+			);
+			name = "Custom Views And Cells";
+			sourceTree = "<group>";
+		};
 		259A00B11F56AA5F00E5A42F /* SFCarouselCollectionViewLayout+Attributes */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,18 +175,15 @@
 		25F4CAA41F4C4FA900CA6D62 /* SFCarousel */ = {
 			isa = PBXGroup;
 			children = (
-				259A00B71F57096C00E5A42F /* SFNavigationController.swift */,
 				255881811F4C1EA70027E14B /* SFEntity.swift */,
 				25F4CA951F4C32D900CA6D62 /* SFCarouselController.swift */,
-				25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */,
+				257322281F5EA7D8007E6210 /* Transitions */,
+				257322291F5EA80D007E6210 /* Custom Views And Cells */,
+				259A00B71F57096C00E5A42F /* SFNavigationController.swift */,
 				25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */,
 				25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */,
-				254C0CA41F582C050002C1E2 /* SFCarouselDetailViewInfoCell */,
 				259A00B91F5709EC00E5A42F /* SFCarouselDetailViewController */,
-				259A00B61F56E66D00E5A42F /* SFCarouselSwipeHintView */,
 				259A00B11F56AA5F00E5A42F /* SFCarouselCollectionViewLayout+Attributes */,
-				25FDC0D31F4DCDA70061B25C /* SFCarouselCollectionViewCell */,
-				25274B9E1F50255B00AD41BE /* SFCarouselMenuItemCell */,
 				25D3BDF71F4CB9E100BA87CB /* UIView+Blur.swift */,
 				25FDC0D41F4DD7D50061B25C /* SFCarouselProtocols.swift */,
 				255D63D71F55AD4E00DBBFE6 /* Strings.swift */,

@@ -10,11 +10,10 @@ import UIKit
 
 final class SFCarouselCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
     var blurRadius: CGFloat = 0
-
-
     var textAlpha: CGFloat = 0
 
-    var inheritedElementKind: String? = nil
+    private var inheritedElementKind: String? = nil
+
     override var representedElementKind: String? {
         return inheritedElementKind
     }

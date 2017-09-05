@@ -10,18 +10,18 @@ import UIKit
 
 final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
 
-    private var fromVC: SFCarouselTransitionViewProvider? = nil
-    private var toVC: SFCarouselTransitionViewProvider? = nil
+    private weak var fromVC: SFCarouselTransitionViewProvider? = nil
+    private weak var toVC: SFCarouselTransitionViewProvider? = nil
 
-    private var fromView: UIView? = nil
-    private var toView: UIView? = nil
+    private weak var fromView: UIView? = nil
+    private weak var toView: UIView? = nil
 
     private var snapshot: UIView? = nil
 
     private var startFrame: CGRect? = nil
     private var finalFrame: CGRect? = nil
 
-    private var transitionContext: UIViewControllerContextTransitioning? = nil
+    private weak var transitionContext: UIViewControllerContextTransitioning? = nil
 
     override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         super.startInteractiveTransition(transitionContext)

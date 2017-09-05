@@ -10,7 +10,7 @@ import UIKit
 
 final class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, SFCarouselTransitionViewProvider {
 
-    private var lastViewForTransition: UIView? = nil
+    private weak var lastViewForTransition: UIView? = nil
     private var lastFrameForTransition: CGRect? = nil
 
     func setViewForTransition(v: UIView) {
@@ -28,7 +28,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         }
     }
 
-    var viewForTransition: UIView? {
+    weak var viewForTransition: UIView? {
         get {
             return lastViewForTransition
         }
@@ -72,6 +72,10 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         categories = carouselController.categories
 
         super.init(coder: coder)
+    }
+
+    deinit {
+        horizontalViewControllers.removeAll()
     }
 
     override func viewDidLoad() {
