@@ -48,7 +48,6 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         view.isOpaque = false
         view.backgroundColor = UIColor.clear
 
-
         let itemWidth = 0.8 * view.bounds.size.width
         let itemHeight = 0.7 * view.bounds.size.height
 
@@ -81,7 +80,6 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
 
         let cellNib = UINib.init(nibName: cellReuseIdentifier, bundle: nil)
         collectionView.register(cellNib, forCellWithReuseIdentifier: cellReuseIdentifier)
-
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

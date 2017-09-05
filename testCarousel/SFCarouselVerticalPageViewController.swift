@@ -43,8 +43,6 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
     private var backgroundView: UIScrollView!
 
-//    private weak var controller: SFCarouselControllerProtocol?
-
     private let menuCellReuseIdentifier = "SFCarouselMenuItemCell"
     private var currentCategoryIndex = 0
     private var currentMenuIndex = 0
@@ -85,26 +83,19 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
 
-        var scrollView: UIScrollView?
         for v in view.subviews {
             if v as? UIScrollView != nil {
-                scrollView = v as? UIScrollView
+                let scrollView = v as? UIScrollView
 
                 scrollView!.delegate = self
                 scrollView!.decelerationRate = UIScrollViewDecelerationRateFast
-//                guard scrollView!.gestureRecognizers != nil,
-//                    scrollView!.gestureRecognizers!.count > 2 else {
-//                        return
-//                }
-//                scrollView!.gestureRecognizers?[2].removeTarget(nil, action: nil)
-//                scrollView!.removeGestureRecognizer(scrollView!.gestureRecognizers![2])
+
                 break
             }
         }
 
         setupView()
     }
-
 
     private func setupView() {
         setupViewControllers()
@@ -117,10 +108,10 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard storedBackgroundOffset != nil else {
+        guard let storedBackgroundOffset = storedBackgroundOffset else {
             return
         }
-        backgroundView.setContentOffset(storedBackgroundOffset!, animated: false)
+        backgroundView.setContentOffset(storedBackgroundOffset, animated: false)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -159,7 +150,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         backgroundPatternViewVerticalOffset = (pageHeight - viewSize.height) / 2
 
         for category in categories {
-            let yPosition = numberOfPages != 0 ? numberOfPages * viewSize.height + backgroundPatternViewVerticalOffset : 0
+            let yPosition = numberOfPages != 0 ? numberOfPages * viewSize.height + backgroundPatternViewVerticalOffset + 80 : 0
 
             let backgroundPatternView = UIImageView( frame: CGRect(x: 0, y: yPosition, width: viewSize.width, height: viewSize.height) )
 
