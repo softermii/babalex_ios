@@ -9,8 +9,6 @@
 import UIKit
 
 final class SFCarouselCollectionViewCell: UICollectionViewCell {
-
-    private static var ciContext = CIContext(options: nil)
     private var prevBlurRadius: CGFloat? = nil
     private var item: SFCarouselItem!
 
@@ -53,7 +51,7 @@ final class SFCarouselCollectionViewCell: UICollectionViewCell {
 
                 if blurRadius != 0 {
                     DispatchQueue.main.async {
-                        self.textContainer.blur(blurRadius: blurRadius, providedCIContext: SFCarouselCollectionViewCell.ciContext)
+                        self.textContainer.blur(blurRadius: blurRadius)
                     }
                 }
             }

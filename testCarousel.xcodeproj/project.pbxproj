@@ -26,7 +26,7 @@
 		259A00B51F56E66600E5A42F /* SFCarouselSwipeHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A00B41F56E66600E5A42F /* SFCarouselSwipeHintView.swift */; };
 		259A00B81F57096C00E5A42F /* SFNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A00B71F57096C00E5A42F /* SFNavigationController.swift */; };
 		25C3E9571F546C5F009896FE /* SFCarouselDetailAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */; };
-		25D3BDF81F4CB9E100BA87CB /* SFBlurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D3BDF71F4CB9E100BA87CB /* SFBlurable.swift */; };
+		25D3BDF81F4CB9E100BA87CB /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D3BDF71F4CB9E100BA87CB /* UIView+Blur.swift */; };
 		25F4CA941F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */; };
 		25F4CA961F4C32D900CA6D62 /* SFCarouselController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4CA951F4C32D900CA6D62 /* SFCarouselController.swift */; };
 		25F4CAA61F4C592F00CA6D62 /* SFCategoryContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */; };
@@ -58,7 +58,7 @@
 		259A00B41F56E66600E5A42F /* SFCarouselSwipeHintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselSwipeHintView.swift; sourceTree = "<group>"; };
 		259A00B71F57096C00E5A42F /* SFNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFNavigationController.swift; sourceTree = "<group>"; };
 		25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselDetailAnimationController.swift; sourceTree = "<group>"; };
-		25D3BDF71F4CB9E100BA87CB /* SFBlurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFBlurable.swift; sourceTree = "<group>"; };
+		25D3BDF71F4CB9E100BA87CB /* UIView+Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
 		25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselVerticalPageViewController.swift; sourceTree = "<group>"; };
 		25F4CA951F4C32D900CA6D62 /* SFCarouselController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselController.swift; sourceTree = "<group>"; };
 		25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCategoryContentViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 				259A00B11F56AA5F00E5A42F /* SFCarouselCollectionViewLayout+Attributes */,
 				25FDC0D31F4DCDA70061B25C /* SFCarouselCollectionViewCell */,
 				25274B9E1F50255B00AD41BE /* SFCarouselMenuItemCell */,
-				25D3BDF71F4CB9E100BA87CB /* SFBlurable.swift */,
+				25D3BDF71F4CB9E100BA87CB /* UIView+Blur.swift */,
 				25FDC0D41F4DD7D50061B25C /* SFCarouselProtocols.swift */,
 				255D63D71F55AD4E00DBBFE6 /* Strings.swift */,
 				256D7A791F56A69200DD6708 /* Theme.swift */,
@@ -280,7 +280,7 @@
 				25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */,
 				258903711F5465AE009CDF1E /* SFCarouselDetailViewController.swift in Sources */,
 				25F4CAAB1F4C5E7800CA6D62 /* SFCarouselCollectionViewCell.swift in Sources */,
-				25D3BDF81F4CB9E100BA87CB /* SFBlurable.swift in Sources */,
+				25D3BDF81F4CB9E100BA87CB /* UIView+Blur.swift in Sources */,
 				25C3E9571F546C5F009896FE /* SFCarouselDetailAnimationController.swift in Sources */,
 				257E4ACA1F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift in Sources */,
 			);
