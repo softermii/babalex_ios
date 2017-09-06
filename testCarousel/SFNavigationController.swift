@@ -14,7 +14,19 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
 
     private var isInteractive = false
     private var swipeFromLeftGestureRecognizer: UIScreenEdgePanGestureRecognizer!
+    weak var controller: SFDatasource?
 
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,28 +34,52 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
         // Do any additional setup after loading the view.
         delegate = self
 
-        interactivePopGestureRecognizer?.delegate = self
-        interactivePopGestureRecognizer?.isEnabled = true
+        setupBackground()
+        setupNavigationBarAppearance()
+        setupGestureRecognizers()
 
-        view.backgroundColor = UIColor.white
+        edgesForExtendedLayout = UIRectEdge.top
 
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
+        for vc in viewControllers {
+            guard let viewController = vc as? SFCarouselVerticalPageViewController,
+                let categories = controller?.categories else {
+                    return
+            }
+            viewController.categories = categories
+            return
+        }
 
-        setupGestureRecognizer()
     }
 
-    private func setupGestureRecognizer() {
+    private func setupBackground() {
+        view.layer.contents = UIImage(named: "dirty_background")?.cgImage
+    }
+
+    private func setupNavigationBarAppearance() {
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.tintColor = UIColor.black
+    }
+
+    private func setupGestureRecognizers() {
+        interactivePopGestureRecognizer?.isEnabled = false
+
         swipeFromLeftGestureRecognizer = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(handleScreenEdgePan))
+        swipeFromLeftGestureRecognizer.requiresExclusiveTouchType = true
+        swipeFromLeftGestureRecognizer.delegate = self
         swipeFromLeftGestureRecognizer.edges = .left
+        swipeFromLeftGestureRecognizer.delaysTouchesBegan = false
+        swipeFromLeftGestureRecognizer.delaysTouchesEnded = false
         view.addGestureRecognizer(swipeFromLeftGestureRecognizer)
     }
 
     func handleScreenEdgePan(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         let translate = recognizer.translation(in: recognizer.view)
+
         guard let viewWidth = recognizer.view?.bounds.size.width else {
             return
         }
+
         let percent = translate.x / viewWidth
 
         switch recognizer.state {
@@ -59,7 +95,8 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
             } else {
                 animationController.cancel()
             }
-            self.isInteractive = false
+
+            isInteractive = false
         default: break
         }
     }
@@ -86,9 +123,12 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
 
     // MARK: UIGestureRecognizerDelegate
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        guard let gR = gestureRecognizer as? UIScreenEdgePanGestureRecognizer else {
+            return false
+        }
+
+        let locationY = gR.location(in: view).y
+        return locationY < view.bounds.size.height - 60
     }
-
-
 
 }

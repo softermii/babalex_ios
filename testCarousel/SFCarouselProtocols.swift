@@ -8,6 +8,17 @@
 
 import UIKit
 
+protocol SFDatasource: class {
+    func prepareItems()
+
+    var categories: [SFCarouselCategory] { get }
+}
+
+protocol SFCartController: class {
+    func addItemToCart(id: Int)
+    func removeItemFromCart(id: Int)
+}
+
 protocol SFCarouselTransitionViewProvider: class {
     var viewForTransition: UIView? { get }
     var absoulteFrameForTransitionView: CGRect? { get }

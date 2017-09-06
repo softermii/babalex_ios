@@ -9,8 +9,29 @@
 import Foundation
 import UIKit
 
+final class SFCart {
+    private var itemCounts: [Int: Int]
 
-struct SFCarouselCategory {
+    init() {
+        itemCounts = [:]
+    }
+
+    public func addItem(id: Int) {
+        var itemCount = itemCounts[id] ?? 0
+        itemCount += 1
+        itemCounts[id] = itemCount
+    }
+
+    public func removeItem(id: Int) {
+        var itemCount = itemCounts[id] ?? 0
+        if itemCount > 0 {
+            itemCount -= 1
+        }
+        itemCounts[id] = itemCount
+    }
+}
+
+final class SFCarouselCategory {
     let id: Int
     let title: String
     var items: [SFCarouselItem]
@@ -23,12 +44,12 @@ struct SFCarouselCategory {
         self.image = UIImage(named: backgroundImageName)
     }
 
-    mutating func addItem(item: SFCarouselItem) {
+    func addItem(item: SFCarouselItem) {
         self.items.append(item)
     }
 }
 
-struct SFCarouselItem {
+final class SFCarouselItem {
     let id: Int
     let title, description: String
     let price: Double

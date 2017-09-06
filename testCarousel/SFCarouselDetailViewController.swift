@@ -10,12 +10,15 @@ import UIKit
 
 final class SFCarouselDetailViewController: UIViewController, SFCarouselTransitionViewProvider, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
 
+
+    private let initialFrame: CGRect
     private static let nibName = "SFCarouselDetailViewController"
     private let cellReuseIdentifier = "SFCarouselDetailViewInfoCell"
     private var item: SFCarouselItem
     private var categoryImage: UIImage?
-
     private var imageTapGestureRecognizer: UITapGestureRecognizer!
+
+    weak var cartController: SFCartController?
 
     func setFrameForTransition(f: CGRect) {}
     func setViewForTransition(v: UIView) {}
@@ -28,7 +31,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
 
     internal var absoulteFrameForTransitionView: CGRect? {
         get {
-            let size = frameAtInit.size
+            let size = initialFrame.size
             let yPosition = (size.height - size.width) / 2
             let rect = CGRect(x: -size.width/2, y: yPosition, width: size.width, height: size.width)
             return rect
@@ -44,15 +47,19 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
 
     @IBOutlet weak var ingredientsValue: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
-    @IBOutlet weak var addToCartButton: UIButton!
 
-    private let frameAtInit: CGRect
+    @IBOutlet weak var addToCartButton: SFButton!
+
+    @IBAction func addToCartButtonClicked(_ sender: Any) {
+        print("clicked")
+        navigationItem.rightBarButtonItem?.addBadge(number: 2)
+    }
 
     init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?) {
         self.item = item
         self.categoryImage = categoryImage
 
-        frameAtInit = frame
+        initialFrame = frame
 
         super.init(nibName: type(of: self).nibName, bundle: nil)
     }
@@ -61,7 +68,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         super.loadView()
 
         DispatchQueue.main.async {
-            self.view.frame = self.frameAtInit
+            self.view.frame = self.initialFrame
         }
     }
     
@@ -95,6 +102,8 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         detailTableView.rowHeight = UITableViewAutomaticDimension
 
         setupGestureRecognizer()
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
     }
 
     private func setupGestureRecognizer() {
@@ -112,28 +121,32 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         return true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         UIView.animate(withDuration: 0.3) {
-            self.titleLabel.alpha = 1
-            self.descriptionLabel.alpha = 1
-            self.detailTableView.alpha = 1
-            self.ingredientsLabel.alpha = 1
-            self.ingredientsValue.alpha = 1
+            self.setAlphaForTextViews(1)
         }
+
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         UIView.animate(withDuration: 0.1) {
-            self.titleLabel.alpha = 0
-            self.descriptionLabel.alpha = 0
-            self.detailTableView.alpha = 0
-            self.ingredientsLabel.alpha = 0
-            self.ingredientsValue.alpha = 0
+            self.setAlphaForTextViews(0)
         }
+    }
+
+    private func setAlphaForTextViews(_ alpha: CGFloat) {
+
+        self.titleLabel.alpha = alpha
+        self.descriptionLabel.alpha = alpha
+        self.detailTableView.alpha = alpha
+        self.ingredientsLabel.alpha = alpha
+        self.ingredientsValue.alpha = alpha
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -158,5 +171,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         let count = item.detailInfo.count - 1
         return count > 0 ? count : 0
     }
+
+
 
 }

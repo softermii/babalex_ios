@@ -8,11 +8,21 @@
 
 import UIKit
 
-final class SFCarouselController: NSObject {
+final class SFCarouselController: NSObject, SFDatasource, SFCartController {
 
-    public var categories = [SFCarouselCategory]()
+    private let cart: SFCart
+    private var itemsDictionary: [Int: SFCarouselItem]
 
-    public func prepareCarouselItems() {
+    internal var categories = [SFCarouselCategory]()
+
+    override init() {
+        cart = SFCart()
+        itemsDictionary = [:]
+
+        super.init()
+    }
+
+    public func prepareItems() {
 
         guard let path = Bundle.main.path(forResource: "babalex_products", ofType: "json") else {
             return
@@ -36,7 +46,7 @@ final class SFCarouselController: NSObject {
                             fatalError("JSON is not formatted as expected")
                     }
 
-                    var category = SFCarouselCategory.init(id: id, title: title, backgroundImageName: backgroundImageName)
+                    let category = SFCarouselCategory.init(id: id, title: title, backgroundImageName: backgroundImageName)
 
                     if let itemsJSON = categoryJSON["items"] as? [[String: Any]] {
 
@@ -54,6 +64,7 @@ final class SFCarouselController: NSObject {
                             }
 
                             let item = SFCarouselItem.init(id: id, title: title, description: description, imageName: imageName, price: price, detailInfo: detailInfo)
+                            itemsDictionary[id] = item
                             category.addItem(item: item)
 
                         })
@@ -69,6 +80,15 @@ final class SFCarouselController: NSObject {
         } catch let error as NSError {
             fatalError(error.localizedDescription)
         }
+    }
+
+//    MARK: SFCartController Protocol implementation
+    func removeItemFromCart(id: Int) {
+        cart.removeItem(id: id)
+    }
+
+    func addItemToCart(id: Int) {
+        cart.addItem(id: id)
     }
 
 }

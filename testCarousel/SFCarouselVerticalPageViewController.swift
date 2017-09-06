@@ -35,11 +35,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
     }
 
-    private var categories = [SFCarouselCategory]() {
-        didSet {
-            setupView()
-        }
-    }
+    var categories: [SFCarouselCategory]
 
     private var backgroundView: UIScrollView!
 
@@ -53,7 +49,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     private var numberOfPages: CGFloat = 0
 
     private let backgroundParallaxMagicModifier: CGFloat = 0.5
-    private var mainActionButton: UIButton!
+    private var mainActionButton: SFButton!
     private var swipeHintView: UIView!
     private var backgroundPatterns = [UIView]()
     private var pageHeight: CGFloat = 0
@@ -65,14 +61,14 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     private var allowedSwitchDirection: Int = 0
     private var indexLimiter = 0
 
-    required init?(coder: NSCoder) {
-
-        let carouselController = SFCarouselController()
-        carouselController.prepareCarouselItems()
+    init(controller: SFDatasource) {
+        categories = controller.categories
         
-        categories = carouselController.categories
-
-        super.init(coder: coder)
+        super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     deinit {
@@ -85,8 +81,9 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         delegate = self
         dataSource = self
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
+
 
         for v in view.subviews {
             if v as? UIScrollView != nil {
@@ -98,8 +95,12 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
                 break
             }
         }
+        if !categories.isEmpty {
+            setupView()
+        }
 
-        setupView()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+
     }
 
     private func setupView() {
@@ -116,6 +117,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         guard let storedBackgroundOffset = storedBackgroundOffset else {
             return
         }
+
         backgroundView.setContentOffset(storedBackgroundOffset, animated: false)
     }
 
@@ -183,7 +185,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
         menuView.alpha = 0
 
-        let cellNib = UINib.init(nibName: menuCellReuseIdentifier, bundle: nil)
+        let cellNib = UINib(nibName: menuCellReuseIdentifier, bundle: nil)
         menuView.register(cellNib, forCellReuseIdentifier: menuCellReuseIdentifier)
         menuView.backgroundColor = UIColor.clear
         menuView.separatorStyle = .none
@@ -196,13 +198,11 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     }
 
     private func setupMainActionButton() {
-        mainActionButton = Theme.defaultActionButton()
+        mainActionButton = SFButton(frame: CGRect.zero)
 
-        mainActionButton.setTitle(Strings.MainActionButtonText.rawValue.uppercased(), for: .normal)
         view.addSubview(mainActionButton)
         mainActionButton.translatesAutoresizingMaskIntoConstraints = false
 
-        mainActionButton.backgroundColor = UIColor.defaultColorForTextAndUI
         mainActionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         mainActionButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         mainActionButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
@@ -210,19 +210,21 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     }
 
     private func setupSwipeHintView() {
-        swipeView = SFCarouselSwipeHintView.init(frame: CGRect.zero)
+        swipeView = SFCarouselSwipeHintView(frame: CGRect.zero)
+
         guard categories.count > 1 else {
             return
         }
 
+        swipeView.setTitle(categories[1].title.uppercased())
         swipeView.translatesAutoresizingMaskIntoConstraints = false
+
         view.addSubview(swipeView)
         swipeView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -75).isActive = true
         swipeView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         swipeView.heightAnchor.constraint(equalToConstant: 65).isActive = true
         swipeView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
 
-        swipeView.setTitle(categories[1].title.uppercased())
         view.sendSubview(toBack: swipeView)
     }
 
