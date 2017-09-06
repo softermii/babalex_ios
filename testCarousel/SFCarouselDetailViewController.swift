@@ -51,8 +51,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
     @IBOutlet weak var addToCartButton: SFButton!
 
     @IBAction func addToCartButtonClicked(_ sender: Any) {
-        print("clicked")
-        navigationItem.rightBarButtonItem?.addBadge(number: 2)
+        navigationItem.rightBarButtonItem?.addBadge(text: nil)
     }
 
     init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?) {

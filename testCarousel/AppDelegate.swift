@@ -19,7 +19,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         carouselController = SFCarouselController()
         carouselController.prepareItems()
 
-        let rootViewController = SFCarouselVerticalPageViewController(controller: carouselController)
+        let rootViewController = SFCarouselVerticalPageViewController(categories: carouselController.categories, controller: carouselController as! SFCartController)
         let navigationController = SFNavigationController(rootViewController: rootViewController)
 
         window = UIWindow(frame: UIScreen.main.bounds)

@@ -61,8 +61,11 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     private var allowedSwitchDirection: Int = 0
     private var indexLimiter = 0
 
-    init(controller: SFDatasource) {
-        categories = controller.categories
+    private weak var controller: SFCartController?
+
+    init(categories: [SFCarouselCategory], controller: SFCartController) {
+        self.categories = categories
+        self.controller = controller
         
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
     }
@@ -207,6 +210,12 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         mainActionButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         mainActionButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         mainActionButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
+        mainActionButton.addTarget(self, action: #selector(addToCartButtonClicked), for: .touchUpInside)
+    }
+
+    func addToCartButtonClicked() {
+        navigationItem.rightBarButtonItem?.addBadge(text: "...")
     }
 
     private func setupSwipeHintView() {

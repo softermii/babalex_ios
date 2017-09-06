@@ -9,32 +9,33 @@
 import UIKit
 
 extension UIBarButtonItem {
-    func addBadge(number: Int, withOffset offset: CGPoint = CGPoint.zero, andColor color: UIColor = UIColor.red, andFilled filled: Bool = true) {
+    func addBadge(text: String?, offset: CGPoint = CGPoint.zero, color: UIColor = UIColor.black) {
         guard let view = self.value(forKey: "view") as? UIView else { return }
 
         // Initialize Badge
         let badge = CAShapeLayer()
         let radius = CGFloat(7)
-        let location = CGPoint(x: view.frame.width - (radius + offset.x), y: (radius + offset.y))
-        badge.drawCircleAtLocation(location, withRadius: radius, andColor: color, filled: filled)
+        let location = CGPoint(x: view.frame.width - (radius + offset.x) - 5, y: (radius + offset.y))
+        badge.drawCircleAtLocation(location, withRadius: radius, andColor: color)
         view.layer.addSublayer(badge)
 
-        // Initialiaze Badge's label
-        let label = CATextLayer()
-        label.string = "\(number)"
-        label.alignmentMode = kCAAlignmentCenter
-        label.fontSize = 11
-        label.frame = CGRect(origin: CGPoint(x: location.x - 4, y: offset.y), size: CGSize(width: 8, height: 16))
-        label.foregroundColor = filled ? UIColor.white.cgColor : color.cgColor
-        label.backgroundColor = UIColor.clear.cgColor
-        label.contentsScale = UIScreen.main.scale
-        badge.addSublayer(label)
+        if text != nil {
+            let label = CATextLayer()
+            label.string = text!
+            label.alignmentMode = kCAAlignmentCenter
+            label.fontSize = 11
+            label.frame = CGRect(origin: CGPoint(x: location.x - 4, y: offset.y), size: CGSize(width: 8, height: 16))
+            label.foregroundColor = UIColor.white.cgColor
+            label.backgroundColor = UIColor.clear.cgColor
+            label.contentsScale = UIScreen.main.scale
+            badge.addSublayer(label)
+        }
     }
 }
 
 extension CAShapeLayer {
-    fileprivate func drawCircleAtLocation(_ location: CGPoint, withRadius radius: CGFloat, andColor color: UIColor, filled: Bool) {
-        fillColor = filled ? color.cgColor : UIColor.white.cgColor
+    fileprivate func drawCircleAtLocation(_ location: CGPoint, withRadius radius: CGFloat, andColor color: UIColor) {
+        fillColor = color.cgColor
         strokeColor = color.cgColor
         let origin = CGPoint(x: location.x - radius, y: location.y - radius)
         path = UIBezierPath.init(ovalIn: CGRect(origin: origin, size: CGSize(width: radius * 2, height: radius * 2)) ).cgPath
