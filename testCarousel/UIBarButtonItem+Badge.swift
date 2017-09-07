@@ -9,27 +9,42 @@
 import UIKit
 
 extension UIBarButtonItem {
-    func addBadge(text: String?, offset: CGPoint = CGPoint.zero, color: UIColor = UIColor.black) {
-        guard let view = self.value(forKey: "view") as? UIView else { return }
+    func addBadge(text: String, offset: CGPoint = CGPoint(x: 0, y: 4), color: UIColor = UIColor.black, fontName: String = Theme.Font.badge.fontName) {
 
         // Initialize Badge
         let badge = CAShapeLayer()
-        let radius = CGFloat(7)
+        let radius = text.characters.count <= 2 ? CGFloat(8) : CGFloat(9)
+
+        guard let view = self.value(forKey: "view") as? UIView else {
+            return
+        }
+
         let location = CGPoint(x: view.frame.width - (radius + offset.x) - 5, y: (radius + offset.y))
         badge.drawCircleAtLocation(location, withRadius: radius, andColor: color)
-        view.layer.addSublayer(badge)
 
-        if text != nil {
-            let label = CATextLayer()
-            label.string = text!
-            label.alignmentMode = kCAAlignmentCenter
-            label.fontSize = 11
-            label.frame = CGRect(origin: CGPoint(x: location.x - 4, y: offset.y), size: CGSize(width: 8, height: 16))
-            label.foregroundColor = UIColor.white.cgColor
-            label.backgroundColor = UIColor.clear.cgColor
-            label.contentsScale = UIScreen.main.scale
-            badge.addSublayer(label)
+        view.layer.addSublayer(badge)
+        for layer in view.layer.sublayers! {
+            if layer.name == "badge" {
+                layer.removeFromSuperlayer()
+                break
+            }
         }
+        badge.name = "badge"
+
+        let label = CATextLayer()
+        label.string = text
+        label.alignmentMode = kCAAlignmentCenter
+        label.font = CGFont( fontName  as CFString )
+        label.fontSize = text.characters.count <= 2 ? CGFloat(11) : CGFloat(9)
+
+        let offsetY = text.characters.count <= 2 ? offset.y + 1 : offset.y + 3
+
+        label.frame = CGRect(origin: CGPoint(x: location.x - 8, y: offsetY), size: CGSize(width: 16, height: 16))
+        label.foregroundColor = UIColor.white.cgColor
+        label.backgroundColor = UIColor.clear.cgColor
+        label.contentsScale = UIScreen.main.scale
+        badge.addSublayer(label)
+
     }
 }
 

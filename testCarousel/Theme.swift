@@ -17,5 +17,6 @@ class Theme {
     struct Font {
         static let regularFontForCell: UIFont = UIFont(name: "GillSans-Light", size: 18) ?? UIFont.systemFont(ofSize: 18)
         static let selectedFontForCell: UIFont = UIFont(name: "GillSans-Semibold", size: 24) ?? UIFont.systemFont(ofSize: 24)
+        static let badge: UIFont = UIFont(name: "GillSans-Bold", size: 9) ?? UIFont.systemFont(ofSize: 18)
     }
 }

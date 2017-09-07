@@ -23,15 +23,21 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         }
     }
 
+    weak var currentItem: SFCarouselItem?
 
     private var category: SFCarouselCategory
     private let cellReuseIdentifier = "SFCarouselCollectionViewCell"
     private var collectionView: UICollectionView!
 
     private weak var selectedViewForTransitioning: UIView? = nil
+    private weak var cartController: SFCartController?
 
-    init(_ category: SFCarouselCategory) {
+    init(_ category: SFCarouselCategory, cartController: SFCartController?) {
         self.category = category
+        self.cartController = cartController
+        if !category.items.isEmpty {
+            currentItem = category.items[0]
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -114,7 +120,7 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         DispatchQueue.global(qos: .userInteractive).async {
             if let navigationController = self.navigationController {
                 let item = self.category.items[indexPath.row]
-                let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(frame: self.view.bounds,item: item, categoryImage: self.category.image)
+                let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(frame: self.view.bounds,item: item, categoryImage: self.category.image, cartController: self.cartController)
                 vc.view.frame = self.view.bounds
                 if let cellImageView = (collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell)?.imageView {
 
@@ -132,5 +138,35 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
             }
 
         }
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        var rowIndexForCurrentItem: Int? = nil
+
+        let indexPathsForVisibleItems = collectionView.indexPathsForVisibleItems
+
+        let centerOfCollectionView = collectionView.center
+
+        switch indexPathsForVisibleItems.count {
+        case 1: rowIndexForCurrentItem = indexPathsForVisibleItems[0].row
+        case 2, 3:
+            for indexPath in indexPathsForVisibleItems {
+                if let cell = collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell {
+                    let cellFrameConverted = collectionView.convert(cell.frame, to: view)
+                    if cellFrameConverted.contains(centerOfCollectionView) {
+                        rowIndexForCurrentItem = indexPath.row
+                        break
+                    }
+                }
+            }
+        default: break
+        }
+
+        if rowIndexForCurrentItem != nil {
+            currentItem = category.items[rowIndexForCurrentItem!]
+            print(currentItem!.title)
+        }
+
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, SFCarouselTransitionViewProvider {
+final class SFCarouselVerticalPageViewController: UIPageViewController, UIScrollViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, SFCarouselTransitionViewProvider, SFBaseViewControllerProtocol {
 
     private weak var lastViewForTransition: UIView? = nil
     private var lastFrameForTransition: CGRect? = nil
@@ -20,7 +20,6 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     func setFrameForTransition(f: CGRect) {
         lastFrameForTransition = f
     }
-
 
     var absoulteFrameForTransitionView: CGRect? {
         get {
@@ -61,11 +60,11 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     private var allowedSwitchDirection: Int = 0
     private var indexLimiter = 0
 
-    private weak var controller: SFCartController?
+    weak var cartController: SFCartController?
 
     init(categories: [SFCarouselCategory], controller: SFCartController) {
         self.categories = categories
-        self.controller = controller
+        self.cartController = controller
         
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
     }
@@ -76,6 +75,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
     deinit {
         horizontalViewControllers.removeAll()
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidLoad() {
@@ -83,10 +83,6 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
         delegate = self
         dataSource = self
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
-
 
         for v in view.subviews {
             if v as? UIScrollView != nil {
@@ -101,9 +97,6 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         if !categories.isEmpty {
             setupView()
         }
-
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
-
     }
 
     private func setupView() {
@@ -112,6 +105,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         setupMenuView()
         setupBackroundView()
         setupMainActionButton()
+        setupNavigationBarItems()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -136,7 +130,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         }
 
         categories.forEach { (c: SFCarouselCategory) in
-            let vc = SFCategoryContentViewController(c)
+            let vc = SFCategoryContentViewController.init(c, cartController: self.cartController)
             horizontalViewControllers.append(vc)
         }
 
@@ -215,7 +209,11 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     }
 
     func addToCartButtonClicked() {
-        navigationItem.rightBarButtonItem?.addBadge(text: "...")
+        guard let itemId = horizontalViewControllers[currentMenuIndex].currentItem?.id else {
+            return
+        }
+        cartController?.addItemToCart(id: itemId)
+//        navigationItem.rightBarButtonItem?.addBadge(text: "...")
     }
 
     private func setupSwipeHintView() {

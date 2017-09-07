@@ -15,6 +15,8 @@ final class SFCarouselController: NSObject, SFDatasource, SFCartController {
 
     internal var categories = [SFCarouselCategory]()
 
+    internal var cartOnUpdateNotificationName: Notification.Name = Notification.Name("CartUpdated")
+
     override init() {
         cart = SFCart()
         itemsDictionary = [:]
@@ -85,10 +87,25 @@ final class SFCarouselController: NSObject, SFDatasource, SFCartController {
 //    MARK: SFCartController Protocol implementation
     func removeItemFromCart(id: Int) {
         cart.removeItem(id: id)
+        let count = cart.numberOfItems(id: nil)
+        cartUpdated(count)
     }
 
     func addItemToCart(id: Int) {
         cart.addItem(id: id)
+        let count = cart.numberOfItems(id: nil)
+        cartUpdated(count)
+    }
+
+
+
+    func numberOfItemsInCart(id: Int?) -> Int {
+        return cart.numberOfItems(id: id)
+    }
+
+    private func cartUpdated(_ count: Int) {
+        // Post notification
+        NotificationCenter.default.post(name: cartOnUpdateNotificationName, object: nil, userInfo: ["count": count])
     }
 
 }

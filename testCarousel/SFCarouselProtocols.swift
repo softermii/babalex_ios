@@ -15,8 +15,13 @@ protocol SFDatasource: class {
 }
 
 protocol SFCartController: class {
+
     func addItemToCart(id: Int)
     func removeItemFromCart(id: Int)
+
+    func numberOfItemsInCart(id: Int?) -> Int
+
+    var cartOnUpdateNotificationName: Notification.Name { get }
 }
 
 protocol SFCarouselTransitionViewProvider: class {

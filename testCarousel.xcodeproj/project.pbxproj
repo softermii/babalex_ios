@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		251569411F6136AE00F0338D /* SFBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251569401F6136AE00F0338D /* SFBaseViewController.swift */; };
 		2516D5BA1F604B98009DD5C1 /* UIBarButtonItem+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516D5B91F604B98009DD5C1 /* UIBarButtonItem+Badge.swift */; };
 		25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */; };
 		25274B9D1F50255100AD41BE /* SFCarouselMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */; };
@@ -16,7 +17,6 @@
 		2558816D1F4C110A0027E14B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558816C1F4C110A0027E14B /* AppDelegate.swift */; };
 		255881771F4C110A0027E14B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 255881751F4C110A0027E14B /* LaunchScreen.storyboard */; };
 		255881821F4C1EA70027E14B /* SFEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255881811F4C1EA70027E14B /* SFEntities.swift */; };
-		255D63D81F55AD4E00DBBFE6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D63D71F55AD4E00DBBFE6 /* Strings.swift */; };
 		256D7A7A1F56A69200DD6708 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256D7A791F56A69200DD6708 /* Theme.swift */; };
 		257E4ACA1F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E4AC91F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift */; };
 		258903711F5465AE009CDF1E /* SFCarouselDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589036F1F5465AE009CDF1E /* SFCarouselDetailViewController.swift */; };
@@ -40,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		251569401F6136AE00F0338D /* SFBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFBaseViewController.swift; sourceTree = "<group>"; };
 		2516D5B91F604B98009DD5C1 /* UIBarButtonItem+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Badge.swift"; sourceTree = "<group>"; };
 		25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselMenuItemCell.swift; sourceTree = "<group>"; };
 		25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselMenuItemCell.xib; sourceTree = "<group>"; };
@@ -51,7 +52,6 @@
 		255881761F4C110A0027E14B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		255881781F4C110A0027E14B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		255881811F4C1EA70027E14B /* SFEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFEntities.swift; sourceTree = "<group>"; };
-		255D63D71F55AD4E00DBBFE6 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		256D7A791F56A69200DD6708 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		257E4AC91F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselCollectionViewLayoutAttributes.swift; sourceTree = "<group>"; };
 		2589036F1F5465AE009CDF1E /* SFCarouselDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselDetailViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +85,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2515693F1F61367E00F0338D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				251569401F6136AE00F0338D /* SFBaseViewController.swift */,
+				25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */,
+				25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */,
+				259A00B91F5709EC00E5A42F /* SFCarouselDetailViewController */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		25274B9E1F50255B00AD41BE /* SFCarouselMenuItemCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,14 +198,11 @@
 				257322281F5EA7D8007E6210 /* Transitions */,
 				257322291F5EA80D007E6210 /* Custom Views And Cells */,
 				259A00B71F57096C00E5A42F /* SFNavigationController.swift */,
-				25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */,
-				25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */,
-				259A00B91F5709EC00E5A42F /* SFCarouselDetailViewController */,
+				2515693F1F61367E00F0338D /* ViewControllers */,
 				259A00B11F56AA5F00E5A42F /* SFCarouselCollectionViewLayout+Attributes */,
 				25D3BDF71F4CB9E100BA87CB /* UIView+Blur.swift */,
 				2516D5B91F604B98009DD5C1 /* UIBarButtonItem+Badge.swift */,
 				25FDC0D41F4DD7D50061B25C /* SFCarouselProtocols.swift */,
-				255D63D71F55AD4E00DBBFE6 /* Strings.swift */,
 				256D7A791F56A69200DD6708 /* Theme.swift */,
 				254C0C9E1F58013A0002C1E2 /* babalex_products.json */,
 			);
@@ -308,7 +316,7 @@
 				258EAFBC1F602C7100A7CDE5 /* CustomUIControlWithXib.swift in Sources */,
 				25F4CAA61F4C592F00CA6D62 /* SFCategoryContentViewController.swift in Sources */,
 				2558816D1F4C110A0027E14B /* AppDelegate.swift in Sources */,
-				255D63D81F55AD4E00DBBFE6 /* Strings.swift in Sources */,
+				251569411F6136AE00F0338D /* SFBaseViewController.swift in Sources */,
 				25F4CAA81F4C599500CA6D62 /* SFCarouselCollectionViewLayout.swift in Sources */,
 				259A00B51F56E66600E5A42F /* SFCarouselSwipeHintView.swift in Sources */,
 				256D7A7A1F56A69200DD6708 /* Theme.swift in Sources */,

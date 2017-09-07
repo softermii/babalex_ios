@@ -16,18 +16,38 @@ final class SFCart {
         itemCounts = [:]
     }
 
-    public func addItem(id: Int) {
+    @discardableResult
+    public func addItem(id: Int) -> Int {
         var itemCount = itemCounts[id] ?? 0
         itemCount += 1
         itemCounts[id] = itemCount
+        print("All Items:", itemCounts)
+        return itemCount
     }
 
-    public func removeItem(id: Int) {
+    @discardableResult
+    public func removeItem(id: Int) -> Int {
         var itemCount = itemCounts[id] ?? 0
         if itemCount > 0 {
             itemCount -= 1
         }
         itemCounts[id] = itemCount
+
+        return itemCount
+    }
+
+    public func numberOfItems(id: Int?) -> Int {
+        var numberOfItems = 0
+
+        if id == nil {
+            itemCounts.forEach({ (item: (_: Int, count: Int)) in
+                numberOfItems += item.count
+            })
+        } else {
+            numberOfItems = itemCounts[id!] ?? 0
+        }
+
+        return numberOfItems
     }
 }
 

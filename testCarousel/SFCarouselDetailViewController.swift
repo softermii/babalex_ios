@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SFCarouselDetailViewController: UIViewController, SFCarouselTransitionViewProvider, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+final class SFCarouselDetailViewController: UIViewController, SFCarouselTransitionViewProvider, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, SFBaseViewControllerProtocol {
 
 
     private let initialFrame: CGRect
@@ -51,12 +51,13 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
     @IBOutlet weak var addToCartButton: SFButton!
 
     @IBAction func addToCartButtonClicked(_ sender: Any) {
-        navigationItem.rightBarButtonItem?.addBadge(text: nil)
+        cartController?.addItemToCart(id: item.id)
     }
 
-    init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?) {
+    init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?, cartController: SFCartController?) {
         self.item = item
         self.categoryImage = categoryImage
+        self.cartController = cartController
 
         initialFrame = frame
 
@@ -101,8 +102,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         detailTableView.rowHeight = UITableViewAutomaticDimension
 
         setupGestureRecognizer()
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "shopping-basket"), style: .plain, target: self, action: nil)
+        setupNavigationBarItems()
     }
 
     private func setupGestureRecognizer() {
@@ -126,8 +126,6 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         UIView.animate(withDuration: 0.3) {
             self.setAlphaForTextViews(1)
         }
-
-
     }
 
     override func viewWillDisappear(_ animated: Bool) {
