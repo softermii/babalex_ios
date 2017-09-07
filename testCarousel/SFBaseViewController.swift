@@ -55,9 +55,11 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
         let rightBarButtonItem = UIBarButtonItem( image: basketImage, style: .plain, target: self, action: #selector(rightBarButtonAction))
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
-        let userImage = UIImage(named: "user")
-        let leftBarButtonItem = UIBarButtonItem( image: userImage, style: .plain, target: self, action: #selector(leftBarButtonAction))
-        navigationItem.leftBarButtonItem = leftBarButtonItem
+        if type(of: self) != SFCarouselDetailViewController.self {
+            let userImage = UIImage(named: "user")
+            let leftBarButtonItem = UIBarButtonItem( image: userImage, style: .plain, target: self, action: #selector(leftBarButtonAction))
+            navigationItem.leftBarButtonItem = leftBarButtonItem
+        }
 
         guard let numberOfItemsInCart = cartController?.numberOfItemsInCart(id: nil) else {
             return

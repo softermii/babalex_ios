@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		251569411F6136AE00F0338D /* SFBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251569401F6136AE00F0338D /* SFBaseViewController.swift */; };
 		2516D5BA1F604B98009DD5C1 /* UIBarButtonItem+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516D5B91F604B98009DD5C1 /* UIBarButtonItem+Badge.swift */; };
+		251EBD531F61904900EE8785 /* SFAddToCartAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EBD521F61904900EE8785 /* SFAddToCartAnimator.swift */; };
 		25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */; };
 		25274B9D1F50255100AD41BE /* SFCarouselMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */; };
 		254C0C9F1F58013A0002C1E2 /* babalex_products.json in Resources */ = {isa = PBXBuildFile; fileRef = 254C0C9E1F58013A0002C1E2 /* babalex_products.json */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		251569401F6136AE00F0338D /* SFBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFBaseViewController.swift; sourceTree = "<group>"; };
 		2516D5B91F604B98009DD5C1 /* UIBarButtonItem+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Badge.swift"; sourceTree = "<group>"; };
+		251EBD521F61904900EE8785 /* SFAddToCartAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAddToCartAnimator.swift; sourceTree = "<group>"; };
 		25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselMenuItemCell.swift; sourceTree = "<group>"; };
 		25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselMenuItemCell.xib; sourceTree = "<group>"; };
 		254C0C9E1F58013A0002C1E2 /* babalex_products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = babalex_products.json; sourceTree = "<group>"; };
@@ -142,12 +144,13 @@
 			path = testCarousel;
 			sourceTree = "<group>";
 		};
-		257322281F5EA7D8007E6210 /* Transitions */ = {
+		257322281F5EA7D8007E6210 /* Transitions + Animations */ = {
 			isa = PBXGroup;
 			children = (
 				25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */,
+				251EBD521F61904900EE8785 /* SFAddToCartAnimator.swift */,
 			);
-			name = Transitions;
+			name = "Transitions + Animations";
 			sourceTree = "<group>";
 		};
 		257322291F5EA80D007E6210 /* Custom Views And Cells */ = {
@@ -195,7 +198,7 @@
 			children = (
 				255881811F4C1EA70027E14B /* SFEntities.swift */,
 				25F4CA951F4C32D900CA6D62 /* SFCarouselController.swift */,
-				257322281F5EA7D8007E6210 /* Transitions */,
+				257322281F5EA7D8007E6210 /* Transitions + Animations */,
 				257322291F5EA80D007E6210 /* Custom Views And Cells */,
 				259A00B71F57096C00E5A42F /* SFNavigationController.swift */,
 				2515693F1F61367E00F0338D /* ViewControllers */,
@@ -318,6 +321,7 @@
 				2558816D1F4C110A0027E14B /* AppDelegate.swift in Sources */,
 				251569411F6136AE00F0338D /* SFBaseViewController.swift in Sources */,
 				25F4CAA81F4C599500CA6D62 /* SFCarouselCollectionViewLayout.swift in Sources */,
+				251EBD531F61904900EE8785 /* SFAddToCartAnimator.swift in Sources */,
 				259A00B51F56E66600E5A42F /* SFCarouselSwipeHintView.swift in Sources */,
 				256D7A7A1F56A69200DD6708 /* Theme.swift in Sources */,
 				25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */,

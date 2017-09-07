@@ -51,7 +51,10 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
     @IBOutlet weak var addToCartButton: SFButton!
 
     @IBAction func addToCartButtonClicked(_ sender: Any) {
-        cartController?.addItemToCart(id: item.id)
+
+        SFAddToCartAnimator.instance.animateAddingItem(from: mainImageView, to: navigationItem.rightBarButtonItem, completion: {
+            self.cartController?.addItemToCart(id: self.item.id)
+        })
     }
 
     init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?, cartController: SFCartController?) {
