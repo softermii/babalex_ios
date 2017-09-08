@@ -55,7 +55,9 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
         let rightBarButtonItem = UIBarButtonItem( image: basketImage, style: .plain, target: self, action: #selector(rightBarButtonAction))
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
-        if type(of: self) != SFCarouselDetailViewController.self {
+
+        // Check if left "user button" is needed (it is only needed on the first screen)
+        if self.navigationController?.viewControllers.count == 1 {
             let userImage = UIImage(named: "user")
             let leftBarButtonItem = UIBarButtonItem( image: userImage, style: .plain, target: self, action: #selector(leftBarButtonAction))
             navigationItem.leftBarButtonItem = leftBarButtonItem
