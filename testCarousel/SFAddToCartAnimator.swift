@@ -19,7 +19,7 @@ final class SFAddToCartAnimator: NSObject, CAAnimationDelegate {
     func animateAddingItem(from: UIView?, to: UIBarButtonItem?, completion: @escaping () -> ()) {
         guard let window = from?.window,
             let toView = to?.value(forKey: "view") as? UIView else {
-                debugPrint("Important! windows have to be in the same window")
+                debugPrint("Important! window cannot we nil! check from view you want to animate")
                 return
         }
 

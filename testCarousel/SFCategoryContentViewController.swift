@@ -31,6 +31,7 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
 
     private weak var selectedViewForTransitioning: UIView? = nil
     private weak var cartController: SFCartController?
+    private var needToSetViewForCartAnimation = true
 
     init(_ category: SFCarouselCategory, cartController: SFCartController?) {
         self.category = category
@@ -49,6 +50,11 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         super.viewDidLoad()
 
         setupView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        needToSetViewForCartAnimation = true
     }
 
     private func setupView() {
@@ -110,9 +116,19 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
         DispatchQueue.main.async {
             (cell as? SFCarouselCollectionViewCell)?.applyImage()
+            DispatchQueue.global(qos: .utility).async {
+                guard let cellImageView = (cell as? SFCarouselCollectionViewCell)?.imageView,
+                self.needToSetViewForCartAnimation else {
+                    return
+                }
+
+                let transitionInfoProvider = self.parent as? SFCarouselTransitionViewProvider
+
+                transitionInfoProvider!.setViewForTransition(v: cellImageView)
+                self.needToSetViewForCartAnimation = false
+            }
         }
     }
 
@@ -157,11 +173,7 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
                     if cellFrameConverted.contains(centerOfCollectionView) {
                         rowIndexForCurrentItem = indexPath.row
 
-
                         let transitionInfoProvider = self.parent as? SFCarouselTransitionViewProvider
-
-//                        let frameForTransition = cellImageView.convert(cellImageView.frame, to: self.view)
-
                         transitionInfoProvider?.setViewForTransition(v: cell.imageView)
                         break
                     }
