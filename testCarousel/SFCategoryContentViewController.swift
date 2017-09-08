@@ -156,6 +156,13 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
                     let cellFrameConverted = collectionView.convert(cell.frame, to: view)
                     if cellFrameConverted.contains(centerOfCollectionView) {
                         rowIndexForCurrentItem = indexPath.row
+
+
+                        let transitionInfoProvider = self.parent as? SFCarouselTransitionViewProvider
+
+//                        let frameForTransition = cellImageView.convert(cellImageView.frame, to: self.view)
+
+                        transitionInfoProvider?.setViewForTransition(v: cell.imageView)
                         break
                     }
                 }

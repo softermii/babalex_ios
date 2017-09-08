@@ -212,7 +212,11 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
         guard let itemId = horizontalViewControllers[currentMenuIndex].currentItem?.id else {
             return
         }
-        cartController?.addItemToCart(id: itemId)
+
+
+        SFAddToCartAnimator.instance.animateAddingItem(from: viewForTransition, to: navigationItem.rightBarButtonItem) {
+            self.cartController?.addItemToCart(id: itemId)
+        }
 //        navigationItem.rightBarButtonItem?.addBadge(text: "...")
     }
 
