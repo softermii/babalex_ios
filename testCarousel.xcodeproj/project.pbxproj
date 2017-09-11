@@ -22,7 +22,7 @@
 		257E4ACA1F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E4AC91F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift */; };
 		258903711F5465AE009CDF1E /* SFCarouselDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589036F1F5465AE009CDF1E /* SFCarouselDetailViewController.swift */; };
 		258903721F5465AE009CDF1E /* SFCarouselDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258903701F5465AE009CDF1E /* SFCarouselDetailViewController.xib */; };
-		258EAFBC1F602C7100A7CDE5 /* CustomUIControlWithXib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258EAFBB1F602C7100A7CDE5 /* CustomUIControlWithXib.swift */; };
+		258EAFBC1F602C7100A7CDE5 /* CustomUIViewWithXib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258EAFBB1F602C7100A7CDE5 /* CustomUIViewWithXib.swift */; };
 		259A00B31F56E53300E5A42F /* SFCarouselSwipeHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 259A00B21F56E53300E5A42F /* SFCarouselSwipeHintView.xib */; };
 		259A00B51F56E66600E5A42F /* SFCarouselSwipeHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A00B41F56E66600E5A42F /* SFCarouselSwipeHintView.swift */; };
 		259A00B81F57096C00E5A42F /* SFNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A00B71F57096C00E5A42F /* SFNavigationController.swift */; };
@@ -30,6 +30,10 @@
 		25B53F841F62E572000894E5 /* SFCheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25B53F821F62E572000894E5 /* SFCheckoutViewController.xib */; };
 		25C3E9571F546C5F009896FE /* SFCarouselDetailAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */; };
 		25D3BDF81F4CB9E100BA87CB /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D3BDF71F4CB9E100BA87CB /* UIView+Blur.swift */; };
+		25D7553C1F66899500E50E7F /* SFCheckoutTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D7553B1F66899500E50E7F /* SFCheckoutTableViewHeader.swift */; };
+		25D7553F1F6689AF00E50E7F /* SFCheckoutTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25D7553E1F6689AF00E50E7F /* SFCheckoutTableViewHeader.xib */; };
+		25D755421F6692E500E50E7F /* SFCartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D755401F6692E500E50E7F /* SFCartTableViewCell.swift */; };
+		25D755431F6692E500E50E7F /* SFCartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25D755411F6692E500E50E7F /* SFCartTableViewCell.xib */; };
 		25F4CA941F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */; };
 		25F4CA961F4C32D900CA6D62 /* SFCarouselController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4CA951F4C32D900CA6D62 /* SFCarouselController.swift */; };
 		25F4CAA61F4C592F00CA6D62 /* SFCategoryContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */; };
@@ -60,7 +64,7 @@
 		257E4AC91F4CD938006D6EFA /* SFCarouselCollectionViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselCollectionViewLayoutAttributes.swift; sourceTree = "<group>"; };
 		2589036F1F5465AE009CDF1E /* SFCarouselDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselDetailViewController.swift; sourceTree = "<group>"; };
 		258903701F5465AE009CDF1E /* SFCarouselDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselDetailViewController.xib; sourceTree = "<group>"; };
-		258EAFBB1F602C7100A7CDE5 /* CustomUIControlWithXib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIControlWithXib.swift; sourceTree = "<group>"; };
+		258EAFBB1F602C7100A7CDE5 /* CustomUIViewWithXib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIViewWithXib.swift; sourceTree = "<group>"; };
 		259A00B21F56E53300E5A42F /* SFCarouselSwipeHintView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselSwipeHintView.xib; sourceTree = "<group>"; };
 		259A00B41F56E66600E5A42F /* SFCarouselSwipeHintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselSwipeHintView.swift; sourceTree = "<group>"; };
 		259A00B71F57096C00E5A42F /* SFNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFNavigationController.swift; sourceTree = "<group>"; };
@@ -68,6 +72,10 @@
 		25B53F821F62E572000894E5 /* SFCheckoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCheckoutViewController.xib; sourceTree = "<group>"; };
 		25C3E9561F546C5F009896FE /* SFCarouselDetailAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselDetailAnimationController.swift; sourceTree = "<group>"; };
 		25D3BDF71F4CB9E100BA87CB /* UIView+Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
+		25D7553B1F66899500E50E7F /* SFCheckoutTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCheckoutTableViewHeader.swift; sourceTree = "<group>"; };
+		25D7553E1F6689AF00E50E7F /* SFCheckoutTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCheckoutTableViewHeader.xib; sourceTree = "<group>"; };
+		25D755401F6692E500E50E7F /* SFCartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCartTableViewCell.swift; sourceTree = "<group>"; };
+		25D755411F6692E500E50E7F /* SFCartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCartTableViewCell.xib; sourceTree = "<group>"; };
 		25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselVerticalPageViewController.swift; sourceTree = "<group>"; };
 		25F4CA951F4C32D900CA6D62 /* SFCarouselController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselController.swift; sourceTree = "<group>"; };
 		25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCategoryContentViewController.swift; sourceTree = "<group>"; };
@@ -161,12 +169,14 @@
 		257322291F5EA80D007E6210 /* Custom Views And Cells */ = {
 			isa = PBXGroup;
 			children = (
-				258EAFBB1F602C7100A7CDE5 /* CustomUIControlWithXib.swift */,
+				258EAFBB1F602C7100A7CDE5 /* CustomUIViewWithXib.swift */,
 				25274B9E1F50255B00AD41BE /* SFCarouselMenuItemCell */,
 				25FDC0D31F4DCDA70061B25C /* SFCarouselCollectionViewCell */,
 				254C0CA41F582C050002C1E2 /* SFCarouselDetailViewInfoCell */,
 				259A00B61F56E66D00E5A42F /* SFCarouselSwipeHintView */,
 				25FD2E0C1F6018E6001F5ACD /* SFButton */,
+				25D7553D1F66899D00E50E7F /* SFCheckoutTableViewHeader */,
+				25D755441F6692ED00E50E7F /* SFCartTableViewCell */,
 			);
 			name = "Custom Views And Cells";
 			sourceTree = "<group>";
@@ -205,6 +215,24 @@
 				25B53F821F62E572000894E5 /* SFCheckoutViewController.xib */,
 			);
 			name = SFCheckoutViewController;
+			sourceTree = "<group>";
+		};
+		25D7553D1F66899D00E50E7F /* SFCheckoutTableViewHeader */ = {
+			isa = PBXGroup;
+			children = (
+				25D7553B1F66899500E50E7F /* SFCheckoutTableViewHeader.swift */,
+				25D7553E1F6689AF00E50E7F /* SFCheckoutTableViewHeader.xib */,
+			);
+			name = SFCheckoutTableViewHeader;
+			sourceTree = "<group>";
+		};
+		25D755441F6692ED00E50E7F /* SFCartTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				25D755401F6692E500E50E7F /* SFCartTableViewCell.swift */,
+				25D755411F6692E500E50E7F /* SFCartTableViewCell.xib */,
+			);
+			name = SFCartTableViewCell;
 			sourceTree = "<group>";
 		};
 		25F4CAA41F4C4FA900CA6D62 /* SFCarousel */ = {
@@ -304,6 +332,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25D7553F1F6689AF00E50E7F /* SFCheckoutTableViewHeader.xib in Resources */,
 				259A00B31F56E53300E5A42F /* SFCarouselSwipeHintView.xib in Resources */,
 				255881771F4C110A0027E14B /* LaunchScreen.storyboard in Resources */,
 				254C0CA31F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib in Resources */,
@@ -313,6 +342,7 @@
 				25F4CAAC1F4C5E7800CA6D62 /* SFCarouselCollectionViewCell.xib in Resources */,
 				25FD2E091F601717001F5ACD /* SFButton.xib in Resources */,
 				25FD2E071F600252001F5ACD /* Assets.xcassets in Resources */,
+				25D755431F6692E500E50E7F /* SFCartTableViewCell.xib in Resources */,
 				25274B9D1F50255100AD41BE /* SFCarouselMenuItemCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,10 +359,11 @@
 				25FD2E0B1F6018A3001F5ACD /* SFButton.swift in Sources */,
 				25FDC0D51F4DD7D50061B25C /* SFCarouselProtocols.swift in Sources */,
 				255881821F4C1EA70027E14B /* SFEntities.swift in Sources */,
+				25D7553C1F66899500E50E7F /* SFCheckoutTableViewHeader.swift in Sources */,
 				259A00B81F57096C00E5A42F /* SFNavigationController.swift in Sources */,
 				25F4CA941F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift in Sources */,
 				25B53F831F62E572000894E5 /* SFCheckoutViewController.swift in Sources */,
-				258EAFBC1F602C7100A7CDE5 /* CustomUIControlWithXib.swift in Sources */,
+				258EAFBC1F602C7100A7CDE5 /* CustomUIViewWithXib.swift in Sources */,
 				25F4CAA61F4C592F00CA6D62 /* SFCategoryContentViewController.swift in Sources */,
 				2558816D1F4C110A0027E14B /* AppDelegate.swift in Sources */,
 				251569411F6136AE00F0338D /* SFBaseViewController.swift in Sources */,
@@ -341,6 +372,7 @@
 				259A00B51F56E66600E5A42F /* SFCarouselSwipeHintView.swift in Sources */,
 				256D7A7A1F56A69200DD6708 /* Theme.swift in Sources */,
 				25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */,
+				25D755421F6692E500E50E7F /* SFCartTableViewCell.swift in Sources */,
 				258903711F5465AE009CDF1E /* SFCarouselDetailViewController.swift in Sources */,
 				25F4CAAB1F4C5E7800CA6D62 /* SFCarouselCollectionViewCell.swift in Sources */,
 				25D3BDF81F4CB9E100BA87CB /* UIView+Blur.swift in Sources */,

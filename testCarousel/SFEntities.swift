@@ -21,15 +21,17 @@ final class SFCart {
         var itemCount = itemCounts[id] ?? 0
         itemCount += 1
         itemCounts[id] = itemCount
-        print("All Items:", itemCounts)
         return itemCount
     }
 
     @discardableResult
     public func removeItem(id: Int) -> Int {
         var itemCount = itemCounts[id] ?? 0
+
         if itemCount > 0 {
             itemCount -= 1
+        } else {
+            itemCounts.removeValue(forKey: id)
         }
         itemCounts[id] = itemCount
 
@@ -48,6 +50,26 @@ final class SFCart {
         }
 
         return numberOfItems
+    }
+
+    public func numberOfItemTypes() -> Int {
+        var numberOfItems = 0
+
+        let ids = Array(itemCounts.keys)
+        for id in ids {
+            if itemCounts[id] != nil && itemCounts[id] != 0 {
+                numberOfItems += 1
+            }
+        }
+        return numberOfItems
+    }
+
+    public func itemID(_ index: Int) -> Int? {
+        let ids = Array(itemCounts.keys)
+        if ids.count > index {
+            return ids[index]
+        }
+        return nil
     }
 }
 

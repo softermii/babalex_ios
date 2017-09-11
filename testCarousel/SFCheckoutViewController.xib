@@ -19,6 +19,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dirty_background" translatesAutoresizingMaskIntoConstraints="NO" id="f8u-cJ-DEd">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M9S-Sc-SsG" customClass="SFButton" customModule="testCarousel" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -32,9 +35,9 @@
                         <action selector="checkoutButtonAction" destination="-1" eventType="touchUpInside" id="dKD-7R-6x8"/>
                     </connections>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tMP-ZA-PUW">
+                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tMP-ZA-PUW">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="fjH-LF-Rg0"/>
                         <outlet property="delegate" destination="-1" id="9Mw-Dq-rid"/>
@@ -45,16 +48,23 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="M9S-Sc-SsG" secondAttribute="bottom" id="3lj-zH-hgk"/>
                 <constraint firstItem="tMP-ZA-PUW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EWu-dh-fOJ"/>
+                <constraint firstItem="f8u-cJ-DEd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jba-Or-GhR"/>
                 <constraint firstItem="tMP-ZA-PUW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="K5k-N9-bso"/>
                 <constraint firstAttribute="trailing" secondItem="tMP-ZA-PUW" secondAttribute="trailing" id="LHX-zJ-4fv"/>
                 <constraint firstItem="tMP-ZA-PUW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="PeA-VA-j38"/>
+                <constraint firstItem="f8u-cJ-DEd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="S7U-rt-O0o"/>
                 <constraint firstItem="M9S-Sc-SsG" firstAttribute="top" secondItem="tMP-ZA-PUW" secondAttribute="bottom" id="TwG-4F-Isj"/>
                 <constraint firstItem="M9S-Sc-SsG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WAL-R3-wl8"/>
                 <constraint firstAttribute="trailing" secondItem="tMP-ZA-PUW" secondAttribute="trailing" id="eKa-5v-A52"/>
                 <constraint firstItem="M9S-Sc-SsG" firstAttribute="top" secondItem="tMP-ZA-PUW" secondAttribute="bottom" id="icB-j7-mBw"/>
+                <constraint firstItem="M9S-Sc-SsG" firstAttribute="top" secondItem="f8u-cJ-DEd" secondAttribute="bottom" id="jUA-jw-rH4"/>
                 <constraint firstAttribute="trailing" secondItem="M9S-Sc-SsG" secondAttribute="trailing" id="kCj-ca-9je"/>
+                <constraint firstAttribute="trailing" secondItem="f8u-cJ-DEd" secondAttribute="trailing" id="mB1-kH-B4h"/>
             </constraints>
             <point key="canvasLocation" x="35.5" y="54.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="dirty_background" width="360" height="640"/>
+    </resources>
 </document>

@@ -59,7 +59,15 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
 
 
         let basketImage = UIImage(named: "shopping-basket")
+
         let rightBarButtonItem = UIBarButtonItem( image: basketImage, style: .plain, target: self, action: #selector(rightBarButtonAction))
+
+        if type(of: self) == SFCheckoutViewController.self {
+            rightBarButtonItem.tintColor = UIColor.black
+        } else {
+            rightBarButtonItem.tintColor = UIColor.defaultColorForTextAndUI
+        }
+
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
 
@@ -70,7 +78,7 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
             navigationItem.leftBarButtonItem = leftBarButtonItem
         }
 
-        let numberOfItemsInCart = cartController.numberOfItemsInCart(id: nil)
+        let numberOfItemsInCart = cartController.numberOfItemsInCart(nil)
 
         if numberOfItemsInCart != 0 {
             let textForBadge: String
@@ -79,8 +87,19 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
             } else {
                 textForBadge = "\(numberOfItemsInCart)"
             }
+
+            let colorForBadge: UIColor
+
+            print("type(of: self)", type(of: self))
+
+            if type(of: self) == SFCheckoutViewController.self {
+                colorForBadge = UIColor.defaultColorForTextAndUI
+            } else {
+                colorForBadge = UIColor.black
+            }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                rightBarButtonItem.addBadge(text: textForBadge)
+                rightBarButtonItem.addBadge(text: textForBadge, color: colorForBadge)
             }
         }
 

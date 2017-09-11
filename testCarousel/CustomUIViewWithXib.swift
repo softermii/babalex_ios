@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class CustomUIControlWithXib: UIControl {
+class CustomUIViewWithXib: UIControl {
 
     // MARK: init methods
     required init?(coder aDecoder: NSCoder) {

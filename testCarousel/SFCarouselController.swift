@@ -98,9 +98,19 @@ final class SFCarouselController: NSObject, SFDatasource, SFCartController {
     }
 
 
-
-    func numberOfItemsInCart(id: Int?) -> Int {
+    func numberOfItemsInCart(_ id: Int? = nil) -> Int {
         return cart.numberOfItems(id: id)
+    }
+
+    func numberOfItemTypesInCart() -> Int {
+        return cart.numberOfItemTypes()
+    }
+
+    func item(_ index: Int) -> SFCarouselItem? {
+        if let itemID = cart.itemID(index) {
+            return self.itemsDictionary[itemID]
+        }
+        return nil
     }
 
     private func cartUpdated(_ count: Int) {

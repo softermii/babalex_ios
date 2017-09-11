@@ -9,8 +9,10 @@
 import UIKit
 
 extension UIBarButtonItem {
-    func addBadge(text: String, offset: CGPoint = CGPoint(x: 0, y: 4), color: UIColor = UIColor.black, fontName: String = Theme.Font.badge.fontName) {
+    func addBadge(text: String, color: UIColor = UIColor.black) {
 
+        let offset: CGPoint = CGPoint(x: 0, y: 4)
+        let fontName = Theme.Font.badge.fontName
         // Initialize Badge
         let badge = CAShapeLayer()
         let radius = text.characters.count <= 2 ? CGFloat(8) : CGFloat(9)

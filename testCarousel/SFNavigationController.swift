@@ -96,12 +96,16 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
 
 //        print("toVC", toVC as? SFCarouselTransitionViewProvider)
 
-        if (operation == .push || operation == .pop) && (toVC as? SFCarouselTransitionViewProvider != nil && fromVC as? SFCarouselTransitionViewProvider != nil) {
+        guard
+            toVC as? SFCarouselTransitionViewProvider != nil,
+            fromVC as? SFCarouselTransitionViewProvider != nil else {
+                return nil
+        }
+
+        if operation == .push || operation == .pop {
             animationController.isInteractive = false
             return animationController
         }
-
-
 
         return nil
     }

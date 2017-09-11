@@ -8,18 +8,17 @@
 
 import UIKit
 
-@IBDesignable class SFButton: CustomUIControlWithXib {
+@IBDesignable class SFButton: CustomUIViewWithXib {
 
     @IBInspectable var title: String = "ADD TO CART" {
         didSet {
             guard
-                subviews.count != 0,
-                let button = subviews[0] as? UIButton else {
+                subviews.count != 0
+                else {
                     return
             }
 
-            button.titleLabel?.text = title
-
+            (subviews[0] as? UIButton)?.titleLabel?.text = title
         }
     }
 

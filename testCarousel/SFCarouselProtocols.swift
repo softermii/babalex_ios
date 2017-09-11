@@ -19,9 +19,12 @@ protocol SFCartController: class {
     func addItemToCart(id: Int)
     func removeItemFromCart(id: Int)
 
-    func numberOfItemsInCart(id: Int?) -> Int
+    func numberOfItemsInCart(_ id: Int?) -> Int
+    func numberOfItemTypesInCart() -> Int
 
     var cartOnUpdateNotificationName: Notification.Name { get }
+
+    func item(_ index: Int) -> SFCarouselItem?
 }
 
 protocol SFCarouselTransitionViewProvider: class {
