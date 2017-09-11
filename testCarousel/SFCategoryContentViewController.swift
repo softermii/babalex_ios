@@ -30,11 +30,11 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
     private var collectionView: UICollectionView!
 
     private weak var selectedViewForTransitioning: UIView? = nil
-    private weak var cartController: SFCartController?
+    private unowned var cartController: SFCartController
 
     private var needsToUpdateViewForAnimation = true
 
-    init(_ category: SFCarouselCategory, cartController: SFCartController?) {
+    init(_ category: SFCarouselCategory, cartController: SFCartController) {
         self.category = category
         self.cartController = cartController
         if !category.items.isEmpty {

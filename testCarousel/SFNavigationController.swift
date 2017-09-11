@@ -39,16 +39,6 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
         setupGestureRecognizers()
 
         edgesForExtendedLayout = UIRectEdge.top
-
-        for vc in viewControllers {
-            guard let viewController = vc as? SFCarouselVerticalPageViewController,
-                let categories = controller?.categories else {
-                    return
-            }
-            viewController.categories = categories
-            return
-        }
-
     }
 
     private func setupBackground() {
@@ -65,7 +55,7 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
         interactivePopGestureRecognizer?.isEnabled = false
 
         swipeFromLeftGestureRecognizer = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(handleScreenEdgePan))
-        swipeFromLeftGestureRecognizer.requiresExclusiveTouchType = true
+        
         swipeFromLeftGestureRecognizer.delegate = self
         swipeFromLeftGestureRecognizer.edges = .left
         swipeFromLeftGestureRecognizer.delaysTouchesBegan = false
@@ -104,21 +94,26 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
     // MARK: UINavigationControllerDelegate
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
-        if operation == .push || operation == .pop {
+//        print("toVC", toVC as? SFCarouselTransitionViewProvider)
+
+        if (operation == .push || operation == .pop) && (toVC as? SFCarouselTransitionViewProvider != nil && fromVC as? SFCarouselTransitionViewProvider != nil) {
             animationController.isInteractive = false
             return animationController
         }
+
+
 
         return nil
     }
 
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 
-        guard let sfAnimationController = animationController as? SFCarouselDetailAnimationController else {
+        guard let sfAnimationController = animationController as? SFCarouselDetailAnimationController,
+            isInteractive else {
             return nil
         }
         sfAnimationController.isInteractive = isInteractive
-        return isInteractive ? sfAnimationController : nil
+        return sfAnimationController
     }
 
     // MARK: UIGestureRecognizerDelegate

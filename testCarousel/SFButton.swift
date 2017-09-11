@@ -10,6 +10,19 @@ import UIKit
 
 @IBDesignable class SFButton: CustomUIControlWithXib {
 
+    @IBInspectable var title: String = "ADD TO CART" {
+        didSet {
+            guard
+                subviews.count != 0,
+                let button = subviews[0] as? UIButton else {
+                    return
+            }
+
+            button.titleLabel?.text = title
+
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 

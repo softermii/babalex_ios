@@ -60,7 +60,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     private var allowedSwitchDirection: Int = 0
     private var indexLimiter = 0
 
-    weak var cartController: SFCartController?
+    unowned var cartController: SFCartController
 
     init(categories: [SFCarouselCategory], controller: SFCartController) {
         self.categories = categories
@@ -215,7 +215,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
 
         SFAddToCartAnimator.instance.animateAddingItem(from: viewForTransition, to: navigationItem.rightBarButtonItem) {
-            self.cartController?.addItemToCart(id: itemId)
+            self.cartController.addItemToCart(id: itemId)
         }
 //        navigationItem.rightBarButtonItem?.addBadge(text: "...")
     }

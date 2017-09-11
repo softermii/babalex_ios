@@ -21,7 +21,14 @@ extension UIViewController: SFBaseViewControllerWithCart {
     }
 
     public func rightBarButtonAction() {
-        print("rightBarButtonItemClicked -")
+
+        guard let _self = self as? SFBaseViewControllerProtocol else {
+            return
+        }
+
+        let viewController = SFCheckoutViewController(cartController: _self.cartController)
+
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     public func cartUpdated(notification: Notification) {
@@ -39,7 +46,7 @@ extension UIViewController: SFBaseViewControllerWithCart {
 }
 
 protocol SFBaseViewControllerProtocol: class {
-    weak var cartController: SFCartController? {
+    unowned var cartController: SFCartController {
         get
     }
     func setupNavigationBarItems()
@@ -63,9 +70,7 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
             navigationItem.leftBarButtonItem = leftBarButtonItem
         }
 
-        guard let numberOfItemsInCart = cartController?.numberOfItemsInCart(id: nil) else {
-            return
-        }
+        let numberOfItemsInCart = cartController.numberOfItemsInCart(id: nil)
 
         if numberOfItemsInCart != 0 {
             let textForBadge: String
@@ -80,8 +85,8 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
         }
 
         // Register to receive notification on cart updates
-        if let notificationName = cartController?.cartOnUpdateNotificationName {
-            NotificationCenter.default.addObserver(self, selector: #selector(type(of: self).cartUpdated), name: notificationName, object: nil)
-        }
+        let notificationName = cartController.cartOnUpdateNotificationName
+        NotificationCenter.default.addObserver(self, selector: #selector(type(of: self).cartUpdated), name: notificationName, object: nil)
+
     }
 }

@@ -24,13 +24,13 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
     private weak var transitionContext: UIViewControllerContextTransitioning? = nil
 
     override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        super.startInteractiveTransition(transitionContext)
 
         guard let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? SFCarouselTransitionViewProvider,
             let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? SFCarouselTransitionViewProvider,
             let finalFrame = toVC.absoulteFrameForTransitionView,
 
             let startFrame = fromVC.absoulteFrameForTransitionView else {
+                super.startInteractiveTransition(transitionContext)
                 return
         }
 

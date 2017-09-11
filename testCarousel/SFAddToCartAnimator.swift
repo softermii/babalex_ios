@@ -11,7 +11,8 @@ import UIKit
 final class SFAddToCartAnimator: NSObject, CAAnimationDelegate {
 
     static let instance = SFAddToCartAnimator()
-    static var animationNumber  = 0
+    static var animationNumber = 0
+    let duration: CFTimeInterval = 0.3
 
     private var snapshots: [Int: UIView] = [:]
     private var completions: [() -> ()] = []
@@ -57,7 +58,7 @@ final class SFAddToCartAnimator: NSObject, CAAnimationDelegate {
 
         positionAnimation.fillMode              = kCAFillModeForwards
         positionAnimation.isRemovedOnCompletion = false
-        positionAnimation.duration              = 0.5
+        positionAnimation.duration              = duration
         positionAnimation.timingFunction        = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn)
 
         let sizeAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
@@ -65,7 +66,7 @@ final class SFAddToCartAnimator: NSObject, CAAnimationDelegate {
         sizeAnimation.values = [1, multiplier]
         sizeAnimation.isRemovedOnCompletion = false
         sizeAnimation.timingFunction        = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn)
-        sizeAnimation.duration = 0.5
+        sizeAnimation.duration = duration
 
         let alphaAnimation = CABasicAnimation.init(keyPath: "opacity")
         alphaAnimation.fromValue = 1
@@ -73,7 +74,7 @@ final class SFAddToCartAnimator: NSObject, CAAnimationDelegate {
         alphaAnimation.isRemovedOnCompletion = false
         alphaAnimation.timingFunction        = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn)
         alphaAnimation.fillMode              = kCAFillModeForwards
-        alphaAnimation.duration = 0.6
+        alphaAnimation.duration = duration + 0.1
         alphaAnimation.delegate = self
 
 

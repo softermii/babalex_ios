@@ -18,7 +18,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
     private var categoryImage: UIImage?
     private var imageTapGestureRecognizer: UITapGestureRecognizer!
 
-    weak var cartController: SFCartController?
+    unowned var cartController: SFCartController
 
     func setFrameForTransition(f: CGRect) {}
     func setViewForTransition(v: UIView) {}
@@ -53,11 +53,11 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
     @IBAction func addToCartButtonClicked(_ sender: Any) {
 
         SFAddToCartAnimator.instance.animateAddingItem(from: mainImageView, to: navigationItem.rightBarButtonItem, completion: {
-            self.cartController?.addItemToCart(id: self.item.id)
+            self.cartController.addItemToCart(id: self.item.id)
         })
     }
 
-    init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?, cartController: SFCartController?) {
+    init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?, cartController: SFCartController) {
         self.item = item
         self.categoryImage = categoryImage
         self.cartController = cartController
