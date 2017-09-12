@@ -15,6 +15,8 @@ final class SFCheckoutViewController: UIViewController, UITableViewDelegate, UIT
     let cellReuseIdentifier = "SFCartTableViewCell"
     weak var tableFooterView: SFCheckoutTableViewFooter?
 
+    private var itemIndex = [Int: Int]()
+
     init(cartController: SFCartController) {
         self.cartController = cartController
         super.init(nibName: type(of: self).nibName, bundle: nil)
@@ -30,7 +32,9 @@ final class SFCheckoutViewController: UIViewController, UITableViewDelegate, UIT
 
         if let item = cartController.item(indexPath.row) {
             let count = cartController.numberOfItemsInCart(item.id)
+            itemIndex[item.id] = indexPath.row
             cell.setup(item, count: count, delegate: self)
+
         }
         
         return cell
@@ -73,35 +77,43 @@ final class SFCheckoutViewController: UIViewController, UITableViewDelegate, UIT
 
         updateSummaryText()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func checkoutButtonAction() {
+        let vc = SFCheckoutAlertViewController.init(code: "r04o4w1")
+
+        vc.modalPresentationStyle = .overCurrentContext
+        
+        present(vc, animated: true, completion: nil)
     }
 
     func cartCountUpdated(id: Int, count: Int) {
         if count == -1 {
-            let indexOfItem = cartController.index(id)
+
             cartController.removeItemFromCart(id: id)
             let newCount = cartController.numberOfItemsInCart(id)
 
-            if newCount == 0 && indexOfItem != nil {
+            if newCount == 0 {
+                if let row = itemIndex.removeValue(forKey: id) {
+                    let indexPath = IndexPath(row: row, section: 0)
 
-                let indexPath = IndexPath(row: indexOfItem!, section: 0)
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    tableView.endUpdates()
 
-                tableView.beginUpdates()
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                tableView.endUpdates()
+                    for item in itemIndex {
+                        if item.value > row {
+                            itemIndex[item.key] = item.value - 1
+                        }
+                    }
+
+                }
+
             }
         } else {
             cartController.addItemToCart(id: id)
         }
 
         updateSummaryText()
-
     }
 
     private func updateSummaryText() {

@@ -14,6 +14,8 @@
 		25274B9D1F50255100AD41BE /* SFCarouselMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */; };
 		254727471F67D11E009D444E /* SFCheckoutTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254727461F67D11E009D444E /* SFCheckoutTableViewFooter.swift */; };
 		254727491F67D151009D444E /* SFCheckoutTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254727481F67D151009D444E /* SFCheckoutTableViewFooter.xib */; };
+		2547274C1F67E0D5009D444E /* SFCheckoutAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2547274A1F67E0D5009D444E /* SFCheckoutAlertViewController.swift */; };
+		2547274D1F67E0D5009D444E /* SFCheckoutAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2547274B1F67E0D5009D444E /* SFCheckoutAlertViewController.xib */; };
 		254C0C9F1F58013A0002C1E2 /* babalex_products.json in Resources */ = {isa = PBXBuildFile; fileRef = 254C0C9E1F58013A0002C1E2 /* babalex_products.json */; };
 		254C0CA21F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C0CA01F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift */; };
 		254C0CA31F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254C0CA11F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib */; };
@@ -56,6 +58,8 @@
 		25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselMenuItemCell.xib; sourceTree = "<group>"; };
 		254727461F67D11E009D444E /* SFCheckoutTableViewFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCheckoutTableViewFooter.swift; sourceTree = "<group>"; };
 		254727481F67D151009D444E /* SFCheckoutTableViewFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCheckoutTableViewFooter.xib; sourceTree = "<group>"; };
+		2547274A1F67E0D5009D444E /* SFCheckoutAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCheckoutAlertViewController.swift; sourceTree = "<group>"; };
+		2547274B1F67E0D5009D444E /* SFCheckoutAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCheckoutAlertViewController.xib; sourceTree = "<group>"; };
 		254C0C9E1F58013A0002C1E2 /* babalex_products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = babalex_products.json; sourceTree = "<group>"; };
 		254C0CA01F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselDetailViewInfoCell.swift; sourceTree = "<group>"; };
 		254C0CA11F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselDetailViewInfoCell.xib; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				25F4CA931F4C2F3C00CA6D62 /* SFCarouselVerticalPageViewController.swift */,
 				25F4CAA51F4C592F00CA6D62 /* SFCategoryContentViewController.swift */,
 				259A00B91F5709EC00E5A42F /* SFCarouselDetailViewController */,
+				2547274E1F67E0DB009D444E /* SFCheckoutAlertViewController */,
 				25B53F851F62E57E000894E5 /* SFCheckoutViewController */,
 			);
 			name = ViewControllers;
@@ -131,6 +136,15 @@
 				254727481F67D151009D444E /* SFCheckoutTableViewFooter.xib */,
 			);
 			name = SFCheckoutTableViewFooter;
+			sourceTree = "<group>";
+		};
+		2547274E1F67E0DB009D444E /* SFCheckoutAlertViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2547274A1F67E0D5009D444E /* SFCheckoutAlertViewController.swift */,
+				2547274B1F67E0D5009D444E /* SFCheckoutAlertViewController.xib */,
+			);
+			name = SFCheckoutAlertViewController;
 			sourceTree = "<group>";
 		};
 		254C0CA41F582C050002C1E2 /* SFCarouselDetailViewInfoCell */ = {
@@ -349,6 +363,7 @@
 				25D7553F1F6689AF00E50E7F /* SFCheckoutTableViewHeader.xib in Resources */,
 				259A00B31F56E53300E5A42F /* SFCarouselSwipeHintView.xib in Resources */,
 				255881771F4C110A0027E14B /* LaunchScreen.storyboard in Resources */,
+				2547274D1F67E0D5009D444E /* SFCheckoutAlertViewController.xib in Resources */,
 				254C0CA31F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib in Resources */,
 				25B53F841F62E572000894E5 /* SFCheckoutViewController.xib in Resources */,
 				254727491F67D151009D444E /* SFCheckoutTableViewFooter.xib in Resources */,
@@ -389,6 +404,7 @@
 				25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */,
 				25D755421F6692E500E50E7F /* SFCartTableViewCell.swift in Sources */,
 				254727471F67D11E009D444E /* SFCheckoutTableViewFooter.swift in Sources */,
+				2547274C1F67E0D5009D444E /* SFCheckoutAlertViewController.swift in Sources */,
 				258903711F5465AE009CDF1E /* SFCarouselDetailViewController.swift in Sources */,
 				25F4CAAB1F4C5E7800CA6D62 /* SFCarouselCollectionViewCell.swift in Sources */,
 				25D3BDF81F4CB9E100BA87CB /* UIView+Blur.swift in Sources */,

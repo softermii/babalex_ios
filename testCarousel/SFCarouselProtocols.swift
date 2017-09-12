@@ -38,3 +38,8 @@ protocol SFCarouselTransitionViewProvider: class {
     func setViewForTransition(v: UIView)
     func setFrameForTransition(f: CGRect)
 }
+
+
+protocol SFCartTableViewCellDelegate: class {
+    func cartCountUpdated(id: Int, count: Int)
+}

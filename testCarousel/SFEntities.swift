@@ -94,17 +94,11 @@ final class SFCart {
         var returned = Array<(id: Int, count: Int)>()
 
         itemCounts.forEach { (item: (id: Int, count: Int)) in
-//            if itemCounts[id] != nil && itemCounts[id] != 0 {
-//                let value = (id: id, count: itemCounts[id])
-//                returned.append(value)
-//            }
             if item.count != 0 {
                 returned.append((id: item.id, count: item.count))
             }
-//            print(item)
         }
 
-//        print(returned)
         return returned
     }
 }

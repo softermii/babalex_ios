@@ -22,7 +22,8 @@ extension UIViewController: SFBaseViewControllerWithCart {
 
     public func rightBarButtonAction() {
 
-        guard let _self = self as? SFBaseViewControllerProtocol else {
+        guard let _self = self as? SFBaseViewControllerProtocol,
+            self as? SFCheckoutViewController == nil else {
             return
         }
 

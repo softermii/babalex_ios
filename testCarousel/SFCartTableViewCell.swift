@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol SFCartTableViewCellDelegate: class {
-    func cartCountUpdated(id: Int, count: Int)
-}
-
 class SFCartTableViewCell: UITableViewCell {
 
     weak var delegate: SFCartTableViewCellDelegate?
