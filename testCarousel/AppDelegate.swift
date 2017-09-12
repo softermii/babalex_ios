@@ -12,20 +12,21 @@ import UIKit
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var carouselController: SFDatasource!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        prepareNavigationBarAppearance()
-        return true
-    }
+        carouselController = SFCarouselController()
+        carouselController.prepareItems()
 
-    private func prepareNavigationBarAppearance() {
-//        UINavigationBar.appearance().isTranslucent = true
-//        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-//        UINavigationBar.appearance().tintColor = UIColor.black
-        
+        let rootViewController = SFCarouselVerticalPageViewController(categories: carouselController.categories, controller: carouselController as! SFCartController)
+        let navigationController = SFNavigationController(rootViewController: rootViewController)
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

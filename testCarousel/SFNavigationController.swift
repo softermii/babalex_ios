@@ -14,7 +14,19 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
 
     private var isInteractive = false
     private var swipeFromLeftGestureRecognizer: UIScreenEdgePanGestureRecognizer!
+    weak var controller: SFDatasource?
 
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,28 +34,42 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
         // Do any additional setup after loading the view.
         delegate = self
 
-        interactivePopGestureRecognizer?.delegate = self
-        interactivePopGestureRecognizer?.isEnabled = true
+        setupBackground()
+        setupNavigationBarAppearance()
+        setupGestureRecognizers()
 
-        view.backgroundColor = UIColor.white
-
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
-
-        setupGestureRecognizer()
+        edgesForExtendedLayout = UIRectEdge.top
     }
 
-    private func setupGestureRecognizer() {
+    private func setupBackground() {
+        view.layer.contents = UIImage(named: "dirty_background")?.cgImage
+    }
+
+    private func setupNavigationBarAppearance() {
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.tintColor = UIColor.black
+    }
+
+    private func setupGestureRecognizers() {
+        interactivePopGestureRecognizer?.isEnabled = false
+
         swipeFromLeftGestureRecognizer = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(handleScreenEdgePan))
+        
+        swipeFromLeftGestureRecognizer.delegate = self
         swipeFromLeftGestureRecognizer.edges = .left
+        swipeFromLeftGestureRecognizer.delaysTouchesBegan = false
+        swipeFromLeftGestureRecognizer.delaysTouchesEnded = false
         view.addGestureRecognizer(swipeFromLeftGestureRecognizer)
     }
 
     func handleScreenEdgePan(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         let translate = recognizer.translation(in: recognizer.view)
+
         guard let viewWidth = recognizer.view?.bounds.size.width else {
             return
         }
+
         let percent = translate.x / viewWidth
 
         switch recognizer.state {
@@ -59,13 +85,22 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
             } else {
                 animationController.cancel()
             }
-            self.isInteractive = false
+
+            isInteractive = false
         default: break
         }
     }
 
     // MARK: UINavigationControllerDelegate
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+
+//        print("toVC", toVC as? SFCarouselTransitionViewProvider)
+
+        guard
+            toVC as? SFCarouselTransitionViewProvider != nil,
+            fromVC as? SFCarouselTransitionViewProvider != nil else {
+                return nil
+        }
 
         if operation == .push || operation == .pop {
             animationController.isInteractive = false
@@ -77,18 +112,22 @@ class SFNavigationController: UINavigationController, UINavigationControllerDele
 
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 
-        guard let sfAnimationController = animationController as? SFCarouselDetailAnimationController else {
+        guard let sfAnimationController = animationController as? SFCarouselDetailAnimationController,
+            isInteractive else {
             return nil
         }
         sfAnimationController.isInteractive = isInteractive
-        return isInteractive ? sfAnimationController : nil
+        return sfAnimationController
     }
 
     // MARK: UIGestureRecognizerDelegate
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        guard let gR = gestureRecognizer as? UIScreenEdgePanGestureRecognizer else {
+            return false
+        }
+
+        let locationY = gR.location(in: view).y
+        return locationY < view.bounds.size.height - 60
     }
-
-
 
 }

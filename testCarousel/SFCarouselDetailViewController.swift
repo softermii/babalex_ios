@@ -8,14 +8,17 @@
 
 import UIKit
 
-final class SFCarouselDetailViewController: UIViewController, SFCarouselTransitionViewProvider, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+final class SFCarouselDetailViewController: UIViewController, SFCarouselTransitionViewProvider, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, SFBaseViewControllerProtocol {
 
+
+    private let initialFrame: CGRect
     private static let nibName = "SFCarouselDetailViewController"
     private let cellReuseIdentifier = "SFCarouselDetailViewInfoCell"
     private var item: SFCarouselItem
     private var categoryImage: UIImage?
-
     private var imageTapGestureRecognizer: UITapGestureRecognizer!
+
+    unowned var cartController: SFCartController
 
     func setFrameForTransition(f: CGRect) {}
     func setViewForTransition(v: UIView) {}
@@ -28,7 +31,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
 
     internal var absoulteFrameForTransitionView: CGRect? {
         get {
-            let size = frameAtInit.size
+            let size = initialFrame.size
             let yPosition = (size.height - size.width) / 2
             let rect = CGRect(x: -size.width/2, y: yPosition, width: size.width, height: size.width)
             return rect
@@ -44,15 +47,22 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
 
     @IBOutlet weak var ingredientsValue: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
-    @IBOutlet weak var addToCartButton: UIButton!
 
-    private let frameAtInit: CGRect
+    @IBOutlet weak var addToCartButton: SFButton!
 
-    init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?) {
+    @IBAction func addToCartButtonClicked(_ sender: Any) {
+
+        SFAddToCartAnimator.instance.animateAddingItem(from: mainImageView, to: navigationItem.rightBarButtonItem, completion: {
+            self.cartController.addItemToCart(id: self.item.id)
+        })
+    }
+
+    init(frame: CGRect, item: SFCarouselItem, categoryImage: UIImage?, cartController: SFCartController) {
         self.item = item
         self.categoryImage = categoryImage
+        self.cartController = cartController
 
-        frameAtInit = frame
+        initialFrame = frame
 
         super.init(nibName: type(of: self).nibName, bundle: nil)
     }
@@ -61,7 +71,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         super.loadView()
 
         DispatchQueue.main.async {
-            self.view.frame = self.frameAtInit
+            self.view.frame = self.initialFrame
         }
     }
     
@@ -95,6 +105,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         detailTableView.rowHeight = UITableViewAutomaticDimension
 
         setupGestureRecognizer()
+        setupNavigationBarItems()
     }
 
     private func setupGestureRecognizer() {
@@ -112,15 +123,11 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         return true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         UIView.animate(withDuration: 0.3) {
-            self.titleLabel.alpha = 1
-            self.descriptionLabel.alpha = 1
-            self.detailTableView.alpha = 1
-            self.ingredientsLabel.alpha = 1
-            self.ingredientsValue.alpha = 1
+            self.setAlphaForTextViews(1)
         }
     }
 
@@ -128,12 +135,18 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         super.viewWillDisappear(animated)
 
         UIView.animate(withDuration: 0.1) {
-            self.titleLabel.alpha = 0
-            self.descriptionLabel.alpha = 0
-            self.detailTableView.alpha = 0
-            self.ingredientsLabel.alpha = 0
-            self.ingredientsValue.alpha = 0
+            self.setAlphaForTextViews(0)
         }
+    }
+
+    private func setAlphaForTextViews(_ alpha: CGFloat) {
+
+        self.titleLabel.alpha = alpha
+        self.descriptionLabel.alpha = alpha
+        self.detailTableView.alpha = alpha
+        self.ingredientsLabel.alpha = alpha
+        self.ingredientsValue.alpha = alpha
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -158,5 +171,7 @@ final class SFCarouselDetailViewController: UIViewController, SFCarouselTransiti
         let count = item.detailInfo.count - 1
         return count > 0 ? count : 0
     }
+
+
 
 }

@@ -24,13 +24,13 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
     private weak var transitionContext: UIViewControllerContextTransitioning? = nil
 
     override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        super.startInteractiveTransition(transitionContext)
 
         guard let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? SFCarouselTransitionViewProvider,
             let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? SFCarouselTransitionViewProvider,
             let finalFrame = toVC.absoulteFrameForTransitionView,
 
             let startFrame = fromVC.absoulteFrameForTransitionView else {
+                super.startInteractiveTransition(transitionContext)
                 return
         }
 
@@ -149,8 +149,6 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
                 return
         }
 
-        toVC.view.frame = fromVC.view.bounds
-
         (fromVC as? UIViewController)?.beginAppearanceTransition(false, animated: true)
 
         let containerView = transitionContext.containerView
@@ -180,10 +178,12 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
             animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/6, animations: {
                     fromView?.alpha = 0
+                    fromVC.view.alpha = 0.85
                 })
                 UIView.addKeyframe(withRelativeStartTime: 1/6, relativeDuration: 5/6, animations: {
                     snapshot!.frame.size = finalFrame.size
                     snapshot!.frame.origin = finalFrame.origin
+                    fromVC.view.alpha = 0
                 })
                 UIView.addKeyframe(withRelativeStartTime: 4/6, relativeDuration: 2/6, animations: {
 
@@ -195,6 +195,7 @@ final class SFCarouselDetailAnimationController: UIPercentDrivenInteractiveTrans
                 snapshot!.removeFromSuperview()
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 fromView?.alpha = 1
+                fromVC.view.alpha = 1
                 toView?.isHidden = false
 
         })

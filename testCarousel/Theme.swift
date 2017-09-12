@@ -15,14 +15,8 @@ extension UIColor {
 
 class Theme {
     struct Font {
-        static let defaultFontForButton: UIFont = UIFont(name: "GillSans-Semibold", size: 16) ?? UIFont.systemFont(ofSize: 16)
         static let regularFontForCell: UIFont = UIFont(name: "GillSans-Light", size: 18) ?? UIFont.systemFont(ofSize: 18)
         static let selectedFontForCell: UIFont = UIFont(name: "GillSans-Semibold", size: 24) ?? UIFont.systemFont(ofSize: 24)
-    }
-
-    class func defaultActionButton() -> UIButton {
-        let button = UIButton.init(type: .custom)
-        button.titleLabel?.font = Font.defaultFontForButton
-        return button
+        static let badge: UIFont = UIFont(name: "GillSans-Bold", size: 9) ?? UIFont.systemFont(ofSize: 18)
     }
 }

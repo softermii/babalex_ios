@@ -23,15 +23,23 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         }
     }
 
+    weak var currentItem: SFCarouselItem?
 
     private var category: SFCarouselCategory
     private let cellReuseIdentifier = "SFCarouselCollectionViewCell"
     private var collectionView: UICollectionView!
 
     private weak var selectedViewForTransitioning: UIView? = nil
+    private unowned var cartController: SFCartController
 
-    init(_ category: SFCarouselCategory) {
+    private var needsToUpdateViewForAnimation = true
+
+    init(_ category: SFCarouselCategory, cartController: SFCartController) {
         self.category = category
+        self.cartController = cartController
+        if !category.items.isEmpty {
+            currentItem = category.items[0]
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,6 +51,27 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         super.viewDidLoad()
 
         setupView()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        needsToUpdateViewForAnimation = true
+        detectViewToAnimate(collectionView)
+
+//        updateViewForAddToCartAnimationInParentViewController()
+    }
+
+    private func updateViewForAddToCartAnimationInParentViewController(indexPath: IndexPath = IndexPath(row: 0, section: 0)) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell,
+            let cellImageView = cell.imageView else {
+            return
+        }
+
+        let transitionInfoProvider = self.parent as? SFCarouselTransitionViewProvider
+        transitionInfoProvider!.setViewForTransition(v: cellImageView)
+
+        needsToUpdateViewForAnimation = false
     }
 
     private func setupView() {
@@ -104,9 +133,12 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
         DispatchQueue.main.async {
             (cell as? SFCarouselCollectionViewCell)?.applyImage()
+        }
+
+        if needsToUpdateViewForAnimation {
+            updateViewForAddToCartAnimationInParentViewController()
         }
     }
 
@@ -114,7 +146,7 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
         DispatchQueue.global(qos: .userInteractive).async {
             if let navigationController = self.navigationController {
                 let item = self.category.items[indexPath.row]
-                let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(frame: self.view.bounds,item: item, categoryImage: self.category.image)
+                let vc: SFCarouselDetailViewController = SFCarouselDetailViewController.init(frame: self.view.bounds,item: item, categoryImage: self.category.image, cartController: self.cartController)
                 vc.view.frame = self.view.bounds
                 if let cellImageView = (collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell)?.imageView {
 
@@ -131,6 +163,38 @@ final class SFCategoryContentViewController: UIViewController, UICollectionViewD
                 }
             }
 
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        detectViewToAnimate(scrollView)
+    }
+
+    private func detectViewToAnimate(_ scrollView: UIScrollView) {
+        var rowIndexForCurrentItem: Int? = nil
+
+        let indexPathsForVisibleItems = collectionView.indexPathsForVisibleItems
+
+        let centerOfCollectionView = collectionView.center
+
+        switch indexPathsForVisibleItems.count {
+        case 1: rowIndexForCurrentItem = indexPathsForVisibleItems[0].row
+        case 2, 3:
+            for indexPath in indexPathsForVisibleItems {
+                if let cell = collectionView.cellForItem(at: indexPath) as? SFCarouselCollectionViewCell {
+                    let cellFrameConverted = collectionView.convert(cell.frame, to: view)
+                    if cellFrameConverted.contains(centerOfCollectionView) {
+                        rowIndexForCurrentItem = indexPath.row
+                        self.updateViewForAddToCartAnimationInParentViewController(indexPath: indexPath)
+                        break
+                    }
+                }
+            }
+        default: break
+        }
+
+        if rowIndexForCurrentItem != nil {
+            currentItem = category.items[rowIndexForCurrentItem!]
         }
     }
 }
