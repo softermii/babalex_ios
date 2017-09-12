@@ -42,7 +42,14 @@ extension UIViewController: SFBaseViewControllerWithCart {
         } else {
             textForBadge = "\(count)"
         }
-        navigationItem.rightBarButtonItem?.addBadge(text: textForBadge)
+
+        let colorForBadge: UIColor
+        if type(of: self) == SFCheckoutViewController.self {
+            colorForBadge = UIColor.defaultColorForTextAndUI
+        } else {
+            colorForBadge = UIColor.black
+        }
+        navigationItem.rightBarButtonItem?.addBadge(text: textForBadge, color: colorForBadge)
     }
 }
 
@@ -70,7 +77,6 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
         }
 
         navigationItem.rightBarButtonItem = rightBarButtonItem
-
 
         // Check if left "user button" is needed (it is only needed on the first screen)
         if self.navigationController?.viewControllers.count == 1 {
