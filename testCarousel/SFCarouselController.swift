@@ -129,6 +129,10 @@ final class SFCarouselController: NSObject, SFDatasource, SFCartController {
         return String(summary)
     }
 
+    func codeForCheckout() -> String {
+        return cart.generateCode()
+    }
+
     private func cartUpdated(_ count: Int) {
         // Post notification
         NotificationCenter.default.post(name: cartOnUpdateNotificationName, object: nil, userInfo: ["count": count])

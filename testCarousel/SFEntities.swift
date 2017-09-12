@@ -101,6 +101,16 @@ final class SFCart {
 
         return returned
     }
+
+    public func generateCode() -> String {
+        var returned: String = String()
+
+        itemCounts.forEach { (item: (id: Int, count: Int)) in
+            returned.append("\(item.id)\(item.count)")
+        }
+
+        return returned
+    }
 }
 
 final class SFCarouselCategory {

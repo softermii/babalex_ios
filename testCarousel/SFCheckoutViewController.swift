@@ -79,7 +79,8 @@ final class SFCheckoutViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func checkoutButtonAction() {
-        let vc = SFCheckoutAlertViewController.init(code: "r04o4w1")
+        let code = cartController.codeForCheckout()
+        let vc = SFCheckoutAlertViewController.init(code: code)
 
         vc.modalPresentationStyle = .overCurrentContext
         

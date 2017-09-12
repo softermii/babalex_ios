@@ -49,8 +49,8 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01w12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lx-uL-e6c">
-                            <rect key="frame" x="155" y="113.5" width="52" height="19"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01w12" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lx-uL-e6c">
+                            <rect key="frame" x="155" y="113.5" width="135" height="19"/>
                             <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -68,14 +68,15 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="6lx-uL-e6c" firstAttribute="top" secondItem="tAP-Mh-IsW" secondAttribute="top" id="3sv-I9-jFd"/>
                         <constraint firstItem="dMP-1r-LPs" firstAttribute="centerX" secondItem="OFc-jE-VIB" secondAttribute="centerX" id="4uz-Hb-z7z"/>
                         <constraint firstItem="dMP-1r-LPs" firstAttribute="width" secondItem="OFc-jE-VIB" secondAttribute="width" id="6Es-YD-Nb4"/>
+                        <constraint firstItem="6lx-uL-e6c" firstAttribute="right" secondItem="OFc-jE-VIB" secondAttribute="right" constant="-10" id="6hy-r5-6Dc"/>
                         <constraint firstItem="tAP-Mh-IsW" firstAttribute="top" secondItem="dMP-1r-LPs" secondAttribute="bottom" constant="8" id="7in-hJ-grN"/>
                         <constraint firstItem="6lx-uL-e6c" firstAttribute="left" secondItem="OFc-jE-VIB" secondAttribute="centerX" constant="5" id="8lK-iK-j8o"/>
                         <constraint firstItem="dMP-1r-LPs" firstAttribute="top" secondItem="eFW-di-hB1" secondAttribute="bottom" constant="5" id="Die-z8-PZr"/>
                         <constraint firstItem="eFW-di-hB1" firstAttribute="centerX" secondItem="OFc-jE-VIB" secondAttribute="centerX" id="GRo-1n-CY2"/>
                         <constraint firstItem="eFW-di-hB1" firstAttribute="width" secondItem="OFc-jE-VIB" secondAttribute="width" id="RB2-mw-WTG"/>
-                        <constraint firstItem="6lx-uL-e6c" firstAttribute="baseline" secondItem="tAP-Mh-IsW" secondAttribute="baseline" id="ZoU-4g-9hF"/>
                         <constraint firstItem="k1Y-wK-cim" firstAttribute="centerX" secondItem="OFc-jE-VIB" secondAttribute="centerX" id="d8u-pF-gHX"/>
                         <constraint firstItem="xFw-dK-VYq" firstAttribute="top" secondItem="6lx-uL-e6c" secondAttribute="bottom" constant="20" id="ffM-Za-KA8"/>
                         <constraint firstItem="eFW-di-hB1" firstAttribute="top" secondItem="k1Y-wK-cim" secondAttribute="bottom" id="iWU-FM-PRK"/>

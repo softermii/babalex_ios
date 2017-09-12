@@ -28,6 +28,8 @@ protocol SFCartController: class {
     func index(_ itemID: Int) -> Int?
 
     func summary() -> String
+
+    func codeForCheckout() -> String
 }
 
 protocol SFCarouselTransitionViewProvider: class {
