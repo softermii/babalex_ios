@@ -97,7 +97,7 @@ final class SFCart {
             if item.count != 0 {
                 returned.append((id: item.id, count: item.count))
             }
-        }
+        } 
 
         return returned
     }
