@@ -25,6 +25,9 @@ protocol SFCartController: class {
     var cartOnUpdateNotificationName: Notification.Name { get }
 
     func item(_ index: Int) -> SFCarouselItem?
+    func index(_ itemID: Int) -> Int?
+
+    func summary() -> String
 }
 
 protocol SFCarouselTransitionViewProvider: class {

@@ -28,12 +28,13 @@ final class SFCart {
     public func removeItem(id: Int) -> Int {
         var itemCount = itemCounts[id] ?? 0
 
-        if itemCount > 0 {
+        if itemCount > 1 {
             itemCount -= 1
+            itemCounts[id] = itemCount
         } else {
             itemCounts.removeValue(forKey: id)
+            itemCount = 0
         }
-        itemCounts[id] = itemCount
 
         return itemCount
     }
@@ -43,7 +44,9 @@ final class SFCart {
 
         if id == nil {
             itemCounts.forEach({ (item: (_: Int, count: Int)) in
-                numberOfItems += item.count
+                if item.count != 0 {
+                    numberOfItems += item.count
+                }
             })
         } else {
             numberOfItems = itemCounts[id!] ?? 0
@@ -70,6 +73,39 @@ final class SFCart {
             return ids[index]
         }
         return nil
+    }
+
+    public func index(_ itemID: Int) -> Int? {
+        let ids = Array(itemCounts.keys)
+
+        var index = 0
+
+        for id in ids {
+            if id == itemID {
+                return index
+            }
+            index += 1
+        }
+
+        return nil
+    }
+
+    public func allItems() -> Array<(id: Int, count: Int)> {
+        var returned = Array<(id: Int, count: Int)>()
+
+        itemCounts.forEach { (item: (id: Int, count: Int)) in
+//            if itemCounts[id] != nil && itemCounts[id] != 0 {
+//                let value = (id: id, count: itemCounts[id])
+//                returned.append(value)
+//            }
+            if item.count != 0 {
+                returned.append((id: item.id, count: item.count))
+            }
+//            print(item)
+        }
+
+//        print(returned)
+        return returned
     }
 }
 

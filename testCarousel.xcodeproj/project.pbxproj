@@ -12,6 +12,8 @@
 		251EBD531F61904900EE8785 /* SFAddToCartAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EBD521F61904900EE8785 /* SFAddToCartAnimator.swift */; };
 		25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */; };
 		25274B9D1F50255100AD41BE /* SFCarouselMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */; };
+		254727471F67D11E009D444E /* SFCheckoutTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254727461F67D11E009D444E /* SFCheckoutTableViewFooter.swift */; };
+		254727491F67D151009D444E /* SFCheckoutTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254727481F67D151009D444E /* SFCheckoutTableViewFooter.xib */; };
 		254C0C9F1F58013A0002C1E2 /* babalex_products.json in Resources */ = {isa = PBXBuildFile; fileRef = 254C0C9E1F58013A0002C1E2 /* babalex_products.json */; };
 		254C0CA21F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C0CA01F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift */; };
 		254C0CA31F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254C0CA11F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib */; };
@@ -52,6 +54,8 @@
 		251EBD521F61904900EE8785 /* SFAddToCartAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAddToCartAnimator.swift; sourceTree = "<group>"; };
 		25274B9A1F50255100AD41BE /* SFCarouselMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselMenuItemCell.swift; sourceTree = "<group>"; };
 		25274B9B1F50255100AD41BE /* SFCarouselMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselMenuItemCell.xib; sourceTree = "<group>"; };
+		254727461F67D11E009D444E /* SFCheckoutTableViewFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCheckoutTableViewFooter.swift; sourceTree = "<group>"; };
+		254727481F67D151009D444E /* SFCheckoutTableViewFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCheckoutTableViewFooter.xib; sourceTree = "<group>"; };
 		254C0C9E1F58013A0002C1E2 /* babalex_products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = babalex_products.json; sourceTree = "<group>"; };
 		254C0CA01F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCarouselDetailViewInfoCell.swift; sourceTree = "<group>"; };
 		254C0CA11F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCarouselDetailViewInfoCell.xib; sourceTree = "<group>"; };
@@ -120,6 +124,15 @@
 			name = SFCarouselMenuItemCell;
 			sourceTree = "<group>";
 		};
+		254727451F67D0FB009D444E /* SFCheckoutTableViewFooter */ = {
+			isa = PBXGroup;
+			children = (
+				254727461F67D11E009D444E /* SFCheckoutTableViewFooter.swift */,
+				254727481F67D151009D444E /* SFCheckoutTableViewFooter.xib */,
+			);
+			name = SFCheckoutTableViewFooter;
+			sourceTree = "<group>";
+		};
 		254C0CA41F582C050002C1E2 /* SFCarouselDetailViewInfoCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,13 +182,14 @@
 		257322291F5EA80D007E6210 /* Custom Views And Cells */ = {
 			isa = PBXGroup;
 			children = (
+				254727451F67D0FB009D444E /* SFCheckoutTableViewFooter */,
+				25D7553D1F66899D00E50E7F /* SFCheckoutTableViewHeader */,
 				258EAFBB1F602C7100A7CDE5 /* CustomUIViewWithXib.swift */,
 				25274B9E1F50255B00AD41BE /* SFCarouselMenuItemCell */,
 				25FDC0D31F4DCDA70061B25C /* SFCarouselCollectionViewCell */,
 				254C0CA41F582C050002C1E2 /* SFCarouselDetailViewInfoCell */,
 				259A00B61F56E66D00E5A42F /* SFCarouselSwipeHintView */,
 				25FD2E0C1F6018E6001F5ACD /* SFButton */,
-				25D7553D1F66899D00E50E7F /* SFCheckoutTableViewHeader */,
 				25D755441F6692ED00E50E7F /* SFCartTableViewCell */,
 			);
 			name = "Custom Views And Cells";
@@ -337,6 +351,7 @@
 				255881771F4C110A0027E14B /* LaunchScreen.storyboard in Resources */,
 				254C0CA31F582BFE0002C1E2 /* SFCarouselDetailViewInfoCell.xib in Resources */,
 				25B53F841F62E572000894E5 /* SFCheckoutViewController.xib in Resources */,
+				254727491F67D151009D444E /* SFCheckoutTableViewFooter.xib in Resources */,
 				258903721F5465AE009CDF1E /* SFCarouselDetailViewController.xib in Resources */,
 				254C0C9F1F58013A0002C1E2 /* babalex_products.json in Resources */,
 				25F4CAAC1F4C5E7800CA6D62 /* SFCarouselCollectionViewCell.xib in Resources */,
@@ -373,6 +388,7 @@
 				256D7A7A1F56A69200DD6708 /* Theme.swift in Sources */,
 				25274B9C1F50255100AD41BE /* SFCarouselMenuItemCell.swift in Sources */,
 				25D755421F6692E500E50E7F /* SFCartTableViewCell.swift in Sources */,
+				254727471F67D11E009D444E /* SFCheckoutTableViewFooter.swift in Sources */,
 				258903711F5465AE009CDF1E /* SFCarouselDetailViewController.swift in Sources */,
 				25F4CAAB1F4C5E7800CA6D62 /* SFCarouselCollectionViewCell.swift in Sources */,
 				25D3BDF81F4CB9E100BA87CB /* UIView+Blur.swift in Sources */,

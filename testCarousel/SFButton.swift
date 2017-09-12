@@ -22,6 +22,12 @@ import UIKit
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        (subviews[0] as? UIButton)?.setTitle(title, for: .normal)
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 

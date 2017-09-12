@@ -13,6 +13,7 @@ final class SFCheckoutViewController: UIViewController, UITableViewDelegate, UIT
     unowned var cartController: SFCartController
     private static let nibName = "SFCheckoutViewController"
     let cellReuseIdentifier = "SFCartTableViewCell"
+    weak var tableFooterView: SFCheckoutTableViewFooter?
 
     init(cartController: SFCartController) {
         self.cartController = cartController
@@ -48,17 +49,29 @@ final class SFCheckoutViewController: UIViewController, UITableViewDelegate, UIT
 
         // Do any additional setup after loading the view.
 
-        let headerView = SFCheckoutTableViewHeader(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height / 5))
+        let frameForSupplementaryView = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height / 5)
+        let headerView = SFCheckoutTableViewHeader(frame: frameForSupplementaryView)
+        let footerView = SFCheckoutTableViewFooter(frame: frameForSupplementaryView)
 
         tableView.rowHeight = view.bounds.size.height / 5
         tableView.estimatedRowHeight = view.bounds.size.height / 5
 
         tableView.setTableHeaderView(headerView: headerView)
 
+
         let cellNib = UINib.init(nibName: cellReuseIdentifier, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: cellReuseIdentifier)
 
         setupNavigationBarItems()
+
+        tableFooterView = footerView
+        tableView.setTableFooterView(footerView: footerView)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        updateSummaryText()
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,15 +84,28 @@ final class SFCheckoutViewController: UIViewController, UITableViewDelegate, UIT
 
     func cartCountUpdated(id: Int, count: Int) {
         if count == -1 {
+            let indexOfItem = cartController.index(id)
             cartController.removeItemFromCart(id: id)
             let newCount = cartController.numberOfItemsInCart(id)
-            if newCount == 0 {
 
+            if newCount == 0 && indexOfItem != nil {
+
+                let indexPath = IndexPath(row: indexOfItem!, section: 0)
+
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.endUpdates()
             }
         } else {
             cartController.addItemToCart(id: id)
         }
 
+        updateSummaryText()
+
+    }
+
+    private func updateSummaryText() {
+        tableFooterView?.summaryLabel.text = cartController.summary()
     }
 
     deinit {

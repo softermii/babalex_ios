@@ -113,6 +113,22 @@ final class SFCarouselController: NSObject, SFDatasource, SFCartController {
         return nil
     }
 
+    func index(_ itemID: Int) -> Int? {
+        return cart.index(itemID)
+    }
+
+    func summary() -> String {
+        let allItems = cart.allItems()
+        var summary: Double = 0
+
+        allItems.forEach { (item: (id: Int, count: Int)) in
+            if let sfItem = itemsDictionary[item.id] {
+                summary += Double(item.count) * sfItem.price
+            }
+        }
+        return String(summary)
+    }
+
     private func cartUpdated(_ count: Int) {
         // Post notification
         NotificationCenter.default.post(name: cartOnUpdateNotificationName, object: nil, userInfo: ["count": count])

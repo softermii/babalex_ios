@@ -90,8 +90,6 @@ extension SFBaseViewControllerProtocol where Self: UIViewController {
 
             let colorForBadge: UIColor
 
-            print("type(of: self)", type(of: self))
-
             if type(of: self) == SFCheckoutViewController.self {
                 colorForBadge = UIColor.defaultColorForTextAndUI
             } else {
