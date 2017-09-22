@@ -296,6 +296,9 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
     }
 
     private func updateMenuViewPosition(_ percentScrolled: CGFloat) {
+        guard menuView != nil else {
+            return
+        }
         let translationY = percentScrolled * view.bounds.size.height / 2 + menuView.contentSize.height / 2
         let transform = CATransform3DTranslate(CATransform3DIdentity, 0, translationY, 0)
 
@@ -309,7 +312,7 @@ final class SFCarouselVerticalPageViewController: UIPageViewController, UIScroll
 
     private func updateBackgroundViewPosition(_ percentScrolled: CGFloat, direction: Int) {
 
-        guard direction != 0 else {
+        guard direction != 0, backgroundView != nil else {
             return
         }
 
