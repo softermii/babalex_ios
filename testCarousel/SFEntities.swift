@@ -97,6 +97,16 @@ final class SFCart {
             if item.count != 0 {
                 returned.append((id: item.id, count: item.count))
             }
+        } 
+
+        return returned
+    }
+
+    public func generateCode() -> String {
+        var returned: String = String()
+
+        itemCounts.forEach { (item: (id: Int, count: Int)) in
+            returned.append("\(item.id)\(item.count)")
         }
 
         return returned
